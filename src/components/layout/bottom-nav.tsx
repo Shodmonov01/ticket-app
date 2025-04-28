@@ -14,7 +14,7 @@ export function BottomNav() {
     const location = useLocation()
 
     return (
-        <div className='fixed bottom-0 left-0 right-0 z-50 flex h-16 w-full items-center justify-around border-t border-gray-800 bg-background'>
+        <div className='fixed bottom-0 left-0 right-0 z-50 flex h-16 w-full items-center justify-around border-t border-gray-800 bg-[#1c232b]'>
             {navItems.map(item => {
                 const isActive = location.pathname === item.href
                 const Icon = item.icon
