@@ -19,7 +19,7 @@ const EventCreateStepOne = ({ form, step, nextStep }: { form: any; step: number;
                                     <Input
                                         {...field}
                                         placeholder='Введите название мероприятия'
-                                        className='bg-[#242f3d] border-[#242f3d] text-white'
+                                        className='bg-[#1c232b] border-[#1c232b] text-white'
                                     />
                                 </FormControl>
                                 <FormMessage />
@@ -37,7 +37,7 @@ const EventCreateStepOne = ({ form, step, nextStep }: { form: any; step: number;
                                     <Textarea
                                         {...field}
                                         placeholder='Введите описание мероприятия'
-                                        className='bg-[#242f3d] border-[#242f3d] text-white min-h-[100px]'
+                                        className='bg-[#1c232b] border-[#1c232b] text-white min-h-[100px]'
                                     />
                                 </FormControl>
                                 <FormMessage />
@@ -53,11 +53,11 @@ const EventCreateStepOne = ({ form, step, nextStep }: { form: any; step: number;
                                 <FormLabel>Категория</FormLabel>
                                 <Select onValueChange={field.onChange} defaultValue={field.value}>
                                     <FormControl>
-                                        <SelectTrigger className='bg-[#242f3d] border-[#242f3d] text-white'>
+                                        <SelectTrigger className='bg-[#1c232b] border-[#1c232b] text-white'>
                                             <SelectValue placeholder='Выберите категорию' />
                                         </SelectTrigger>
                                     </FormControl>
-                                    <SelectContent className='bg-[#242f3d] border-[#242f3d] text-white'>
+                                    <SelectContent className='bg-[#1c232b] border-[#1c232b] text-white'>
                                         <SelectItem value='1'>Музыка</SelectItem>
                                         <SelectItem value='2'>Спорт</SelectItem>
                                         <SelectItem value='3'>Искусство</SelectItem>
@@ -80,7 +80,7 @@ const EventCreateStepOne = ({ form, step, nextStep }: { form: any; step: number;
                                         {...field}
                                         type='number'
                                         placeholder='Введите возрастное ограничение'
-                                        className='bg-[#242f3d] border-[#242f3d] text-white'
+                                        className='bg-[#1c232b] border-[#1c232b] text-white'
                                     />
                                 </FormControl>
                                 <FormMessage />

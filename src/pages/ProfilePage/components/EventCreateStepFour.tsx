@@ -7,7 +7,7 @@ const EventCreateStepFour = ({ form, step, nextStep }: { form: any; step: number
         <>
             {step === 4 && (
                 <div className='space-y-6'>
-                    <div className='bg-[#242f3d] p-4 rounded-md'>
+                    <div className='bg-[#1c232b] p-4 rounded-md'>
                         <h3 className='font-medium mb-3'>Время проведения</h3>
                         <div className='space-y-4'>
                             <FormField

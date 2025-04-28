@@ -31,11 +31,11 @@ const EventCreateStepTwo = ({
                                 <FormLabel>Город</FormLabel>
                                 <Select onValueChange={field.onChange} defaultValue={field.value}>
                                     <FormControl>
-                                        <SelectTrigger className='bg-[#242f3d] border-[#242f3d] text-white'>
+                                        <SelectTrigger className='bg-[#1c232b] border-[#1c232b] text-white'>
                                             <SelectValue placeholder='Выберите город' />
                                         </SelectTrigger>
                                     </FormControl>
-                                    <SelectContent className='bg-[#242f3d] border-[#242f3d] text-white'>
+                                    <SelectContent className='bg-[#1c232b] border-[#1c232b] text-white'>
                                         <SelectItem value='1'>Москва</SelectItem>
                                         <SelectItem value='2'>Санкт-Петербург</SelectItem>
                                         <SelectItem value='3'>Казань</SelectItem>
@@ -55,11 +55,11 @@ const EventCreateStepTwo = ({
                                 <FormLabel>Район</FormLabel>
                                 <Select onValueChange={field.onChange} defaultValue={field.value}>
                                     <FormControl>
-                                        <SelectTrigger className='bg-[#242f3d] border-[#242f3d] text-white'>
+                                        <SelectTrigger className='bg-[#1c232b] border-[#1c232b] text-white'>
                                             <SelectValue placeholder='Выберите район' />
                                         </SelectTrigger>
                                     </FormControl>
-                                    <SelectContent className='bg-[#242f3d] border-[#242f3d] text-white'>
+                                    <SelectContent className='bg-[#1c232b] border-[#1c232b] text-white'>
                                         <SelectItem value='1'>Центральный</SelectItem>
                                         <SelectItem value='2'>Северный</SelectItem>
                                         <SelectItem value='3'>Южный</SelectItem>
@@ -121,7 +121,7 @@ const EventCreateStepTwo = ({
                                     ))}
                                     <label
                                         htmlFor='image-upload'
-                                        className='flex flex-col items-center justify-center h-32 w-full border-2 border-dashed border-[#242f3d] rounded-md cursor-pointer hover:border-[#2AABEE] transition-colors'
+                                        className='flex flex-col items-center justify-center h-32 w-full border-2 border-dashed border-[#1c232b] rounded-md cursor-pointer hover:border-[#2AABEE] transition-colors'
                                     >
                                         <Plus className='h-8 w-8 text-[#2AABEE]' />
                                         <span className='mt-1 text-sm text-gray-400'>Добавить ещё</span>
