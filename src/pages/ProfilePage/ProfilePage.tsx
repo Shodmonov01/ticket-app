@@ -8,44 +8,67 @@ import { BottomNav } from '../../components/layout/bottom-nav'
 import { Button } from '../../components/ui/button'
 
 export default function ProfilePage() {
+    const tg = window?.Telegram?.WebApp as unknown as any
+    const [referralCode, setReferralCode] = useState<string | null>(null)
     const [isLoading, setIsLoading] = useState(false)
-    const [initData, setInitData] = useState<string>('')
-    const [userInfo, setUserInfo] = useState<any>(null)
+    const [user, setUser] = useState<any>(null)
+    const [referralUsed, setReferralUsed] = useState<string | null>(null)
 
     useEffect(() => {
-        const webApp = (window as any).Telegram?.WebApp
+        tg?.expand()
 
-        if (webApp) {
-            webApp.ready()
-            webApp.expand()
-
-            // Normal Telegramdan olayotgandek
-            setInitData(webApp.initData)
-            setUserInfo(webApp.initDataUnsafe?.user || null)
+        const startParam = tg?.initDataUnsafe?.start_param
+        if (startParam) {
+            console.log('Referral code from start_param:', startParam)
+            setReferralCode(startParam)
         } else {
-            // Test uchun - agar Telegram yo'q bo'lsa
-            const fakeUser = {
-                id: 123456789,
-                first_name: 'Test',
-                last_name: 'User',
-                username: 'testuser'
+            const urlParams = new URLSearchParams(window.location.search)
+            const ref = urlParams.get('ref')
+            if (ref) {
+                console.log('Referral code from URL:', ref)
+                setReferralCode(ref)
+            } else {
+                console.log('No referral code found.')
             }
-
-            const fakeInitData =
-                'auth_date=1234567890&user=%7B%22id%22%3A123456789%2C%22first_name%22%3A%22Test%22%2C%22last_name%22%3A%22User%22%2C%22username%22%3A%22testuser%22%7D'
-
-            setInitData(fakeInitData)
-            setUserInfo(fakeUser)
         }
-    }, [])
+    }, [tg])
 
     const handleLogin = async () => {
+        const initData = tg.initData
+        if (!initData) {
+            alert("Telegram data not found! Please make sure you're running inside Telegram.")
+            return
+        }
+
         setIsLoading(true)
 
         try {
-            await api.post('/auth/api/user/login/', {
-                initData: initData
+            const response = await api.post('/auth/api/user/login/', {
+                initData: initData,
+                referral_code: referralCode
             })
+
+            const data = await response.data
+
+            if (data.access_token) {
+                localStorage.setItem('access_token', data.access_token)
+                localStorage.setItem('refresh_token', data.refresh_token)
+
+                const userData = tg.initDataUnsafe?.user
+                setUser(userData || null)
+                setReferralUsed(data.referral_code_used || 'None')
+
+                if (tg.sendData) {
+                    tg.sendData(
+                        JSON.stringify({
+                            auth: 'success',
+                            referral_code: referralCode
+                        })
+                    )
+                }
+            } else {
+                throw new Error('Authentication failed: ' + (data.error || 'No access token received'))
+            }
         } catch (error: any) {
             console.error('Error:', error)
             alert('Error during authentication: ' + error.message)
