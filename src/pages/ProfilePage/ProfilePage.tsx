@@ -1,5 +1,5 @@
-import { BottomNav } from '../components/layout/bottom-nav'
-import { Button } from '../components/ui/button'
+import { BottomNav } from '../../components/layout/bottom-nav'
+import { Button } from '../../components/ui/button'
 
 import { User, EllipsisVertical, ChevronRight, MapPin, Ticket, Headphones, User2, IdCard } from 'lucide-react'
 
