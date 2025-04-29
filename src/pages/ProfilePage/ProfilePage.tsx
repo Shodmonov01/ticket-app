@@ -35,6 +35,7 @@ export default function ProfilePage() {
 
     const handleLogin = async () => {
         const initData = tg.initData
+
         if (!initData) {
             alert("Telegram data not found! Please make sure you're running inside Telegram.")
             return
