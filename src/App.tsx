@@ -7,8 +7,9 @@ import IntroPage from './pages/IntroPage'
 import HomePage from './pages/HomePage'
 import ExplorePage from './pages/ExplorePage'
 import FavoritesPage from './pages/FavoritesPage'
-import TicketsPage from './pages/TicketsPage'
+import TicketsPage from './pages/TicketsPage/TicketsPage'
 import ProfilePage from './pages/ProfilePage/ProfilePage'
+import EventCreationForm from './pages/ProfilePage/components/EventCreationForm'
 
 function App() {
     const { isFirstTimeUser } = useUser()
@@ -29,6 +30,7 @@ function App() {
             <Route path='/favorites' element={<FavoritesPage />} />
             <Route path='/tickets' element={<TicketsPage />} />
             <Route path='/profile' element={<ProfilePage />} />
+            <Route path='/profile/create-event' element={<EventCreationForm />} />
         </Routes>
     )
 }
