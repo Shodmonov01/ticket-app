@@ -131,8 +131,10 @@ const EventCreationForm = () => {
         console.log(formData)
 
         try {
-            const res = await api.post('/api/event/for/owner/', {
-                ...formData
+            const res = await api.post('/api/event/for/owner/', formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
             })
 
             console.log(res.data)
@@ -143,6 +145,7 @@ const EventCreationForm = () => {
             alert('Произошла ошибка')
         }
     }
+
     return (
         <div>
             <Header />
