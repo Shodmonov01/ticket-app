@@ -1,6 +1,6 @@
 import { ChevronRight, Headphones, IdCard, MapPin, Ticket, User2 } from 'lucide-react'
 
-const ProfileMenu = ({ handleLogin }: { handleLogin: () => void }) => {
+const ProfileMenu = ({ handleLogin }: { handleLogin?: () => void }) => {
     return (
         <div className='flex flex-col w-full max-w-md mx-auto text-white p-4'>
             <div className='mb-4'>
