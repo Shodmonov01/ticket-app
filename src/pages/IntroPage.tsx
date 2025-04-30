@@ -41,7 +41,9 @@ export default function IntroPage() {
 
             try {
                 const response = await api.post('/auth/api/user/login/', {
-                    initData: initData
+                    data: {
+                        initData: initData
+                    }
                 })
 
                 const data = response.data
