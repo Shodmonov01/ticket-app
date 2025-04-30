@@ -22,68 +22,84 @@ export default function IntroPage() {
     const [initDataDebug, setInitDataDebug] = useState<string | null>(null)
 
     useEffect(() => {
-        // Get initData from either Telegram WebApp or URL
-        const initData = getInitData()
-        setInitDataDebug(initData || 'No initData found')
-        console.log('initData first', initData)
+        // Проверяем, что код выполняется в Telegram WebApp
+        if (window.Telegram && window.Telegram.WebApp) {
+            const tg = window.Telegram.WebApp
 
-        if (!initData) {
-            console.warn('initData11111111', 'No initData available')
-            return
+            // Инициализация
+            tg.ready() // Сообщаем Telegram, что приложение готово к отображению
+            tg.expand() // Разворачиваем приложение на весь экран
+
+            // Пример использования данных от Telegram
+            console.log('User data:', tg.initDataUnsafe?.user)
+            console.log('Theme:', tg.colorScheme)
         }
+    }, [])
 
-        console.log('initData11111111', initData)
+    // useEffect(() => {
+    //     // Get initData from either Telegram WebApp or URL
+    //     const initData = getInitData()
+    //     setInitDataDebug(initData || 'No initData found')
+    //     console.log('initData first', initData)
 
-        // If we have Telegram WebApp available, use its methods
-        if (isTelegramWebApp()) {
-            const tg = window?.Telegram?.WebApp as unknown as any
-            tg.expand()
-            tg.ready()
-        }
+    //     if (!initData) {
+    //         console.warn('initData11111111', 'No initData available')
+    //         return
+    //     }
 
-        const autoLogin = async () => {
-            setIsLoading(true)
+    //     console.log('initData11111111', initData)
 
-            try {
-                const response = await api.post('/auth/api/user/login/', {
-                    initData: initData
-                })
+    //     // If we have Telegram WebApp available, use its methods
+    //     if (isTelegramWebApp()) {
+    //         const tg = window?.Telegram?.WebApp as unknown as any
+    //         tg.expand()
+    //         tg.ready()
+    //     }
 
-                const data = response.data
+    //     const autoLogin = async () => {
+    //         setIsLoading(true)
 
-                if (data.access_token) {
-                    localStorage.setItem('access_token', data.access_token)
-                    localStorage.setItem('refresh_token', data.refresh_token)
+    //         try {
+    //             const response = await api.post('/auth/api/user/login/', {
+    //                 initData: initData
+    //             })
 
-                    // If we have Telegram WebApp, get user data from it
-                    const userData = isTelegramWebApp() ? window?.Telegram?.WebApp.initDataUnsafe?.user : null
-                    setUser(userData || null)
-                    setReferralUsed(data.referral_code_used || 'None')
+    //             const data = response.data
 
-                    if (isTelegramWebApp() && typeof window?.Telegram?.WebApp.sendData === 'function') {
-                        window.Telegram.WebApp.sendData(
-                            JSON.stringify({
-                                auth: 'success',
-                                referral_code: referralCode
-                            })
-                        )
-                    }
-                    alert('Авторизация прошла успешно!')
-                    setFirstTimeUser(false)
-                    navigate('/')
-                } else {
-                    throw new Error('No access token received')
-                }
-            } catch (error: any) {
-                console.error('Auto login error:', error)
-                alert('Login failed: ' + (error.message || 'Unknown error'))
-            } finally {
-                setIsLoading(false)
-            }
-        }
+    //             if (data.access_token) {
+    //                 localStorage.setItem('access_token', data.access_token)
+    //                 localStorage.setItem('refresh_token', data.refresh_token)
 
-        autoLogin()
-    }, [referralCode, navigate, setFirstTimeUser])
+    //                 // If we have Telegram WebApp, get user data from it
+    //                 const userData = isTelegramWebApp() ? window?.Telegram?.WebApp.initDataUnsafe?.user : null
+    //                 setUser(userData || null)
+    //                 setReferralUsed(data.referral_code_used || 'None')
+
+    //                 if (isTelegramWebApp() && typeof window?.Telegram?.WebApp.sendData === 'function') {
+    //                     window.Telegram.WebApp.sendData(
+    //                         JSON.stringify({
+    //                             auth: 'success',
+    //                             referral_code: referralCode
+    //                         })
+    //                     )
+    //                 }
+    //                 alert('Авторизация прошла успешно!')
+    //                 setFirstTimeUser(false)
+    //                 navigate('/')
+    //             } else {
+    //                 throw new Error('No access token received')
+    //             }
+    //         } catch (error: any) {
+    //             console.error('Auto login error:', error)
+    //             alert('Login failed: ' + (error.message || 'Unknown error'))
+    //         } finally {
+    //             setIsLoading(false)
+    //         }
+    //     }
+
+    //     autoLogin()
+    // }, [referralCode, navigate, setFirstTimeUser])
+
     return (
         <div className='flex min-h-screen flex-col items-center justify-center  p-4 text-white'>
             <div className='mb-8 flex flex-col items-center'>
