@@ -38,6 +38,22 @@ export default function IntroPage() {
         }
     }, [])
 
+    useEffect(() => {
+        console.log('Telegram:', window.Telegram)
+
+        if (window.Telegram?.WebApp) {
+            const tg = window.Telegram.WebApp
+            tg.ready()
+            tg.expand()
+
+            const initData = tg.initDataUnsafe
+            console.log('initDataUnsafe:', initData)
+            console.log('User:', initData?.user)
+        } else {
+            console.log('WebApp not available')
+        }
+    }, [])
+
     // useEffect(() => {
     //     // Get initData from either Telegram WebApp or URL
     //     const initData = getInitData()
