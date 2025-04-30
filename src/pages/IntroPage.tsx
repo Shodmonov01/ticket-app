@@ -30,6 +30,8 @@ export default function IntroPage() {
             tg.ready() // Сообщаем Telegram, что приложение готово к отображению
             tg.expand() // Разворачиваем приложение на весь экран
 
+            const initData = tg.initDataUnsafe
+            alert(initData)
             // Пример использования данных от Telegram
             console.log('User data:', tg.initDataUnsafe?.user)
             console.log('Theme:', tg.colorScheme)
