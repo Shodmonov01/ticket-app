@@ -31,6 +31,7 @@ export default function IntroPage() {
 
             const initData = tg.initDataUnsafe
             alert(initData)
+            alert(tg.initDataUnsafe)
             // Пример использования данных от Telegram
             console.log('User data:', tg.initDataUnsafe?.user)
             console.log('Theme:', tg.colorScheme)
