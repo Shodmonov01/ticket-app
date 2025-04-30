@@ -14,69 +14,68 @@ export default function ProfilePage() {
     const [user, setUser] = useState<any>(null)
     const [referralUsed, setReferralUsed] = useState<string | null>(null)
 
-    useEffect(() => {
-        tg?.expand()
+    // useEffect(() => {
+    //     tg?.expand()
 
-        const startParam = tg?.initDataUnsafe?.start_param
-        if (startParam) {
-            console.log('Referral code from start_param:', startParam)
-            setReferralCode(startParam)
-        } else {
-            const urlParams = new URLSearchParams(window.location.search)
-            const ref = urlParams.get('ref')
-            if (ref) {
-                console.log('Referral code from URL:', ref)
-                setReferralCode(ref)
-            } else {
-                console.log('No referral code found.')
-            }
-        }
-    }, [tg])
+    //     const startParam = tg?.initDataUnsafe?.start_param
+    //     if (startParam) {
+    //         console.log('Referral code from start_param:', startParam)
+    //         setReferralCode(startParam)
+    //     } else {
+    //         const urlParams = new URLSearchParams(window.location.search)
+    //         const ref = urlParams.get('ref')
+    //         if (ref) {
+    //             console.log('Referral code from URL:', ref)
+    //             setReferralCode(ref)
+    //         } else {
+    //             console.log('No referral code found.')
+    //         }
+    //     }
+    // }, [tg])
 
-    const handleLogin = async () => {
-        const initData = tg.initData
+    // const handleLogin = async () => {
+    //     const initData = tg?.initData
 
-        if (!initData) {
-            alert("Telegram data not found! Please make sure you're running inside Telegram.")
-            return
-        }
+    //     if (!initData) {
+    //         alert("Telegram data not found! Please make sure you're running inside Telegram.")
+    //         return
+    //     }
 
-        setIsLoading(true)
+    //     setIsLoading(true)
 
-        try {
-            const response = await api.post('/auth/api/user/login/', {
-                initData: initData,
-                referral_code: referralCode
-            })
+    //     try {
+    //         const response = await api.post('/auth/api/user/login/', {
+    //             initData: initData
+    //         })
 
-            const data = await response.data
+    //         const data = await response.data
 
-            if (data.access_token) {
-                localStorage.setItem('access_token', data.access_token)
-                localStorage.setItem('refresh_token', data.refresh_token)
+    //         if (data.access_token) {
+    //             localStorage.setItem('access_token', data.access_token)
+    //             localStorage.setItem('refresh_token', data.refresh_token)
 
-                const userData = tg.initDataUnsafe?.user
-                setUser(userData || null)
-                setReferralUsed(data.referral_code_used || 'None')
+    //             const userData = tg?.initDataUnsafe?.user
+    //             setUser(userData || null)
+    //             setReferralUsed(data.referral_code_used || 'None')
 
-                if (tg.sendData) {
-                    tg.sendData(
-                        JSON.stringify({
-                            auth: 'success',
-                            referral_code: referralCode
-                        })
-                    )
-                }
-            } else {
-                throw new Error('Authentication failed: ' + (data.error || 'No access token received'))
-            }
-        } catch (error: any) {
-            console.error('Error:', error)
-            alert('Error during authentication: ' + error.message)
-        } finally {
-            setIsLoading(false)
-        }
-    }
+    //             if (tg?.sendData) {
+    //                 tg?.sendData(
+    //                     JSON.stringify({
+    //                         auth: 'success',
+    //                         referral_code: referralCode
+    //                     })
+    //                 )
+    //             }
+    //         } else {
+    //             throw new Error('Authentication failed: ' + (data.error || 'No access token received'))
+    //         }
+    //     } catch (error: any) {
+    //         console.error('Error:', error)
+    //         alert('Error during authentication: ' + error.message)
+    //     } finally {
+    //         setIsLoading(false)
+    //     }
+    // }
 
     return (
         <div className='flex min-h-screen flex-col pb-20 text-white '>
@@ -102,7 +101,7 @@ export default function ProfilePage() {
                     </div>
                 </div>
 
-                <ProfileMenu handleLogin={handleLogin} />
+                <ProfileMenu />
             </main>
 
             <BottomNav />
