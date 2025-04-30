@@ -14,109 +14,69 @@ export default function IntroPage() {
         navigate('/')
     }
 
+    const tg = window?.Telegram?.WebApp as unknown as any
     const [referralCode, setReferralCode] = useState<string | null>(null)
     const [isLoading, setIsLoading] = useState(false)
     const [user, setUser] = useState<any>(null)
     const [referralUsed, setReferralUsed] = useState<string | null>(null)
-    const [initDataDebug, setInitDataDebug] = useState<string | null>(null)
 
     useEffect(() => {
-        // Проверяем, что код выполняется в Telegram WebApp
-        if (window.Telegram && window.Telegram.WebApp) {
-            const tg = window.Telegram.WebApp
+        const tg = window?.Telegram?.WebApp as unknown as any
 
-            // Инициализация
-            tg.ready() // Сообщаем Telegram, что приложение готово к отображению
-            tg.expand() // Разворачиваем приложение на весь экран
+        // Инициализация
+        tg.ready() // Сообщаем Telegram, что приложение готово к отображению
+        tg.expand() // Разворачиваем приложение на весь экран
 
-            const initData = tg.initDataUnsafe
-            alert(initData)
-            alert(tg.initDataUnsafe)
-            // Пример использования данных от Telegram
-            console.log('User data:', tg.initDataUnsafe?.user)
-            console.log('Theme:', tg.colorScheme)
+        const initData = tg.initDataUnsafe
+        // alert(initData)
+        // alert(tg.initDataUnsafe)
+
+        if (!initData) {
+            console.error('Telegram initData not found')
+            return
         }
-    }, [])
 
-    useEffect(() => {
-        console.log('Telegram:', window.Telegram)
+        const autoLogin = async () => {
+            setIsLoading(true)
 
-        if (window.Telegram?.WebApp) {
-            const tg = window.Telegram.WebApp
-            tg.ready()
-            tg.expand()
+            try {
+                const response = await api.post('/auth/api/user/login/', {
+                    initData: initData
+                })
 
-            const initData = tg.initDataUnsafe
-            console.log('initDataUnsafe:', initData)
-            console.log('User:', initData?.user)
-        } else {
-            console.log('WebApp not available')
+                const data = response.data
+
+                if (data.access_token) {
+                    localStorage.setItem('access_token', data.access_token)
+                    localStorage.setItem('refresh_token', data.refresh_token)
+
+                    const userData = tg.initDataUnsafe?.user
+                    setUser(userData || null)
+                    setReferralUsed(data.referral_code_used || 'None')
+
+                    if (typeof tg.sendData === 'function') {
+                        tg.sendData(
+                            JSON.stringify({
+                                auth: 'success',
+                                referral_code: referralCode
+                            })
+                        )
+                    }
+                    alert('Авторизация прошла успешно!')
+                    setFirstTimeUser(false)
+                    navigate('/')
+                } else {
+                    throw new Error('No access token received')
+                }
+            } catch (error: any) {
+                console.error('Auto login error:', error)
+                alert('Telegram initData not found')
+            } finally {
+                setIsLoading(false)
+            }
         }
-    }, [])
-
-    // useEffect(() => {
-    //     // Get initData from either Telegram WebApp or URL
-    //     const initData = getInitData()
-    //     setInitDataDebug(initData || 'No initData found')
-    //     console.log('initData first', initData)
-
-    //     if (!initData) {
-    //         console.warn('initData11111111', 'No initData available')
-    //         return
-    //     }
-
-    //     console.log('initData11111111', initData)
-
-    //     // If we have Telegram WebApp available, use its methods
-    //     if (isTelegramWebApp()) {
-    //         const tg = window?.Telegram?.WebApp as unknown as any
-    //         tg.expand()
-    //         tg.ready()
-    //     }
-
-    //     const autoLogin = async () => {
-    //         setIsLoading(true)
-
-    //         try {
-    //             const response = await api.post('/auth/api/user/login/', {
-    //                 initData: initData
-    //             })
-
-    //             const data = response.data
-
-    //             if (data.access_token) {
-    //                 localStorage.setItem('access_token', data.access_token)
-    //                 localStorage.setItem('refresh_token', data.refresh_token)
-
-    //                 // If we have Telegram WebApp, get user data from it
-    //                 const userData = isTelegramWebApp() ? window?.Telegram?.WebApp.initDataUnsafe?.user : null
-    //                 setUser(userData || null)
-    //                 setReferralUsed(data.referral_code_used || 'None')
-
-    //                 if (isTelegramWebApp() && typeof window?.Telegram?.WebApp.sendData === 'function') {
-    //                     window.Telegram.WebApp.sendData(
-    //                         JSON.stringify({
-    //                             auth: 'success',
-    //                             referral_code: referralCode
-    //                         })
-    //                     )
-    //                 }
-    //                 alert('Авторизация прошла успешно!')
-    //                 setFirstTimeUser(false)
-    //                 navigate('/')
-    //             } else {
-    //                 throw new Error('No access token received')
-    //             }
-    //         } catch (error: any) {
-    //             console.error('Auto login error:', error)
-    //             alert('Login failed: ' + (error.message || 'Unknown error'))
-    //         } finally {
-    //             setIsLoading(false)
-    //         }
-    //     }
-
-    //     autoLogin()
-    // }, [referralCode, navigate, setFirstTimeUser])
+        autoLogin()
+    }, [referralCode, navigate, setFirstTimeUser])
 
     return (
         <div className='flex min-h-screen flex-col items-center justify-center  p-4 text-white'>
