@@ -70,7 +70,6 @@ export default function IntroPage() {
                 }
             } catch (error: any) {
                 console.error('Auto login error:', error)
-                alert('Telegram initData not found')
             } finally {
                 setIsLoading(false)
             }
