@@ -32,7 +32,7 @@ export default function ProfilePage() {
             const payload = {
                 initData: initData
             }
-            const response = await api.post('/auth/api/assign/organization/role/', payload)
+            const response = await api.post('/auth/api/assign/organization/role/')
             const data = response.data
 
             if (data.access_token) {
