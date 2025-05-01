@@ -13,6 +13,11 @@ const EventCreateStepOne = ({ form, step, nextStep }: { form: any; step: number;
         return res.data
     })
 
+    const { data: category } = useQuery(['category'], async () => {
+        const res = await api.get('/api/category/')
+        return res.data
+    })
+
     return (
         <>
             {step === 1 && (
@@ -66,10 +71,11 @@ const EventCreateStepOne = ({ form, step, nextStep }: { form: any; step: number;
                                         </SelectTrigger>
                                     </FormControl>
                                     <SelectContent className='bg-[#1c232b] border-[#1c232b] text-white'>
-                                        <SelectItem value='1'>Музыка</SelectItem>
-                                        <SelectItem value='2'>Спорт</SelectItem>
-                                        <SelectItem value='3'>Искусство</SelectItem>
-                                        <SelectItem value='4'>Бизнес</SelectItem>
+                                        {category?.map((l: any) => (
+                                            <SelectItem key={l.id} value={l.id}>
+                                                {l.name}
+                                            </SelectItem>
+                                        ))}
                                     </SelectContent>
                                 </Select>
                                 <FormMessage />
@@ -84,19 +90,13 @@ const EventCreateStepOne = ({ form, step, nextStep }: { form: any; step: number;
                             <FormItem>
                                 <FormLabel>Возрастное ограничение</FormLabel>
                                 <FormControl>
-                                    {/* <Input
-                                        {...field}
-                                        type='number'
-                                        placeholder='Введите возрастное ограничение'
-                                        className='bg-[#1c232b] border-[#1c232b] text-white'
-                                    /> */}
-                                    <Select>
+                                    <Select onValueChange={field.onChange} defaultValue={field.value}>
                                         <FormControl>
-                                            <SelectTrigger>
-                                                <SelectValue />
+                                            <SelectTrigger className='bg-[#1c232b] border-[#1c232b] text-white'>
+                                                <SelectValue placeholder='Выберите возрастное ограничение' />
                                             </SelectTrigger>
                                         </FormControl>
-                                        <SelectContent>
+                                        <SelectContent className='bg-[#1c232b] border-[#1c232b] text-white'>
                                             {limits?.map((l: any) => (
                                                 <SelectItem key={l.id} value={l.id}>
                                                     {l.name}

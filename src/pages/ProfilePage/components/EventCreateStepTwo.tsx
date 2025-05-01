@@ -1,7 +1,9 @@
+import api from '@/api/api'
 import { Button } from '@/components/ui/button'
 import { FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
 import { Label } from '@/components/ui/label'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
+import { useQuery } from '@tanstack/react-query'
 import { Plus, Upload, X } from 'lucide-react'
 
 const EventCreateStepTwo = ({
@@ -19,6 +21,16 @@ const EventCreateStepTwo = ({
     imageFiles: any
     removeImage: any
 }) => {
+    const { data: area } = useQuery(['area'], async () => {
+        const res = await api.get('/api/age/limits/')
+        return res.data
+    })
+
+    const { data: cities } = useQuery(['cities'], async () => {
+        const res = await api.get('/api/cities/')
+        return res.data
+    })
+
     return (
         <>
             {step === 2 && (
@@ -36,10 +48,11 @@ const EventCreateStepTwo = ({
                                         </SelectTrigger>
                                     </FormControl>
                                     <SelectContent className='bg-[#1c232b] border-[#1c232b] text-white'>
-                                        <SelectItem value='1'>Москва</SelectItem>
-                                        <SelectItem value='2'>Санкт-Петербург</SelectItem>
-                                        <SelectItem value='3'>Казань</SelectItem>
-                                        <SelectItem value='4'>Новосибирск</SelectItem>
+                                        {cities.map((c: any) => (
+                                            <SelectItem key={c.id} value={c.id}>
+                                                {c.name}
+                                            </SelectItem>
+                                        ))}
                                     </SelectContent>
                                 </Select>
                                 <FormMessage />
@@ -60,10 +73,11 @@ const EventCreateStepTwo = ({
                                         </SelectTrigger>
                                     </FormControl>
                                     <SelectContent className='bg-[#1c232b] border-[#1c232b] text-white'>
-                                        <SelectItem value='1'>Центральный</SelectItem>
-                                        <SelectItem value='2'>Северный</SelectItem>
-                                        <SelectItem value='3'>Южный</SelectItem>
-                                        <SelectItem value='4'>Западный</SelectItem>
+                                        {area?.map((l: any) => (
+                                            <SelectItem key={l.id} value={l.id}>
+                                                {l.name}
+                                            </SelectItem>
+                                        ))}
                                     </SelectContent>
                                 </Select>
                                 <FormMessage />
