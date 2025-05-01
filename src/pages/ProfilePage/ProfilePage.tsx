@@ -6,6 +6,7 @@ import api from '@/api/api'
 import ProfileMenu from './components/ProfileMenu'
 import { BottomNav } from '../../components/layout/bottom-nav'
 import { Button } from '../../components/ui/button'
+import SheetProfile from './components/Sheet'
 
 export default function ProfilePage() {
     const tg = window?.Telegram?.WebApp as unknown as any
@@ -13,18 +14,13 @@ export default function ProfilePage() {
     const [isLoading, setIsLoading] = useState(false)
     const [user, setUser] = useState<any>(null)
     const [referralUsed, setReferralUsed] = useState<string | null>(null)
+    const [open, setOpen] = useState(false)
 
     const loginOrganizator = async () => {
         const tg = window.Telegram?.WebApp as unknown as any
 
         tg.ready()
         tg.expand()
-
-        const initData = tg.initData
-        if (!initData) {
-            console.error('Telegram initData not found')
-            return
-        }
 
         try {
             const initData = window?.Telegram?.WebApp.initData
@@ -34,15 +30,7 @@ export default function ProfilePage() {
             }
             const token = localStorage.getItem('token')
 
-            const response = await api.post(
-                '/auth/api/assign/organization/role/',
-                {},
-                {
-                    headers: {
-                        Authorization: `Bearer ${token}`
-                    }
-                }
-            )
+            const response = await api.post('/auth/api/assign/organization/role/')
             const data = response.data
 
             if (data.access_token) {
@@ -73,7 +61,7 @@ export default function ProfilePage() {
             <main className=''>
                 <div className=' bg-slate-600 h-[180px] w-full mb-6'>
                     <div className='w-full flex justify-end px-4 py-8'>
-                        <Button className='bg-muted rounded-full w-10 h-10'>
+                        <Button onClick={() => setOpen(true)} className='bg-muted rounded-full w-10 h-10'>
                             <EllipsisVertical className='!min-h-5 !min-w-5 ' />
                         </Button>
                     </div>
@@ -93,6 +81,7 @@ export default function ProfilePage() {
                 </div>
 
                 <ProfileMenu loginOrganizator={loginOrganizator} />
+                <SheetProfile open={open} setOpen={setOpen} />
             </main>
 
             <BottomNav />
