@@ -32,7 +32,17 @@ export default function ProfilePage() {
             const payload = {
                 initData: initData
             }
-            const response = await api.post('/auth/api/assign/organization/role/')
+            const token = localStorage.getItem('token')
+
+            const response = await api.post(
+                '/auth/api/assign/organization/role/',
+                {},
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
+                }
+            )
             const data = response.data
 
             if (data.access_token) {
