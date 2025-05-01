@@ -40,9 +40,12 @@ export default function IntroPage() {
             setIsLoading(true)
 
             try {
-                const response = await api.post('/auth/api/user/login/', {
-                    initData: initData
-                })
+                const payload = {
+                    initData: JSON.stringify(window?.Telegram?.WebApp.initDataUnsafe)
+                    // boshqa data ham bo‘lsa qo‘shasiz
+                }
+
+                const response = await api.post('/api/your-endpoint/', payload)
 
                 const data = response.data
 
