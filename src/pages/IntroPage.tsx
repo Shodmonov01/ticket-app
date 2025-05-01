@@ -6,15 +6,9 @@ import api from '@/api/api'
 import { useEffect, useState } from 'react'
 
 export default function IntroPage() {
-    const { setFirstTimeUser } = useUser()
+    const { setFirstTimeUser, isFirstTimeUser } = useUser()
     const navigate = useNavigate()
 
-    const handleGetStarted = () => {
-        setFirstTimeUser(false)
-        navigate('/')
-    }
-
-    const tg = window?.Telegram?.WebApp as unknown as any
     const [referralCode, setReferralCode] = useState<string | null>(null)
     const [isLoading, setIsLoading] = useState(false)
     const [user, setUser] = useState<any>(null)
@@ -23,13 +17,10 @@ export default function IntroPage() {
     useEffect(() => {
         const tg = window?.Telegram?.WebApp as unknown as any
 
-        // Инициализация
-        tg.ready() // Сообщаем Telegram, что приложение готово к отображению
-        tg.expand() // Разворачиваем приложение на весь экран
+        tg.ready()
+        tg.expand()
 
-        const initData = tg.initDataUnsafe
-        // alert(initData)
-        // alert(tg.initDataUnsafe)
+        const initData = tg.initData
 
         if (!initData) {
             console.error('Telegram initData not found')
@@ -80,6 +71,12 @@ export default function IntroPage() {
         }
         autoLogin()
     }, [referralCode, navigate, setFirstTimeUser])
+
+    const handleGetStarted = () => {
+        if (!isFirstTimeUser) {
+            navigate('/')
+        }
+    }
 
     return (
         <div className='flex min-h-screen flex-col items-center justify-center  p-4 text-white'>

@@ -1,6 +1,6 @@
 import { ChevronRight, Headphones, IdCard, MapPin, Ticket, User2 } from 'lucide-react'
 
-const ProfileMenu = ({ handleLogin }: { handleLogin?: () => void }) => {
+const ProfileMenu = ({ loginOrganizator }: { loginOrganizator?: () => void }) => {
     return (
         <div className='flex flex-col w-full max-w-md mx-auto text-white p-4'>
             <div className='mb-4'>
@@ -83,7 +83,7 @@ const ProfileMenu = ({ handleLogin }: { handleLogin?: () => void }) => {
                         <ChevronRight className='h-5 w-5 text-gray-400' />
                     </div>
 
-                    <div onClick={handleLogin} className='flex items-center cursor-pointer justify-between p-4 '>
+                    <div onClick={loginOrganizator} className='flex items-center cursor-pointer justify-between p-4 '>
                         <div className='flex items-center gap-3'>
                             <div className=''>
                                 <User2 className='h-5 w-5 text-white' />
