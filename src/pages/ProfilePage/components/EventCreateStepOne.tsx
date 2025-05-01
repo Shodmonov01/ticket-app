@@ -1,10 +1,18 @@
+import { useQuery } from '@tanstack/react-query'
+
 import { Button } from '@/components/ui/button'
 import { FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { Textarea } from '@/components/ui/textarea'
+import api from '@/api/api'
 
 const EventCreateStepOne = ({ form, step, nextStep }: { form: any; step: number; nextStep: any }) => {
+    const { data: limits } = useQuery(['limits'], async () => {
+        const res = await api.get('/api/age/limits/')
+        return res.data
+    })
+
     return (
         <>
             {step === 1 && (
@@ -76,12 +84,26 @@ const EventCreateStepOne = ({ form, step, nextStep }: { form: any; step: number;
                             <FormItem>
                                 <FormLabel>Возрастное ограничение</FormLabel>
                                 <FormControl>
-                                    <Input
+                                    {/* <Input
                                         {...field}
                                         type='number'
                                         placeholder='Введите возрастное ограничение'
                                         className='bg-[#1c232b] border-[#1c232b] text-white'
-                                    />
+                                    /> */}
+                                    <Select>
+                                        <FormControl>
+                                            <SelectTrigger>
+                                                <SelectValue />
+                                            </SelectTrigger>
+                                        </FormControl>
+                                        <SelectContent>
+                                            {limits?.map((l: any) => (
+                                                <SelectItem key={l.id} value={l.id}>
+                                                    {l.name}
+                                                </SelectItem>
+                                            ))}
+                                        </SelectContent>
+                                    </Select>
                                 </FormControl>
                                 <FormMessage />
                             </FormItem>

@@ -115,18 +115,14 @@ const EventCreationForm = () => {
     }
 
     const onSubmit = async (data: FormValues) => {
-        // Option 1: Using FormData but with proper server-side parsing
         const formData = new FormData()
 
         Object.entries(data).forEach(([key, value]: [string, any]) => {
             if (key === 'event_category') {
-                // Make sure this is a properly formatted JSON array
                 formData.append(key, JSON.stringify([value]))
             } else if (key === 'event_time') {
-                // Make sure this is a properly formatted JSON array
                 formData.append(key, JSON.stringify([value]))
             } else if (['category_id', 'age_limit', 'city_id', 'area'].includes(key)) {
-                // The server will need to parse these as integers
                 formData.append(key, String(Number(value)))
             } else if (key === 'image') {
                 value.forEach((file: any) => {
