@@ -16,6 +16,7 @@ export default function SheetProfile({ open, setOpen }: { open: boolean; setOpen
                                 <span className='text-base font-medium'>Поделиться профилем</span>
                             </button>
 
+                            {/* jefhjerbf */}
                             <button className='flex w-full items-center gap-3 rounded-lg p-2 hover:bg-zinc-800'>
                                 <div className='flex h-8 w-8 items-center justify-center rounded-full bg-zinc-800'>
                                     <User className='h-5 w-5 text-white' />
