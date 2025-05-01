@@ -1,11 +1,9 @@
-'use client'
-
 import { Heart, MapPin } from 'lucide-react'
 import { Button } from './ui/button'
 import { useState } from 'react'
 
 interface EventCardProps {
-    id: string
+    id: number
     title: string
     image: string
     price: number

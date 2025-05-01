@@ -1,34 +1,14 @@
-export interface TelegramWebApp {
-    expand: () => void
-    ready: () => void
-    close: () => void
-    initData: string
-    initDataUnsafe?: {
-        start_param?: string
-        user?: {
-            id: number
-            first_name: string
-            last_name?: string
-            username?: string
-            photo_url?: string
-        }
-    }
-    sendData?: (data: string) => void
-    MainButton?: {
-        text: string
-        color: string
-        textColor: string
-        isVisible: boolean
-        isActive: boolean
-        isProgressVisible: boolean
-        show: () => void
-        hide: () => void
-        enable: () => void
-        disable: () => void
-        showProgress: (leaveActive: boolean) => void
-        hideProgress: () => void
-        setText: (text: string) => void
-        onClick: (callback: () => void) => void
-        offClick: (callback: () => void) => void
-    }
+export interface TypeEventItem {
+    id: number
+    name: string
+    description: string
+    age_limit: number
+    area: number
+    category_id: number
+    city_id: number
+    create_at: string
+    image: string
+    owner: number
+    event_category: { id: number; name: string; quantity: number; price: number; explanation: string; event: number }
+    event_time: { id: number; date: string; start_time: string; end_time: string; event: number }
 }
