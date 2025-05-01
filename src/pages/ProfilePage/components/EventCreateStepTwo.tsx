@@ -116,6 +116,9 @@ const EventCreateStepTwo = ({
                                     </label>
                                 </div>
                                 <p className='text-xs text-gray-400'>PNG, JPG до 10MB</p>
+                                {/* <FormField control={form.control} name='area'  render={({ field }) => (<FormItem>
+
+                                </FormItem> />)} */}
                                 <input
                                     id='image-upload'
                                     type='file'

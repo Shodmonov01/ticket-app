@@ -124,14 +124,17 @@ const EventCreationForm = () => {
                 formData.append(key, JSON.stringify([value]))
             } else if (['category_id', 'age_limit', 'city_id', 'area'].includes(key)) {
                 formData.append(key, String(Number(value)))
-            } else if (key === 'image') {
-                imageFiles.forEach((file: any) => {
-                    formData.append('image', file)
-                })
             } else {
                 formData.append(key, String(value))
             }
         })
+
+        if (imageFiles.length > 0) {
+            imageFiles.forEach(imageFile => {
+                formData.append('image', imageFile.file)
+            })
+        }
+
         console.log('form', formData)
 
         try {
