@@ -119,7 +119,13 @@ const EventCreationForm = () => {
 
         Object.entries(data).forEach(([key, value]: [string, any]) => {
             if (key === 'event_category' || key === 'event_time') {
-                formData.append(key, JSON.stringify(value))
+                formData.append(key, JSON.stringify([value]))
+            } else if (['category_id', 'age_limit', 'city_id', 'area'].includes(key)) {
+                formData.append(key, String(Number(value)))
+            } else if (key === 'image') {
+                value.forEach((file: any) => {
+                    formData.append('image', file)
+                })
             } else {
                 formData.append(key, String(value))
             }

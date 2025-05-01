@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 
 import { User, EllipsisVertical } from 'lucide-react'
 import api from '@/api/api'
