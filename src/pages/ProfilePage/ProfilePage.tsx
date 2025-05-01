@@ -107,6 +107,7 @@ import api from '@/api/api'
 import ProfileMenu from './components/ProfileMenu'
 import { BottomNav } from '../../components/layout/bottom-nav'
 import { Button } from '../../components/ui/button'
+import SheetProfile from './components/Sheet'
 
 // Добавляем типизацию для CloudStorage
 declare global {
