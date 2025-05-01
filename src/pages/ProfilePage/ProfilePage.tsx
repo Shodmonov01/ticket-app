@@ -27,6 +27,8 @@ export default function ProfilePage() {
         }
 
         try {
+            const initData = window?.Telegram?.WebApp.initData
+
             const payload = {
                 initData: initData
             }
