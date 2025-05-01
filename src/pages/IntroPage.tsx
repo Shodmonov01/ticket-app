@@ -45,7 +45,7 @@ export default function IntroPage() {
                     // boshqa data ham bo‘lsa qo‘shasiz
                 }
 
-                const response = await api.post('/api/your-endpoint/', payload)
+                const response = await api.post('/auth/api/user/login/', payload)
 
                 const data = response.data
 
