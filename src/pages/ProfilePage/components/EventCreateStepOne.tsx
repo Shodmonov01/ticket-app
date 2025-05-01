@@ -88,7 +88,7 @@ const EventCreateStepOne = ({ form, step, nextStep }: { form: any; step: number;
                                     </FormControl>
                                     <SelectContent className='bg-[#1c232b] border-[#1c232b] text-white'>
                                         {category?.map((l: any) => (
-                                            <SelectItem key={l.id} value={l.id}>
+                                            <SelectItem key={l.id} value={l.id.toString()}>
                                                 {l.name}
                                             </SelectItem>
                                         ))}
@@ -114,8 +114,8 @@ const EventCreateStepOne = ({ form, step, nextStep }: { form: any; step: number;
                                         </FormControl>
                                         <SelectContent className='bg-[#1c232b] border-[#1c232b] text-white'>
                                             {limits?.map((l: any) => (
-                                                <SelectItem key={l.id} value={l.id}>
-                                                    {l.name}
+                                                <SelectItem key={l.id} value={l.id.toString()}>
+                                                    {l.age_limit}
                                                 </SelectItem>
                                             ))}
                                         </SelectContent>

@@ -65,7 +65,7 @@ const EventCreateStepTwo = ({
                                     </FormControl>
                                     <SelectContent className='bg-[#1c232b] border-[#1c232b] text-white'>
                                         {cities.map((c: any) => (
-                                            <SelectItem key={c.id} value={c.id}>
+                                            <SelectItem key={c.id} value={c.id.toString()}>
                                                 {c.name}
                                             </SelectItem>
                                         ))}
@@ -90,7 +90,7 @@ const EventCreateStepTwo = ({
                                     </FormControl>
                                     <SelectContent className='bg-[#1c232b] border-[#1c232b] text-white'>
                                         {area?.map((l: any) => (
-                                            <SelectItem key={l.id} value={l.id}>
+                                            <SelectItem key={l.id} value={l.id.toString()}>
                                                 {l.name}
                                             </SelectItem>
                                         ))}
