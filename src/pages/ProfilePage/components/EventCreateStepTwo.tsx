@@ -24,7 +24,7 @@ const EventCreateStepTwo = ({
     const { data: area } = useQuery(
         ['area'],
         async () => {
-            const res = await api.get('/api/age/limits/')
+            const res = await api.get('/api/area/')
             return res.data
         },
         {
