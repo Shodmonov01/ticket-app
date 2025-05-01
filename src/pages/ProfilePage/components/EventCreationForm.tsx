@@ -125,7 +125,7 @@ const EventCreationForm = () => {
             } else if (['category_id', 'age_limit', 'city_id', 'area'].includes(key)) {
                 formData.append(key, String(Number(value)))
             } else if (key === 'image') {
-                value.forEach((file: any) => {
+                imageFiles.forEach((file: any) => {
                     formData.append('image', file)
                 })
             } else {
