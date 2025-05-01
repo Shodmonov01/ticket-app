@@ -21,15 +21,31 @@ const EventCreateStepTwo = ({
     imageFiles: any
     removeImage: any
 }) => {
-    const { data: area } = useQuery(['area'], async () => {
-        const res = await api.get('/api/age/limits/')
-        return res.data
-    })
+    const { data: area } = useQuery(
+        ['area'],
+        async () => {
+            const res = await api.get('/api/age/limits/')
+            return res.data
+        },
+        {
+            staleTime: 5 * 60 * 1000, // Consider data fresh for 5 minutes
+            cacheTime: 10 * 60 * 1000, // Keep in cache for 10 minutes
+            refetchOnWindowFocus: false // Prevent refetching when window regains focus
+        }
+    )
 
-    const { data: cities } = useQuery(['cities'], async () => {
-        const res = await api.get('/api/cities/')
-        return res.data
-    })
+    const { data: cities } = useQuery(
+        ['cities'],
+        async () => {
+            const res = await api.get('/api/cities/')
+            return res.data
+        },
+        {
+            staleTime: 5 * 60 * 1000, // Consider data fresh for 5 minutes
+            cacheTime: 10 * 60 * 1000, // Keep in cache for 10 minutes
+            refetchOnWindowFocus: false // Prevent refetching when window regains focus
+        }
+    )
 
     return (
         <>

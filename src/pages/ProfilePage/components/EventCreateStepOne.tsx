@@ -8,15 +8,31 @@ import { Textarea } from '@/components/ui/textarea'
 import api from '@/api/api'
 
 const EventCreateStepOne = ({ form, step, nextStep }: { form: any; step: number; nextStep: any }) => {
-    const { data: limits } = useQuery(['limits'], async () => {
-        const res = await api.get('/api/age/limits/')
-        return res.data
-    })
+    const { data: limits } = useQuery(
+        ['limits'],
+        async () => {
+            const res = await api.get('/api/age/limits/')
+            return res.data
+        },
+        {
+            staleTime: 5 * 60 * 1000, // Consider data fresh for 5 minutes
+            cacheTime: 10 * 60 * 1000, // Keep in cache for 10 minutes
+            refetchOnWindowFocus: false // Prevent refetching when window regains focus
+        }
+    )
 
-    const { data: category } = useQuery(['category'], async () => {
-        const res = await api.get('/api/category/')
-        return res.data
-    })
+    const { data: category } = useQuery(
+        ['category'],
+        async () => {
+            const res = await api.get('/api/category/')
+            return res.data
+        },
+        {
+            staleTime: 5 * 60 * 1000, // Consider data fresh for 5 minutes
+            cacheTime: 10 * 60 * 1000, // Keep in cache for 10 minutes
+            refetchOnWindowFocus: false // Prevent refetching when window regains focus
+        }
+    )
 
     return (
         <>
