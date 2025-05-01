@@ -15,7 +15,12 @@ export default function IntroPage() {
     const [referralUsed, setReferralUsed] = useState<string | null>(null)
 
     useEffect(() => {
-        const tg = window?.Telegram?.WebApp as unknown as any
+        const tg = window.Telegram?.WebApp
+
+        if (!tg) {
+            console.error('Telegram WebApp not available')
+            return
+        }
 
         tg.ready()
         tg.expand()
@@ -31,19 +36,24 @@ export default function IntroPage() {
             setIsLoading(true)
 
             try {
-                const initData = window?.Telegram?.WebApp.initData
-
                 const payload = {
                     initData: initData
                 }
 
                 const response = await api.post('/auth/api/user/login/', payload)
-
                 const data = response.data
 
                 if (data.access_token) {
-                    localStorage.setItem('access_token', data.access_token)
-                    localStorage.setItem('refresh_token', data.refresh_token)
+                    // Сохраняем токен в CloudStorage Telegram
+                    //@ts-expect-error потом разберёмся
+                    tg.CloudStorage.setItem('access_token', data.access_token, (err) => {
+                        if (err) console.error('Ошибка сохранения токена:', err)
+                        else console.log('Токен сохранен в CloudStorage')
+                    })
+                    //@ts-expect-error потом разберёмся
+                    tg.CloudStorage.setItem('refresh_token', data.refresh_token, (err) => {
+                        if (err) console.error('Ошибка сохранения refresh токена:', err)
+                    })
 
                     const userData = tg.initDataUnsafe?.user
                     setUser(userData || null)
@@ -57,6 +67,7 @@ export default function IntroPage() {
                             })
                         )
                     }
+
                     alert('Авторизация прошла успешно!')
                     setFirstTimeUser(false)
                     navigate('/')
@@ -69,6 +80,7 @@ export default function IntroPage() {
                 setIsLoading(false)
             }
         }
+
         autoLogin()
     }, [referralCode, navigate, setFirstTimeUser])
 
