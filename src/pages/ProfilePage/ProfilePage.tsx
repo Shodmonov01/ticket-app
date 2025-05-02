@@ -9,11 +9,25 @@ import { Button } from '../../components/ui/button'
 import SheetProfile from './components/Sheet'
 import { useNavigate } from 'react-router-dom'
 import { useQuery } from '@tanstack/react-query'
+import { TypeUser } from '@/types/type'
 
 export default function ProfilePage() {
     const navigate = useNavigate()
 
     const [open, setOpen] = useState(false)
+
+    const { data: user } = useQuery<TypeUser>(
+        ['user'],
+        async () => {
+            const res = await api.get('/auth/api/user/profile/')
+            return res.data
+        },
+        {
+            staleTime: 5 * 60 * 1000,
+            cacheTime: 10 * 60 * 1000,
+            refetchOnWindowFocus: false
+        }
+    )
 
     const loginOrganizator = async () => {
         // const tg = window.Telegram?.WebApp as unknown as any
@@ -53,22 +67,12 @@ export default function ProfilePage() {
         // } catch (error) {
         //     console.log(error)
         // }
-        navigate('/profile/organization-role')
-    }
-
-    const { data: user } = useQuery(
-        ['user'],
-        async () => {
-            const res = await api.get('/auth/api/user/profile/')
-            return res.data
-        },
-        {
-            staleTime: 5 * 60 * 1000,
-            cacheTime: 10 * 60 * 1000,
-            refetchOnWindowFocus: false
+        if (user?.groups.name === 'organization') {
+            navigate('/profile/organization-profile')
+        } else {
+            navigate('/profile/organization-role')
         }
-    )
-    console.log('user', user)
+    }
 
     return (
         <div className='flex min-h-screen flex-col pb-20 text-white '>
@@ -89,8 +93,8 @@ export default function ProfilePage() {
 
                 <div className='text-center my-6 mt-20 flex flex-col items-center'>
                     <div>
-                        <h1 className='text-xl font-bold text-white'>User Name</h1>
-                        <p className='text-gray-400'>user@example.com</p>
+                        <h1 className='text-xl font-bold text-white'>{user?.first_name}</h1>
+                        <p className='text-gray-400'>{user?.email}</p>
                     </div>
                 </div>
 
