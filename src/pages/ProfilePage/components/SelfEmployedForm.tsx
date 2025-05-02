@@ -100,12 +100,7 @@ export function SelfEmployedForm() {
                             name='recipient_full_name'
                             render={({ field }) => (
                                 <FormItem className='space-y-2'>
-                                    <FormLabel className='flex items-center gap-1'>
-                                        ФИО получателя
-                                        <Badge variant='outline' className='ml-2 text-xs font-normal'>
-                                            Обязательно
-                                        </Badge>
-                                    </FormLabel>
+                                    <FormLabel className='flex items-center gap-1'>ФИО получателя</FormLabel>
                                     <FormControl>
                                         <Input
                                             placeholder='Иванов Иван Иванович'
@@ -146,9 +141,6 @@ export function SelfEmployedForm() {
                                                 </TooltipContent>
                                             </Tooltip>
                                         </TooltipProvider>
-                                        <Badge variant='outline' className='ml-2 text-xs font-normal'>
-                                            Обязательно
-                                        </Badge>
                                     </FormLabel>
                                     <FormControl>
                                         <Input
@@ -168,12 +160,7 @@ export function SelfEmployedForm() {
                             name='phone'
                             render={({ field }) => (
                                 <FormItem className='space-y-2'>
-                                    <FormLabel className='flex items-center gap-1'>
-                                        Номер телефона
-                                        <Badge variant='outline' className='ml-2 text-xs font-normal'>
-                                            Обязательно
-                                        </Badge>
-                                    </FormLabel>
+                                    <FormLabel className='flex items-center gap-1'>Номер телефона</FormLabel>
                                     <FormControl>
                                         <Input
                                             placeholder='+7 (999) 123-45-67'
@@ -181,32 +168,13 @@ export function SelfEmployedForm() {
                                             {...field}
                                         />
                                     </FormControl>
-                                    <FormDescription className='text-xs text-gray-400'>
+                                    {/* <FormDescription className='text-xs text-gray-400'>
                                         Телефон, привязанный к приложению "Мой налог"
-                                    </FormDescription>
+                                    </FormDescription> */}
                                     <FormMessage className='text-red-400 text-xs' />
                                 </FormItem>
                             )}
                         />
-
-                        <div className='bg-amber-900/20 border border-amber-700/30 rounded-lg p-4 flex items-start'>
-                            <AlertCircle className='h-5 w-5 text-amber-400 mr-3 mt-0.5' />
-                            <p className='text-sm text-gray-200'>
-                                Для регистрации в качестве самозанятого необходимо установить приложение "Мой налог" и
-                                зарегистрироваться в нем
-                            </p>
-                        </div>
-
-                        <div className='flex justify-end mt-6'>
-                            <Button
-                                type='button'
-                                onClick={onNext}
-                                className='bg-amber-600 hover:bg-amber-700 text-white px-6 py-2 rounded-lg flex items-center gap-2'
-                            >
-                                Далее
-                                <ChevronRight className='h-4 w-4' />
-                            </Button>
-                        </div>
                     </>
                 )}
 
@@ -217,12 +185,7 @@ export function SelfEmployedForm() {
                             name='checking_account'
                             render={({ field }) => (
                                 <FormItem className='space-y-2'>
-                                    <FormLabel className='flex items-center gap-1'>
-                                        Расчетный счет
-                                        <Badge variant='outline' className='ml-2 text-xs font-normal'>
-                                            Обязательно
-                                        </Badge>
-                                    </FormLabel>
+                                    <FormLabel className='flex items-center gap-1'>Расчетный счет</FormLabel>
                                     <FormControl>
                                         <Input
                                             placeholder='12345678901234567890'
@@ -341,10 +304,7 @@ export function SelfEmployedForm() {
                                 Назад
                             </Button>
 
-                            <Button
-                                type='submit'
-                                className='bg-amber-600 hover:bg-amber-700 text-white px-6 py-2 rounded-lg flex items-center gap-2'
-                            >
+                            <Button type='submit' className='text-white px-6 py-2 rounded-lg flex items-center gap-2'>
                                 Создать
                                 <Check className='h-4 w-4' />
                             </Button>

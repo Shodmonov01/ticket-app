@@ -93,12 +93,7 @@ export function IpForm() {
                             name='full_name'
                             render={({ field }) => (
                                 <FormItem className='space-y-2'>
-                                    <FormLabel className='flex items-center gap-1'>
-                                        ФИО ИП
-                                        <Badge variant='outline' className='ml-2 text-xs font-normal'>
-                                            Обязательно
-                                        </Badge>
-                                    </FormLabel>
+                                    <FormLabel className='flex items-center gap-1'>ФИО ИП</FormLabel>
                                     <FormControl>
                                         <Input
                                             placeholder='Иванов Иван Иванович'
@@ -137,9 +132,6 @@ export function IpForm() {
                                                 </TooltipContent>
                                             </Tooltip>
                                         </TooltipProvider>
-                                        <Badge variant='outline' className='ml-2 text-xs font-normal'>
-                                            Обязательно
-                                        </Badge>
                                     </FormLabel>
                                     <FormControl>
                                         <Input
@@ -213,7 +205,7 @@ export function IpForm() {
                             <Button
                                 type='button'
                                 onClick={onNext}
-                                className='bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg flex items-center gap-2'
+                                className=' text-white px-6 py-2 rounded-lg flex items-center gap-2'
                             >
                                 Далее
                                 <ChevronRight className='h-4 w-4' />
@@ -284,12 +276,7 @@ export function IpForm() {
                             name='checking_account'
                             render={({ field }) => (
                                 <FormItem className='space-y-2'>
-                                    <FormLabel className='flex items-center gap-1'>
-                                        Расчетный счет
-                                        <Badge variant='outline' className='ml-2 text-xs font-normal'>
-                                            Обязательно
-                                        </Badge>
-                                    </FormLabel>
+                                    <FormLabel className='flex items-center gap-1'>Расчетный счет</FormLabel>
                                     <FormControl>
                                         <Input
                                             placeholder='12345678901234567890'
@@ -333,10 +320,7 @@ export function IpForm() {
                                 Назад
                             </Button>
 
-                            <Button
-                                type='submit'
-                                className='bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg flex items-center gap-2'
-                            >
+                            <Button type='submit' className='text-white px-6 py-2 rounded-lg flex items-center gap-2'>
                                 Создать
                                 <Check className='h-4 w-4' />
                             </Button>

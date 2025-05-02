@@ -153,12 +153,7 @@ export function OooForm() {
                             name='organization_name'
                             render={({ field }) => (
                                 <FormItem className='space-y-2'>
-                                    <FormLabel className='flex items-center gap-1'>
-                                        Название организации
-                                        <Badge variant='outline' className='ml-2 text-xs font-normal'>
-                                            Обязательно
-                                        </Badge>
-                                    </FormLabel>
+                                    <FormLabel className='flex items-center gap-1'>Название организации</FormLabel>
                                     <FormControl>
                                         <Input
                                             placeholder='ООО «Компания»'
@@ -179,12 +174,7 @@ export function OooForm() {
                             name='full_name'
                             render={({ field }) => (
                                 <FormItem className='space-y-2'>
-                                    <FormLabel className='flex items-center gap-1'>
-                                        ФИО ИП
-                                        <Badge variant='outline' className='ml-2 text-xs font-normal'>
-                                            Обязательно
-                                        </Badge>
-                                    </FormLabel>
+                                    <FormLabel className='flex items-center gap-1'>ФИО ИП</FormLabel>
                                     <FormControl>
                                         <Input
                                             placeholder='ФИО ИП'
@@ -225,9 +215,6 @@ export function OooForm() {
                                                 </TooltipContent>
                                             </Tooltip>
                                         </TooltipProvider>
-                                        <Badge variant='outline' className='ml-2 text-xs font-normal'>
-                                            Обязательно
-                                        </Badge>
                                     </FormLabel>
                                     <FormControl>
                                         <Input
@@ -358,7 +345,7 @@ export function OooForm() {
                             <Button
                                 type='button'
                                 onClick={onNext}
-                                className='bg-emerald-600 hover:bg-emerald-700 text-white px-6 py-2 rounded-lg flex items-center gap-2'
+                                className=' text-white px-6 py-2 rounded-lg flex items-center gap-2'
                             >
                                 Далее
                                 <ChevronRight className='h-4 w-4' />
@@ -374,12 +361,7 @@ export function OooForm() {
                             name='email'
                             render={({ field }) => (
                                 <FormItem className='space-y-2'>
-                                    <FormLabel className='flex items-center gap-1'>
-                                        E-mail
-                                        <Badge variant='outline' className='ml-2 text-xs font-normal'>
-                                            Обязательно
-                                        </Badge>
-                                    </FormLabel>
+                                    <FormLabel className='flex items-center gap-1'>E-mail</FormLabel>
                                     <FormControl>
                                         <Input
                                             type='email'
@@ -436,9 +418,6 @@ export function OooForm() {
                                 <FormItem className='space-y-2'>
                                     <FormLabel className='flex items-center gap-1'>
                                         ФИО руководителя организации
-                                        <Badge variant='outline' className='ml-2 text-xs font-normal'>
-                                            Обязательно
-                                        </Badge>
                                     </FormLabel>
                                     <FormControl>
                                         <Input
@@ -484,7 +463,7 @@ export function OooForm() {
                             <Button
                                 type='button'
                                 onClick={onNext}
-                                className='bg-emerald-600 hover:bg-emerald-700 text-white px-6 py-2 rounded-lg flex items-center gap-2'
+                                className=' text-white px-6 py-2 rounded-lg flex items-center gap-2'
                             >
                                 Далее
                                 <ChevronRight className='h-4 w-4' />
@@ -537,12 +516,7 @@ export function OooForm() {
                             name='checking_account'
                             render={({ field }) => (
                                 <FormItem className='space-y-2'>
-                                    <FormLabel className='flex items-center gap-1'>
-                                        Расчетный счет
-                                        <Badge variant='outline' className='ml-2 text-xs font-normal'>
-                                            Обязательно
-                                        </Badge>
-                                    </FormLabel>
+                                    <FormLabel className='flex items-center gap-1'>Расчетный счет</FormLabel>
                                     <FormControl>
                                         <Input
                                             placeholder='12345678901234567890'
@@ -624,10 +598,7 @@ export function OooForm() {
                                 Назад
                             </Button>
 
-                            <Button
-                                type='submit'
-                                className='bg-emerald-600 hover:bg-emerald-700 text-white px-6 py-2 rounded-lg flex items-center gap-2'
-                            >
+                            <Button type='submit' className=' text-white px-6 py-2 rounded-lg flex items-center gap-2'>
                                 Создать
                                 <Check className='h-4 w-4' />
                             </Button>
