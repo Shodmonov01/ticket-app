@@ -21,8 +21,6 @@ function App() {
     useEffect(() => {
         if (isFirstTimeUser && location.pathname !== '/intro') {
             navigate('/intro')
-        } else {
-            navigate('/')
         }
     }, [isFirstTimeUser, navigate, location.pathname])
 
