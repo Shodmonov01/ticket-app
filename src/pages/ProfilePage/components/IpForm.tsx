@@ -9,6 +9,7 @@ import { Badge } from '@/components/ui/badge'
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip'
 import { useState } from 'react'
 import api from '@/api/api'
+import { useNavigate } from 'react-router-dom'
 
 const ipFormSchema = z.object({
     full_name: z.string().min(5, { message: 'ФИО должно содержать не менее 5 символов' }),
@@ -44,8 +45,8 @@ const ipFormSchema = z.object({
 })
 
 export function IpForm() {
+    const navigate = useNavigate()
     const [currentStep, setCurrentStep] = useState(1)
-    const totalSteps = 2
 
     const form = useForm<z.infer<typeof ipFormSchema>>({
         resolver: zodResolver(ipFormSchema),
@@ -84,6 +85,7 @@ export function IpForm() {
         console.log('Form submitted with all values:', values)
         try {
             await api.post('/auth/api/organization/register/ip/', values)
+            navigate('profile')
         } catch (error) {
             console.log('Error:', error)
         }

@@ -2,7 +2,6 @@ import { useNavigate } from 'react-router-dom'
 import { Search, MoreVertical, MapPin, User, Briefcase, UserCheck } from 'lucide-react'
 import { Card, CardContent } from '@/components/ui/card'
 import { BottomNav } from '@/components/layout/bottom-nav'
-// import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs"
 
 const OrganizationRolePage = () => {
     const navigate = useNavigate()
@@ -17,19 +16,6 @@ const OrganizationRolePage = () => {
                 </div>
             </header>
 
-            {/* <div className="px-4 mb-4">
-        <Tabs defaultValue="organization" className="w-full">
-          <TabsList className="grid w-full grid-cols-2 bg-gray-800 rounded-lg">
-            <TabsTrigger value="organization" className="data-[state=active]:bg-gray-700 rounded-md py-3">
-              Организация
-            </TabsTrigger>
-            <TabsTrigger value="individual" className="data-[state=active]:bg-gray-700 rounded-md py-3">
-              Физ. лицо
-            </TabsTrigger>
-          </TabsList>
-        </Tabs>
-      </div> */}
-
             <div className='flex-1 px-4 space-y-4 mb-20'>
                 <Card className='bg-gray-900 border-none overflow-hidden' onClick={() => navigate('/ip-form')}>
                     <CardContent className='p-0'>
@@ -42,7 +28,6 @@ const OrganizationRolePage = () => {
                                     <div>
                                         <h3 className='font-bold text-xl'>ИП</h3>
                                         <div className='flex items-center text-gray-400 text-sm mt-1'>
-                                            <MapPin className='h-4 w-4 mr-1' />
                                             <span>Индивидуальный предприниматель</span>
                                         </div>
                                     </div>
@@ -63,7 +48,6 @@ const OrganizationRolePage = () => {
                                     <div>
                                         <h3 className='font-bold text-xl'>ООО</h3>
                                         <div className='flex items-center text-gray-400 text-sm mt-1'>
-                                            <MapPin className='h-4 w-4 mr-1' />
                                             <span>Общество с ограниченной ответственностью</span>
                                         </div>
                                     </div>
@@ -87,7 +71,6 @@ const OrganizationRolePage = () => {
                                     <div>
                                         <h3 className='font-bold text-xl'>Самозанятый</h3>
                                         <div className='flex items-center text-gray-400 text-sm mt-1'>
-                                            <MapPin className='h-4 w-4 mr-1' />
                                             <span>Плательщик налога на профессиональный доход</span>
                                         </div>
                                     </div>

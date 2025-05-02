@@ -9,6 +9,7 @@ import { Badge } from '@/components/ui/badge'
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip'
 import { useState } from 'react'
 import api from '@/api/api'
+import { useNavigate } from 'react-router-dom'
 
 const selfEmployedFormSchema = z.object({
     recipient_full_name: z.string().min(5, { message: 'ФИО должно содержать не менее 5 символов' }),
@@ -50,8 +51,9 @@ const selfEmployedFormSchema = z.object({
 })
 
 export function SelfEmployedForm() {
+    const navigate = useNavigate()
+
     const [currentStep, setCurrentStep] = useState(1)
-    const totalSteps = 2
 
     const form = useForm<z.infer<typeof selfEmployedFormSchema>>({
         resolver: zodResolver(selfEmployedFormSchema),
@@ -90,6 +92,7 @@ export function SelfEmployedForm() {
 
         try {
             await api.post('/auth/api/organization/register/llc/', values)
+            navigate('profile')
         } catch (error) {
             console.log('Error:', error)
         }

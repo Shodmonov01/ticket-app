@@ -10,6 +10,7 @@ import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/comp
 import { Checkbox } from '@/components/ui/checkbox'
 import { useState } from 'react'
 import api from '@/api/api'
+import { useNavigate } from 'react-router-dom'
 
 const oooFormSchema = z.object({
     organization_name: z.string().min(3, { message: 'Название организации должно содержать не менее 3 символов' }),
@@ -78,6 +79,8 @@ const oooFormSchema = z.object({
 })
 
 export function OooForm() {
+    const navigate = useNavigate()
+
     const [currentStep, setCurrentStep] = useState(1)
 
     const form = useForm<z.infer<typeof oooFormSchema>>({
@@ -141,6 +144,7 @@ export function OooForm() {
         console.log('Form submitted with all values:', values)
         try {
             await api.post('/auth/api/organization/register/llc/', values)
+            navigate('profile')
         } catch (error) {
             console.log('Error:', error)
         }
