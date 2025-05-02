@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom'
-import { Search, MoreVertical, MapPin, User, Briefcase, UserCheck } from 'lucide-react'
+import { User, Briefcase, UserCheck } from 'lucide-react'
 import { Card, CardContent } from '@/components/ui/card'
 import { BottomNav } from '@/components/layout/bottom-nav'
 
@@ -10,10 +10,6 @@ const OrganizationRolePage = () => {
         <div className='flex flex-col min-h-screen bg-gray-950 text-white'>
             <header className='flex items-center justify-between p-4'>
                 <h1 className='text-xl font-bold'>Выберите тип</h1>
-                <div className='flex items-center gap-4'>
-                    <Search className='h-6 w-6' />
-                    <MoreVertical className='h-6 w-6' />
-                </div>
             </header>
 
             <div className='flex-1 px-4 space-y-4 mb-20'>

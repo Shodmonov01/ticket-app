@@ -8,15 +8,11 @@ import { BottomNav } from '../../components/layout/bottom-nav'
 import { Button } from '../../components/ui/button'
 import SheetProfile from './components/Sheet'
 import { useNavigate } from 'react-router-dom'
+import { useQuery } from '@tanstack/react-query'
 
 export default function ProfilePage() {
     const navigate = useNavigate()
 
-    const tg = window?.Telegram?.WebApp as unknown as any
-    const [referralCode, setReferralCode] = useState<string | null>(null)
-    const [isLoading, setIsLoading] = useState(false)
-    const [user, setUser] = useState<any>(null)
-    const [referralUsed, setReferralUsed] = useState<string | null>(null)
     const [open, setOpen] = useState(false)
 
     const loginOrganizator = async () => {
@@ -59,6 +55,20 @@ export default function ProfilePage() {
         // }
         navigate('/profile/organization-role')
     }
+
+    const { data: user } = useQuery(
+        ['user'],
+        async () => {
+            const res = await api.get('/auth/api/user/profile/')
+            return res.data
+        },
+        {
+            staleTime: 5 * 60 * 1000,
+            cacheTime: 10 * 60 * 1000,
+            refetchOnWindowFocus: false
+        }
+    )
+    console.log('user', user)
 
     return (
         <div className='flex min-h-screen flex-col pb-20 text-white '>
