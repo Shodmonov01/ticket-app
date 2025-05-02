@@ -67,6 +67,7 @@ export default function ProfilePage() {
         // } catch (error) {
         //     console.log(error)
         // }
+
         if (user?.groups.name === 'organization') {
             navigate('/profile/organization-profile')
         } else {
