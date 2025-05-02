@@ -46,13 +46,6 @@ const OrganizationRolePage = () => {
                                             <span>Индивидуальный предприниматель</span>
                                         </div>
                                     </div>
-                                    <span className='bg-green-900 text-green-400 text-xs px-2 py-1 rounded'>
-                                        Популярно
-                                    </span>
-                                </div>
-                                <div className='mt-3 flex justify-between items-center'>
-                                    <div className='text-gray-400 text-sm'>Подходит для малого бизнеса</div>
-                                    <MoreVertical className='h-5 w-5 text-gray-400' />
                                 </div>
                             </div>
                         </div>
@@ -74,10 +67,6 @@ const OrganizationRolePage = () => {
                                             <span>Общество с ограниченной ответственностью</span>
                                         </div>
                                     </div>
-                                </div>
-                                <div className='mt-3 flex justify-between items-center'>
-                                    <div className='text-gray-400 text-sm'>Для среднего и крупного бизнеса</div>
-                                    <MoreVertical className='h-5 w-5 text-gray-400' />
                                 </div>
                             </div>
                         </div>
@@ -102,10 +91,6 @@ const OrganizationRolePage = () => {
                                             <span>Плательщик налога на профессиональный доход</span>
                                         </div>
                                     </div>
-                                </div>
-                                <div className='mt-3 flex justify-between items-center'>
-                                    <div className='text-gray-400 text-sm'>Для фрилансеров и частных специалистов</div>
-                                    <MoreVertical className='h-5 w-5 text-gray-400' />
                                 </div>
                             </div>
                         </div>

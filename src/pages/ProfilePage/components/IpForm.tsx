@@ -156,7 +156,7 @@ export function IpForm() {
                             control={form.control}
                             name='ogrnip'
                             render={({ field }) => (
-                                <FormItem className='space-y-2'>
+                                <FormItem className='space-y-2 flex flex-col'>
                                     <FormLabel className='flex items-center gap-1'>ОГРНИП</FormLabel>
                                     <FormControl>
                                         <Input
