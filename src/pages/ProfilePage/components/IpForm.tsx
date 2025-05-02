@@ -9,7 +9,7 @@ import { Badge } from '@/components/ui/badge'
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip'
 import { useState } from 'react'
 
-const ipMainSchema = z.object({
+const ipFormSchema = z.object({
     full_name: z.string().min(5, { message: 'ФИО должно содержать не менее 5 символов' }),
     inn: z
         .string()
@@ -21,10 +21,8 @@ const ipMainSchema = z.object({
         .regex(/^\d+$/, { message: 'ОГРНИП должен содержать только цифры' })
         .optional()
         .or(z.literal('')),
-    legal_address: z.string().optional()
-})
+    legal_address: z.string().optional(),
 
-const ipBankSchema = z.object({
     bank_name: z.string().optional(),
     bik: z
         .string()
@@ -46,53 +44,52 @@ const ipBankSchema = z.object({
 
 export function IpForm() {
     const [currentStep, setCurrentStep] = useState(1)
+    const totalSteps = 2
 
-    const onNext = () => {
-        setCurrentStep(currentStep + 1)
+    const form = useForm<z.infer<typeof ipFormSchema>>({
+        resolver: zodResolver(ipFormSchema),
+        defaultValues: {
+            full_name: '',
+            inn: '',
+            ogrnip: '',
+            legal_address: '',
+
+            bank_name: '',
+            bik: '',
+            checking_account: '',
+            correspondent_account: ''
+        },
+        mode: 'onChange'
+    })
+
+    const onNext = async () => {
+        const fieldsToValidate =
+            currentStep === 1
+                ? ['full_name', 'inn', 'ogrnip', 'legal_address']
+                : ['checking_account', 'bank_name', 'bik', 'correspondent_account']
+
+        const result = await form.trigger(fieldsToValidate as any)
+
+        if (result) {
+            setCurrentStep(currentStep + 1)
+        }
     }
 
     const onBack = () => {
         setCurrentStep(currentStep - 1)
     }
 
-    const mainForm = useForm<z.infer<typeof ipMainSchema>>({
-        resolver: zodResolver(ipMainSchema),
-        defaultValues: {
-            full_name: '',
-            inn: '',
-            ogrnip: '',
-            legal_address: ''
-        }
-    })
-
-    const bankForm = useForm<z.infer<typeof ipBankSchema>>({
-        resolver: zodResolver(ipBankSchema),
-        defaultValues: {
-            bank_name: '',
-            bik: '',
-            checking_account: '',
-            correspondent_account: ''
-        }
-    })
-
-    function onMainSubmit(values: z.infer<typeof ipMainSchema>) {
-        console.log(values)
-        onNext()
-    }
-
-    function onBankSubmit(values: z.infer<typeof ipBankSchema>) {
-        console.log(values)
-        // Submit final form
-        console.log('Form submitted!')
+    function onSubmit(values: z.infer<typeof ipFormSchema>) {
+        console.log('Form submitted with all values:', values)
     }
 
     return (
-        <>
-            {currentStep === 1 && (
-                <Form {...mainForm}>
-                    <form onSubmit={mainForm.handleSubmit(onMainSubmit)} className='space-y-4'>
+        <Form {...form}>
+            <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-4 p-4'>
+                {currentStep === 1 && (
+                    <>
                         <FormField
-                            control={mainForm.control}
+                            control={form.control}
                             name='full_name'
                             render={({ field }) => (
                                 <FormItem className='space-y-2'>
@@ -118,7 +115,7 @@ export function IpForm() {
                         />
 
                         <FormField
-                            control={mainForm.control}
+                            control={form.control}
                             name='inn'
                             render={({ field }) => (
                                 <FormItem className='space-y-2'>
@@ -158,7 +155,7 @@ export function IpForm() {
                         />
 
                         <FormField
-                            control={mainForm.control}
+                            control={form.control}
                             name='ogrnip'
                             render={({ field }) => (
                                 <FormItem className='space-y-2'>
@@ -195,7 +192,7 @@ export function IpForm() {
                         />
 
                         <FormField
-                            control={mainForm.control}
+                            control={form.control}
                             name='legal_address'
                             render={({ field }) => (
                                 <FormItem className='space-y-2'>
@@ -214,22 +211,21 @@ export function IpForm() {
 
                         <div className='flex justify-end mt-6'>
                             <Button
-                                type='submit'
+                                type='button'
+                                onClick={onNext}
                                 className='bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg flex items-center gap-2'
                             >
                                 Далее
                                 <ChevronRight className='h-4 w-4' />
                             </Button>
                         </div>
-                    </form>
-                </Form>
-            )}
+                    </>
+                )}
 
-            {currentStep === 2 && (
-                <Form {...bankForm}>
-                    <form onSubmit={bankForm.handleSubmit(onBankSubmit)} className='space-y-4'>
+                {currentStep === 2 && (
+                    <>
                         <FormField
-                            control={bankForm.control}
+                            control={form.control}
                             name='bank_name'
                             render={({ field }) => (
                                 <FormItem className='space-y-2'>
@@ -247,7 +243,7 @@ export function IpForm() {
                         />
 
                         <FormField
-                            control={bankForm.control}
+                            control={form.control}
                             name='bik'
                             render={({ field }) => (
                                 <FormItem className='space-y-2'>
@@ -284,7 +280,7 @@ export function IpForm() {
                         />
 
                         <FormField
-                            control={bankForm.control}
+                            control={form.control}
                             name='checking_account'
                             render={({ field }) => (
                                 <FormItem className='space-y-2'>
@@ -308,7 +304,7 @@ export function IpForm() {
                         />
 
                         <FormField
-                            control={bankForm.control}
+                            control={form.control}
                             name='correspondent_account'
                             render={({ field }) => (
                                 <FormItem className='space-y-2'>
@@ -345,9 +341,9 @@ export function IpForm() {
                                 <Check className='h-4 w-4' />
                             </Button>
                         </div>
-                    </form>
-                </Form>
-            )}
-        </>
+                    </>
+                )}
+            </form>
+        </Form>
     )
 }

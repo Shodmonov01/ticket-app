@@ -6,6 +6,7 @@ import { BottomNav } from '@/components/layout/bottom-nav'
 
 const OrganizationRolePage = () => {
     const navigate = useNavigate()
+
     return (
         <div>
             <Card className='bg-gray-800 border-gray-700 mb-4 overflow-hidden my-10'>

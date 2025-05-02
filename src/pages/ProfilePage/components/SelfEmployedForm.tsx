@@ -9,16 +9,14 @@ import { Badge } from '@/components/ui/badge'
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip'
 import { useState } from 'react'
 
-const selfEmployedMainSchema = z.object({
+const selfEmployedFormSchema = z.object({
     recipient_full_name: z.string().min(5, { message: 'ФИО должно содержать не менее 5 символов' }),
     inn: z
         .string()
         .length(12, { message: 'ИНН должен содержать 12 цифр' })
         .regex(/^\d+$/, { message: 'ИНН должен содержать только цифры' }),
-    phone: z.string().min(10, { message: 'Введите корректный номер телефона' })
-})
+    phone: z.string().min(10, { message: 'Введите корректный номер телефона' }),
 
-const selfEmployedBankSchema = z.object({
     checking_account: z
         .string()
         .length(20, { message: 'Расчетный счет должен содержать 20 цифр' })
@@ -52,53 +50,53 @@ const selfEmployedBankSchema = z.object({
 
 export function SelfEmployedForm() {
     const [currentStep, setCurrentStep] = useState(1)
+    const totalSteps = 2
 
-    const onNext = () => {
-        setCurrentStep(currentStep + 1)
-    }
-
-    const onBack = () => {
-        setCurrentStep(currentStep - 1)
-    }
-
-    const mainForm = useForm<z.infer<typeof selfEmployedMainSchema>>({
-        resolver: zodResolver(selfEmployedMainSchema),
+    const form = useForm<z.infer<typeof selfEmployedFormSchema>>({
+        resolver: zodResolver(selfEmployedFormSchema),
         defaultValues: {
             recipient_full_name: '',
             inn: '',
-            phone: ''
-        }
-    })
+            phone: '',
 
-    const bankForm = useForm<z.infer<typeof selfEmployedBankSchema>>({
-        resolver: zodResolver(selfEmployedBankSchema),
-        defaultValues: {
             checking_account: '',
             bank_name: '',
             bank_inn: '',
             bank_kpp: '',
             bik: '',
             correspondent_account: ''
-        }
+        },
+        mode: 'onChange'
     })
 
-    function onMainSubmit(values: z.infer<typeof selfEmployedMainSchema>) {
-        console.log(values)
-        onNext()
+    const onNext = async () => {
+        const fieldsToValidate =
+            currentStep === 1
+                ? ['recipient_full_name', 'inn', 'phone']
+                : ['checking_account', 'bank_name', 'bank_inn', 'bank_kpp', 'bik', 'correspondent_account']
+
+        const result = await form.trigger(fieldsToValidate as any)
+
+        if (result) {
+            setCurrentStep(currentStep + 1)
+        }
     }
 
-    function onBankSubmit(values: z.infer<typeof selfEmployedBankSchema>) {
-        console.log(values)
-        console.log('Form submitted!')
+    const onBack = () => {
+        setCurrentStep(currentStep - 1)
+    }
+
+    function onSubmit(values: z.infer<typeof selfEmployedFormSchema>) {
+        console.log('Form submitted with all values:', values)
     }
 
     return (
-        <>
-            {currentStep === 1 && (
-                <Form {...mainForm}>
-                    <form onSubmit={mainForm.handleSubmit(onMainSubmit)} className='space-y-4'>
+        <Form {...form}>
+            <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-4 p-4'>
+                {currentStep === 1 && (
+                    <>
                         <FormField
-                            control={mainForm.control}
+                            control={form.control}
                             name='recipient_full_name'
                             render={({ field }) => (
                                 <FormItem className='space-y-2'>
@@ -124,7 +122,7 @@ export function SelfEmployedForm() {
                         />
 
                         <FormField
-                            control={mainForm.control}
+                            control={form.control}
                             name='inn'
                             render={({ field }) => (
                                 <FormItem className='space-y-2'>
@@ -166,7 +164,7 @@ export function SelfEmployedForm() {
                         />
 
                         <FormField
-                            control={mainForm.control}
+                            control={form.control}
                             name='phone'
                             render={({ field }) => (
                                 <FormItem className='space-y-2'>
@@ -201,22 +199,21 @@ export function SelfEmployedForm() {
 
                         <div className='flex justify-end mt-6'>
                             <Button
-                                type='submit'
+                                type='button'
+                                onClick={onNext}
                                 className='bg-amber-600 hover:bg-amber-700 text-white px-6 py-2 rounded-lg flex items-center gap-2'
                             >
                                 Далее
                                 <ChevronRight className='h-4 w-4' />
                             </Button>
                         </div>
-                    </form>
-                </Form>
-            )}
+                    </>
+                )}
 
-            {currentStep === 2 && (
-                <Form {...bankForm}>
-                    <form onSubmit={bankForm.handleSubmit(onBankSubmit)} className='space-y-4'>
+                {currentStep === 2 && (
+                    <>
                         <FormField
-                            control={bankForm.control}
+                            control={form.control}
                             name='checking_account'
                             render={({ field }) => (
                                 <FormItem className='space-y-2'>
@@ -240,7 +237,7 @@ export function SelfEmployedForm() {
                         />
 
                         <FormField
-                            control={bankForm.control}
+                            control={form.control}
                             name='bank_name'
                             render={({ field }) => (
                                 <FormItem className='space-y-2'>
@@ -258,7 +255,7 @@ export function SelfEmployedForm() {
                         />
 
                         <FormField
-                            control={bankForm.control}
+                            control={form.control}
                             name='bank_inn'
                             render={({ field }) => (
                                 <FormItem className='space-y-2'>
@@ -277,7 +274,7 @@ export function SelfEmployedForm() {
                         />
 
                         <FormField
-                            control={bankForm.control}
+                            control={form.control}
                             name='bank_kpp'
                             render={({ field }) => (
                                 <FormItem className='space-y-2'>
@@ -296,7 +293,7 @@ export function SelfEmployedForm() {
                         />
 
                         <FormField
-                            control={bankForm.control}
+                            control={form.control}
                             name='bik'
                             render={({ field }) => (
                                 <FormItem className='space-y-2'>
@@ -315,7 +312,7 @@ export function SelfEmployedForm() {
                         />
 
                         <FormField
-                            control={bankForm.control}
+                            control={form.control}
                             name='correspondent_account'
                             render={({ field }) => (
                                 <FormItem className='space-y-2'>
@@ -352,9 +349,9 @@ export function SelfEmployedForm() {
                                 <Check className='h-4 w-4' />
                             </Button>
                         </div>
-                    </form>
-                </Form>
-            )}
-        </>
+                    </>
+                )}
+            </form>
+        </Form>
     )
 }

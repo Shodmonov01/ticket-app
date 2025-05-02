@@ -10,8 +10,9 @@ import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/comp
 import { Checkbox } from '@/components/ui/checkbox'
 import { useState } from 'react'
 
-const oooMainSchema = z.object({
+const oooFormSchema = z.object({
     organization_name: z.string().min(3, { message: 'Название организации должно содержать не менее 3 символов' }),
+    full_name: z.string().min(5, { message: 'ФИО должно содержать не менее 5 символов' }),
     inn: z
         .string()
         .length(10, { message: 'ИНН должен содержать 10 цифр' })
@@ -30,18 +31,15 @@ const oooMainSchema = z.object({
         .or(z.literal('')),
     legal_address: z.string().optional(),
     postal_address: z.string().optional(),
-    same_address: z.boolean().optional()
-})
+    same_address: z.boolean().optional(),
 
-const oooContactsSchema = z.object({
+    // Contact info fields
     email: z.string().email({ message: 'Введите корректный email' }),
     contact_phone: z.string().optional(),
     contact_person: z.string().optional(),
     ceo_full_name: z.string().min(5, { message: 'ФИО руководителя должно содержать не менее 5 символов' }),
-    recipient_full_name: z.string().optional()
-})
+    recipient_full_name: z.string().optional(),
 
-const oooBankSchema = z.object({
     bank_name: z.string().optional(),
     bik: z
         .string()
@@ -75,76 +73,83 @@ const oooBankSchema = z.object({
 
 export function OooForm() {
     const [currentStep, setCurrentStep] = useState(1)
+    const totalSteps = 3
 
-    const onNext = () => {
-        setCurrentStep(currentStep + 1)
-    }
-
-    const onBack = () => {
-        setCurrentStep(currentStep - 1)
-    }
-
-    const isLastStep = currentStep === 3
-
-    const mainForm = useForm<z.infer<typeof oooMainSchema>>({
-        resolver: zodResolver(oooMainSchema),
+    const form = useForm<z.infer<typeof oooFormSchema>>({
+        resolver: zodResolver(oooFormSchema),
         defaultValues: {
             organization_name: '',
+            full_name: '',
             inn: '',
             kpp: '',
             ogrn: '',
             legal_address: '',
             postal_address: '',
-            same_address: false
-        }
-    })
+            same_address: false,
 
-    const contactsForm = useForm<z.infer<typeof oooContactsSchema>>({
-        resolver: zodResolver(oooContactsSchema),
-        defaultValues: {
             email: '',
             contact_phone: '',
             contact_person: '',
             ceo_full_name: '',
-            recipient_full_name: ''
-        }
-    })
+            recipient_full_name: '',
 
-    const bankForm = useForm<z.infer<typeof oooBankSchema>>({
-        resolver: zodResolver(oooBankSchema),
-        defaultValues: {
             bank_name: '',
             bik: '',
             checking_account: '',
             correspondent_account: '',
             bank_inn: '',
             bank_kpp: ''
-        }
+        },
+        mode: 'onChange'
     })
 
-    function onMainSubmit(values: z.infer<typeof oooMainSchema>) {
-        console.log(values)
-        onNext()
+    const onNext = async () => {
+        let fieldsToValidate: string[] = []
+
+        if (currentStep === 1) {
+            fieldsToValidate = [
+                'organization_name',
+                'full_name',
+                'inn',
+                'kpp',
+                'ogrn',
+                'legal_address',
+                'postal_address',
+                'same_address'
+            ]
+        } else if (currentStep === 2) {
+            fieldsToValidate = ['email', 'contact_phone', 'contact_person', 'ceo_full_name', 'recipient_full_name']
+        }
+
+        const result = await form.trigger(fieldsToValidate as any)
+
+        if (result) {
+            setCurrentStep(currentStep + 1)
+        }
     }
 
-    function onContactsSubmit(values: z.infer<typeof oooContactsSchema>) {
-        console.log(values)
-        onNext()
+    const onBack = () => {
+        setCurrentStep(currentStep - 1)
     }
 
-    function onBankSubmit(values: z.infer<typeof oooBankSchema>) {
-        console.log(values)
-        // Submit final form
-        console.log('Form submitted!')
+    function onSubmit(values: z.infer<typeof oooFormSchema>) {
+        console.log('Form submitted with all values:', values)
+    }
+
+    const handleSameAddressChange = (checked: boolean) => {
+        if (checked) {
+            const legalAddress = form.getValues('legal_address')
+            form.setValue('postal_address', legalAddress)
+        }
     }
 
     return (
-        <>
-            {currentStep === 1 && (
-                <Form {...mainForm}>
-                    <form onSubmit={mainForm.handleSubmit(onMainSubmit)} className='space-y-4'>
+        <Form {...form}>
+            <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-4 p-4'>
+                {currentStep === 1 && (
+                    <>
                         <FormField
-                            control={mainForm.control}
+                            control={form.control}
                             name='organization_name'
                             render={({ field }) => (
                                 <FormItem className='space-y-2'>
@@ -170,7 +175,33 @@ export function OooForm() {
                         />
 
                         <FormField
-                            control={mainForm.control}
+                            control={form.control}
+                            name='full_name'
+                            render={({ field }) => (
+                                <FormItem className='space-y-2'>
+                                    <FormLabel className='flex items-center gap-1'>
+                                        ФИО ИП
+                                        <Badge variant='outline' className='ml-2 text-xs font-normal'>
+                                            Обязательно
+                                        </Badge>
+                                    </FormLabel>
+                                    <FormControl>
+                                        <Input
+                                            placeholder='ФИО ИП'
+                                            className='bg-gray-700 border-gray-600 focus:border-emerald-500 focus:ring-emerald-500 h-12 rounded-lg'
+                                            {...field}
+                                        />
+                                    </FormControl>
+                                    <FormDescription className='text-xs text-gray-400'>
+                                        Укажите полное ФИО
+                                    </FormDescription>
+                                    <FormMessage className='text-red-400 text-xs' />
+                                </FormItem>
+                            )}
+                        />
+
+                        <FormField
+                            control={form.control}
                             name='inn'
                             render={({ field }) => (
                                 <FormItem className='space-y-2'>
@@ -212,7 +243,7 @@ export function OooForm() {
                         />
 
                         <FormField
-                            control={mainForm.control}
+                            control={form.control}
                             name='kpp'
                             render={({ field }) => (
                                 <FormItem className='space-y-2'>
@@ -249,7 +280,7 @@ export function OooForm() {
                         />
 
                         <FormField
-                            control={mainForm.control}
+                            control={form.control}
                             name='ogrn'
                             render={({ field }) => (
                                 <FormItem className='space-y-2'>
@@ -268,7 +299,7 @@ export function OooForm() {
                         />
 
                         <FormField
-                            control={mainForm.control}
+                            control={form.control}
                             name='legal_address'
                             render={({ field }) => (
                                 <FormItem className='space-y-2'>
@@ -286,7 +317,7 @@ export function OooForm() {
                         />
 
                         <FormField
-                            control={mainForm.control}
+                            control={form.control}
                             name='postal_address'
                             render={({ field }) => (
                                 <FormItem className='space-y-2'>
@@ -304,14 +335,17 @@ export function OooForm() {
                         />
 
                         <FormField
-                            control={mainForm.control}
+                            control={form.control}
                             name='same_address'
                             render={({ field }) => (
                                 <FormItem className='flex items-center space-x-2 space-y-0'>
                                     <FormControl>
                                         <Checkbox
                                             checked={field.value}
-                                            onCheckedChange={field.onChange}
+                                            onCheckedChange={checked => {
+                                                field.onChange(checked)
+                                                handleSameAddressChange(checked as boolean)
+                                            }}
                                             className='data-[state=checked]:bg-emerald-500 data-[state=checked]:border-emerald-500'
                                         />
                                     </FormControl>
@@ -322,22 +356,21 @@ export function OooForm() {
 
                         <div className='flex justify-end mt-6'>
                             <Button
-                                type='submit'
+                                type='button'
+                                onClick={onNext}
                                 className='bg-emerald-600 hover:bg-emerald-700 text-white px-6 py-2 rounded-lg flex items-center gap-2'
                             >
                                 Далее
                                 <ChevronRight className='h-4 w-4' />
                             </Button>
                         </div>
-                    </form>
-                </Form>
-            )}
+                    </>
+                )}
 
-            {currentStep === 2 && (
-                <Form {...contactsForm}>
-                    <form onSubmit={contactsForm.handleSubmit(onContactsSubmit)} className='space-y-4'>
+                {currentStep === 2 && (
+                    <>
                         <FormField
-                            control={contactsForm.control}
+                            control={form.control}
                             name='email'
                             render={({ field }) => (
                                 <FormItem className='space-y-2'>
@@ -361,7 +394,7 @@ export function OooForm() {
                         />
 
                         <FormField
-                            control={contactsForm.control}
+                            control={form.control}
                             name='contact_phone'
                             render={({ field }) => (
                                 <FormItem className='space-y-2'>
@@ -379,7 +412,7 @@ export function OooForm() {
                         />
 
                         <FormField
-                            control={contactsForm.control}
+                            control={form.control}
                             name='contact_person'
                             render={({ field }) => (
                                 <FormItem className='space-y-2'>
@@ -397,7 +430,7 @@ export function OooForm() {
                         />
 
                         <FormField
-                            control={contactsForm.control}
+                            control={form.control}
                             name='ceo_full_name'
                             render={({ field }) => (
                                 <FormItem className='space-y-2'>
@@ -420,7 +453,7 @@ export function OooForm() {
                         />
 
                         <FormField
-                            control={contactsForm.control}
+                            control={form.control}
                             name='recipient_full_name'
                             render={({ field }) => (
                                 <FormItem className='space-y-2'>
@@ -449,22 +482,21 @@ export function OooForm() {
                             </Button>
 
                             <Button
-                                type='submit'
+                                type='button'
+                                onClick={onNext}
                                 className='bg-emerald-600 hover:bg-emerald-700 text-white px-6 py-2 rounded-lg flex items-center gap-2'
                             >
                                 Далее
                                 <ChevronRight className='h-4 w-4' />
                             </Button>
                         </div>
-                    </form>
-                </Form>
-            )}
+                    </>
+                )}
 
-            {currentStep === 3 && (
-                <Form {...bankForm}>
-                    <form onSubmit={bankForm.handleSubmit(onBankSubmit)} className='space-y-4'>
+                {currentStep === 3 && (
+                    <>
                         <FormField
-                            control={bankForm.control}
+                            control={form.control}
                             name='bank_name'
                             render={({ field }) => (
                                 <FormItem className='space-y-2'>
@@ -482,7 +514,7 @@ export function OooForm() {
                         />
 
                         <FormField
-                            control={bankForm.control}
+                            control={form.control}
                             name='bik'
                             render={({ field }) => (
                                 <FormItem className='space-y-2'>
@@ -501,7 +533,7 @@ export function OooForm() {
                         />
 
                         <FormField
-                            control={bankForm.control}
+                            control={form.control}
                             name='checking_account'
                             render={({ field }) => (
                                 <FormItem className='space-y-2'>
@@ -525,7 +557,7 @@ export function OooForm() {
                         />
 
                         <FormField
-                            control={bankForm.control}
+                            control={form.control}
                             name='correspondent_account'
                             render={({ field }) => (
                                 <FormItem className='space-y-2'>
@@ -544,7 +576,7 @@ export function OooForm() {
                         />
 
                         <FormField
-                            control={bankForm.control}
+                            control={form.control}
                             name='bank_inn'
                             render={({ field }) => (
                                 <FormItem className='space-y-2'>
@@ -563,7 +595,7 @@ export function OooForm() {
                         />
 
                         <FormField
-                            control={bankForm.control}
+                            control={form.control}
                             name='bank_kpp'
                             render={({ field }) => (
                                 <FormItem className='space-y-2'>
@@ -600,9 +632,9 @@ export function OooForm() {
                                 <Check className='h-4 w-4' />
                             </Button>
                         </div>
-                    </form>
-                </Form>
-            )}
-        </>
+                    </>
+                )}
+            </form>
+        </Form>
     )
 }
