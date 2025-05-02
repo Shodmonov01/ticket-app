@@ -9,6 +9,7 @@ import { Badge } from '@/components/ui/badge'
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip'
 import { Checkbox } from '@/components/ui/checkbox'
 import { useState } from 'react'
+import api from '@/api/api'
 
 const oooFormSchema = z.object({
     organization_name: z.string().min(3, { message: 'Название организации должно содержать не менее 3 символов' }),
@@ -29,9 +30,14 @@ const oooFormSchema = z.object({
         .regex(/^\d+$/, { message: 'ОГРН должен содержать только цифры' })
         .optional()
         .or(z.literal('')),
+    ogrnip: z
+        .string()
+        .length(15, { message: 'ОГРНИП должен содержать 15 цифр' })
+        .regex(/^\d+$/, { message: 'ОГРНИП должен содержать только цифры' })
+        .optional()
+        .or(z.literal('')),
     legal_address: z.string().optional(),
     postal_address: z.string().optional(),
-    same_address: z.boolean().optional(),
 
     // Contact info fields
     email: z.string().email({ message: 'Введите корректный email' }),
@@ -73,7 +79,6 @@ const oooFormSchema = z.object({
 
 export function OooForm() {
     const [currentStep, setCurrentStep] = useState(1)
-    const totalSteps = 3
 
     const form = useForm<z.infer<typeof oooFormSchema>>({
         resolver: zodResolver(oooFormSchema),
@@ -83,9 +88,9 @@ export function OooForm() {
             inn: '',
             kpp: '',
             ogrn: '',
+            ogrnip: '',
             legal_address: '',
             postal_address: '',
-            same_address: false,
 
             email: '',
             contact_phone: '',
@@ -113,9 +118,9 @@ export function OooForm() {
                 'inn',
                 'kpp',
                 'ogrn',
+                'ogrnip',
                 'legal_address',
-                'postal_address',
-                'same_address'
+                'postal_address'
             ]
         } else if (currentStep === 2) {
             fieldsToValidate = ['email', 'contact_phone', 'contact_person', 'ceo_full_name', 'recipient_full_name']
@@ -132,14 +137,12 @@ export function OooForm() {
         setCurrentStep(currentStep - 1)
     }
 
-    function onSubmit(values: z.infer<typeof oooFormSchema>) {
+    const onSubmit = async (values: z.infer<typeof oooFormSchema>) => {
         console.log('Form submitted with all values:', values)
-    }
-
-    const handleSameAddressChange = (checked: boolean) => {
-        if (checked) {
-            const legalAddress = form.getValues('legal_address')
-            form.setValue('postal_address', legalAddress)
+        try {
+            await api.post('/auth/api/organization/register/llc/', values)
+        } catch (error) {
+            console.log('Error:', error)
         }
     }
 
@@ -323,20 +326,17 @@ export function OooForm() {
 
                         <FormField
                             control={form.control}
-                            name='same_address'
+                            name='ogrnip'
                             render={({ field }) => (
                                 <FormItem className='flex items-center space-x-2 space-y-0'>
+                                    <FormLabel className='text-xs text-gray-300'>ОГРНИП</FormLabel>
                                     <FormControl>
-                                        <Checkbox
-                                            checked={field.value}
-                                            onCheckedChange={checked => {
-                                                field.onChange(checked)
-                                                handleSameAddressChange(checked as boolean)
-                                            }}
-                                            className='data-[state=checked]:bg-emerald-500 data-[state=checked]:border-emerald-500'
+                                        <Input
+                                            placeholder='ОГРНИП'
+                                            className='bg-gray-700 border-gray-600 focus:border-emerald-500 focus:ring-emerald-500 h-12 rounded-lg'
+                                            {...field}
                                         />
                                     </FormControl>
-                                    <FormLabel className='text-xs text-gray-300'>Совпадает с юридическим</FormLabel>
                                 </FormItem>
                             )}
                         />

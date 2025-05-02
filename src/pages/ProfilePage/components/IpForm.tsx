@@ -8,6 +8,7 @@ import { Input } from '@/components/ui/input'
 import { Badge } from '@/components/ui/badge'
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip'
 import { useState } from 'react'
+import api from '@/api/api'
 
 const ipFormSchema = z.object({
     full_name: z.string().min(5, { message: 'ФИО должно содержать не менее 5 символов' }),
@@ -79,8 +80,13 @@ export function IpForm() {
         setCurrentStep(currentStep - 1)
     }
 
-    function onSubmit(values: z.infer<typeof ipFormSchema>) {
+    const onSubmit = async (values: z.infer<typeof ipFormSchema>) => {
         console.log('Form submitted with all values:', values)
+        try {
+            await api.post('/auth/api/organization/register/ip/', values)
+        } catch (error) {
+            console.log('Error:', error)
+        }
     }
 
     return (

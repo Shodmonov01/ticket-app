@@ -57,7 +57,6 @@ export default function IntroPage() {
                             })
                         )
                     }
-                    alert('Авторизация прошла успешно!')
                     setFirstTimeUser(false)
                     navigate('/')
                 } else {
