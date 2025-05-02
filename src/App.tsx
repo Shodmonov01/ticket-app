@@ -8,6 +8,10 @@ import FavoritesPage from './pages/FavoritesPage'
 import TicketsPage from './pages/TicketsPage/TicketsPage'
 import ProfilePage from './pages/ProfilePage/ProfilePage'
 import EventCreationForm from './pages/ProfilePage/components/EventCreationForm'
+import OrganizationRolePage from './pages/ProfilePage/OrganizationRolePage'
+import { OooForm } from './pages/ProfilePage/components/oooForm'
+import { IpForm } from './pages/ProfilePage/components/IpForm'
+import { SelfEmployedForm } from './pages/ProfilePage/components/SelfEmployedForm'
 
 function App() {
     const { isFirstTimeUser } = useUser()
@@ -17,6 +21,8 @@ function App() {
     useEffect(() => {
         if (isFirstTimeUser && location.pathname !== '/intro') {
             navigate('/intro')
+        } else {
+            navigate('/')
         }
     }, [isFirstTimeUser, navigate, location.pathname])
 
@@ -29,6 +35,10 @@ function App() {
             <Route path='/tickets' element={<TicketsPage />} />
             <Route path='/profile' element={<ProfilePage />} />
             <Route path='/profile/create-event' element={<EventCreationForm />} />
+            <Route path='/profile/organization-role' element={<OrganizationRolePage />} />
+            <Route path='/ooo-form' element={<OooForm />} />
+            <Route path='/ip-form' element={<IpForm />} />
+            <Route path='/self-employed-form' element={<SelfEmployedForm />} />
         </Routes>
     )
 }

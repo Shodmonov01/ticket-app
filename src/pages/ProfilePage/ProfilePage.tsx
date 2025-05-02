@@ -7,8 +7,11 @@ import ProfileMenu from './components/ProfileMenu'
 import { BottomNav } from '../../components/layout/bottom-nav'
 import { Button } from '../../components/ui/button'
 import SheetProfile from './components/Sheet'
+import { useNavigate } from 'react-router-dom'
 
 export default function ProfilePage() {
+    const navigate = useNavigate()
+
     const tg = window?.Telegram?.WebApp as unknown as any
     const [referralCode, setReferralCode] = useState<string | null>(null)
     const [isLoading, setIsLoading] = useState(false)
@@ -17,43 +20,44 @@ export default function ProfilePage() {
     const [open, setOpen] = useState(false)
 
     const loginOrganizator = async () => {
-        const tg = window.Telegram?.WebApp as unknown as any
+        // const tg = window.Telegram?.WebApp as unknown as any
 
-        tg.ready()
-        tg.expand()
+        // tg.ready()
+        // tg.expand()
 
-        try {
-            const initData = window?.Telegram?.WebApp.initData
+        // try {
+        //     const initData = window?.Telegram?.WebApp.initData
 
-            const payload = {
-                initData: initData
-            }
-            const token = localStorage.getItem('token')
+        //     const payload = {
+        //         initData: initData
+        //     }
+        //     const token = localStorage.getItem('token')
 
-            const response = await api.post('/auth/api/assign/organization/role/')
-            const data = response.data
+        //     const response = await api.post('/auth/api/assign/organization/role/')
+        //     const data = response.data
 
-            if (data.access_token) {
-                localStorage.setItem('access_token', data.access_token)
+        //     if (data.access_token) {
+        //         localStorage.setItem('access_token', data.access_token)
 
-                const userData = tg.initDataUnsafe?.user
-                setUser(userData || null)
-                setReferralUsed(data.referral_code_used || 'None')
-                if (typeof tg.sendData === 'function') {
-                    tg.sendData(
-                        JSON.stringify({
-                            auth: 'success',
-                            referral_code: referralCode
-                        })
-                    )
-                }
-                alert('Авторизация прошла успешно!')
-            } else {
-                throw new Error('No access token received')
-            }
-        } catch (error) {
-            console.log(error)
-        }
+        //         const userData = tg.initDataUnsafe?.user
+        //         setUser(userData || null)
+        //         setReferralUsed(data.referral_code_used || 'None')
+        //         if (typeof tg.sendData === 'function') {
+        //             tg.sendData(
+        //                 JSON.stringify({
+        //                     auth: 'success',
+        //                     referral_code: referralCode
+        //                 })
+        //             )
+        //         }
+        //         alert('Авторизация прошла успешно!')
+        //     } else {
+        //         throw new Error('No access token received')
+        //     }
+        // } catch (error) {
+        //     console.log(error)
+        // }
+        navigate('/profile/organization-role')
     }
 
     return (

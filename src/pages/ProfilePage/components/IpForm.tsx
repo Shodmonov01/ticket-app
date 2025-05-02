@@ -1,0 +1,353 @@
+import { zodResolver } from '@hookform/resolvers/zod'
+import { useForm } from 'react-hook-form'
+import { z } from 'zod'
+import { ArrowLeft, ChevronRight, Check, Info } from 'lucide-react'
+import { Button } from '@/components/ui/button'
+import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
+import { Input } from '@/components/ui/input'
+import { Badge } from '@/components/ui/badge'
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip'
+import { useState } from 'react'
+
+const ipMainSchema = z.object({
+    full_name: z.string().min(5, { message: 'ФИО должно содержать не менее 5 символов' }),
+    inn: z
+        .string()
+        .length(10, { message: 'ИНН должен содержать 10 цифр' })
+        .regex(/^\d+$/, { message: 'ИНН должен содержать только цифры' }),
+    ogrnip: z
+        .string()
+        .length(15, { message: 'ОГРНИП должен содержать 15 цифр' })
+        .regex(/^\d+$/, { message: 'ОГРНИП должен содержать только цифры' })
+        .optional()
+        .or(z.literal('')),
+    legal_address: z.string().optional()
+})
+
+const ipBankSchema = z.object({
+    bank_name: z.string().optional(),
+    bik: z
+        .string()
+        .length(9, { message: 'БИК должен содержать 9 цифр' })
+        .regex(/^\d+$/, { message: 'БИК должен содержать только цифры' })
+        .optional()
+        .or(z.literal('')),
+    checking_account: z
+        .string()
+        .length(20, { message: 'Расчетный счет должен содержать 20 цифр' })
+        .regex(/^\d+$/, { message: 'Расчетный счет должен содержать только цифры' }),
+    correspondent_account: z
+        .string()
+        .length(20, { message: 'Корреспондентский счет должен содержать 20 цифр' })
+        .regex(/^\d+$/, { message: 'Корреспондентский счет должен содержать только цифры' })
+        .optional()
+        .or(z.literal(''))
+})
+
+export function IpForm() {
+    const [currentStep, setCurrentStep] = useState(1)
+
+    const onNext = () => {
+        setCurrentStep(currentStep + 1)
+    }
+
+    const onBack = () => {
+        setCurrentStep(currentStep - 1)
+    }
+
+    const mainForm = useForm<z.infer<typeof ipMainSchema>>({
+        resolver: zodResolver(ipMainSchema),
+        defaultValues: {
+            full_name: '',
+            inn: '',
+            ogrnip: '',
+            legal_address: ''
+        }
+    })
+
+    const bankForm = useForm<z.infer<typeof ipBankSchema>>({
+        resolver: zodResolver(ipBankSchema),
+        defaultValues: {
+            bank_name: '',
+            bik: '',
+            checking_account: '',
+            correspondent_account: ''
+        }
+    })
+
+    function onMainSubmit(values: z.infer<typeof ipMainSchema>) {
+        console.log(values)
+        onNext()
+    }
+
+    function onBankSubmit(values: z.infer<typeof ipBankSchema>) {
+        console.log(values)
+        // Submit final form
+        console.log('Form submitted!')
+    }
+
+    return (
+        <>
+            {currentStep === 1 && (
+                <Form {...mainForm}>
+                    <form onSubmit={mainForm.handleSubmit(onMainSubmit)} className='space-y-4'>
+                        <FormField
+                            control={mainForm.control}
+                            name='full_name'
+                            render={({ field }) => (
+                                <FormItem className='space-y-2'>
+                                    <FormLabel className='flex items-center gap-1'>
+                                        ФИО ИП
+                                        <Badge variant='outline' className='ml-2 text-xs font-normal'>
+                                            Обязательно
+                                        </Badge>
+                                    </FormLabel>
+                                    <FormControl>
+                                        <Input
+                                            placeholder='Иванов Иван Иванович'
+                                            className='bg-gray-700 border-gray-600 focus:border-blue-500 focus:ring-blue-500 h-12 rounded-lg'
+                                            {...field}
+                                        />
+                                    </FormControl>
+                                    <FormDescription className='text-xs text-gray-400'>
+                                        Укажите полное имя, как в паспорте
+                                    </FormDescription>
+                                    <FormMessage className='text-red-400 text-xs' />
+                                </FormItem>
+                            )}
+                        />
+
+                        <FormField
+                            control={mainForm.control}
+                            name='inn'
+                            render={({ field }) => (
+                                <FormItem className='space-y-2'>
+                                    <FormLabel className='flex items-center gap-1'>
+                                        ИНН
+                                        <TooltipProvider>
+                                            <Tooltip>
+                                                <TooltipTrigger asChild>
+                                                    <Button
+                                                        variant='ghost'
+                                                        size='icon'
+                                                        className='h-5 w-5 rounded-full p-0 ml-1'
+                                                    >
+                                                        <Info className='h-3.5 w-3.5' />
+                                                    </Button>
+                                                </TooltipTrigger>
+                                                <TooltipContent>
+                                                    <p className='max-w-xs'>ИНН должен содержать 10 цифр для ИП</p>
+                                                </TooltipContent>
+                                            </Tooltip>
+                                        </TooltipProvider>
+                                        <Badge variant='outline' className='ml-2 text-xs font-normal'>
+                                            Обязательно
+                                        </Badge>
+                                    </FormLabel>
+                                    <FormControl>
+                                        <Input
+                                            placeholder='1234567890'
+                                            maxLength={10}
+                                            className='bg-gray-700 border-gray-600 focus:border-blue-500 focus:ring-blue-500 h-12 rounded-lg'
+                                            {...field}
+                                        />
+                                    </FormControl>
+                                    <FormMessage className='text-red-400 text-xs' />
+                                </FormItem>
+                            )}
+                        />
+
+                        <FormField
+                            control={mainForm.control}
+                            name='ogrnip'
+                            render={({ field }) => (
+                                <FormItem className='space-y-2'>
+                                    <FormLabel className='flex items-center gap-1'>
+                                        ОГРНИП
+                                        <TooltipProvider>
+                                            <Tooltip>
+                                                <TooltipTrigger asChild>
+                                                    <Button
+                                                        variant='ghost'
+                                                        size='icon'
+                                                        className='h-5 w-5 rounded-full p-0 ml-1'
+                                                    >
+                                                        <Info className='h-3.5 w-3.5' />
+                                                    </Button>
+                                                </TooltipTrigger>
+                                                <TooltipContent>
+                                                    <p className='max-w-xs'>ОГРНИП должен содержать 15 цифр</p>
+                                                </TooltipContent>
+                                            </Tooltip>
+                                        </TooltipProvider>
+                                    </FormLabel>
+                                    <FormControl>
+                                        <Input
+                                            placeholder='123456789012345'
+                                            maxLength={15}
+                                            className='bg-gray-700 border-gray-600 focus:border-blue-500 focus:ring-blue-500 h-12 rounded-lg'
+                                            {...field}
+                                        />
+                                    </FormControl>
+                                    <FormMessage className='text-red-400 text-xs' />
+                                </FormItem>
+                            )}
+                        />
+
+                        <FormField
+                            control={mainForm.control}
+                            name='legal_address'
+                            render={({ field }) => (
+                                <FormItem className='space-y-2'>
+                                    <FormLabel>Юридический адрес</FormLabel>
+                                    <FormControl>
+                                        <Input
+                                            placeholder='г. Москва, ул. Примерная, д. 1'
+                                            className='bg-gray-700 border-gray-600 focus:border-blue-500 focus:ring-blue-500 h-12 rounded-lg'
+                                            {...field}
+                                        />
+                                    </FormControl>
+                                    <FormMessage className='text-red-400 text-xs' />
+                                </FormItem>
+                            )}
+                        />
+
+                        <div className='flex justify-end mt-6'>
+                            <Button
+                                type='submit'
+                                className='bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg flex items-center gap-2'
+                            >
+                                Далее
+                                <ChevronRight className='h-4 w-4' />
+                            </Button>
+                        </div>
+                    </form>
+                </Form>
+            )}
+
+            {currentStep === 2 && (
+                <Form {...bankForm}>
+                    <form onSubmit={bankForm.handleSubmit(onBankSubmit)} className='space-y-4'>
+                        <FormField
+                            control={bankForm.control}
+                            name='bank_name'
+                            render={({ field }) => (
+                                <FormItem className='space-y-2'>
+                                    <FormLabel>Название банка</FormLabel>
+                                    <FormControl>
+                                        <Input
+                                            placeholder='Сбербанк'
+                                            className='bg-gray-700 border-gray-600 focus:border-blue-500 focus:ring-blue-500 h-12 rounded-lg'
+                                            {...field}
+                                        />
+                                    </FormControl>
+                                    <FormMessage className='text-red-400 text-xs' />
+                                </FormItem>
+                            )}
+                        />
+
+                        <FormField
+                            control={bankForm.control}
+                            name='bik'
+                            render={({ field }) => (
+                                <FormItem className='space-y-2'>
+                                    <FormLabel className='flex items-center gap-1'>
+                                        БИК банка
+                                        <TooltipProvider>
+                                            <Tooltip>
+                                                <TooltipTrigger asChild>
+                                                    <Button
+                                                        variant='ghost'
+                                                        size='icon'
+                                                        className='h-5 w-5 rounded-full p-0 ml-1'
+                                                    >
+                                                        <Info className='h-3.5 w-3.5' />
+                                                    </Button>
+                                                </TooltipTrigger>
+                                                <TooltipContent>
+                                                    <p className='max-w-xs'>БИК должен содержать 9 цифр</p>
+                                                </TooltipContent>
+                                            </Tooltip>
+                                        </TooltipProvider>
+                                    </FormLabel>
+                                    <FormControl>
+                                        <Input
+                                            placeholder='123456789'
+                                            maxLength={9}
+                                            className='bg-gray-700 border-gray-600 focus:border-blue-500 focus:ring-blue-500 h-12 rounded-lg'
+                                            {...field}
+                                        />
+                                    </FormControl>
+                                    <FormMessage className='text-red-400 text-xs' />
+                                </FormItem>
+                            )}
+                        />
+
+                        <FormField
+                            control={bankForm.control}
+                            name='checking_account'
+                            render={({ field }) => (
+                                <FormItem className='space-y-2'>
+                                    <FormLabel className='flex items-center gap-1'>
+                                        Расчетный счет
+                                        <Badge variant='outline' className='ml-2 text-xs font-normal'>
+                                            Обязательно
+                                        </Badge>
+                                    </FormLabel>
+                                    <FormControl>
+                                        <Input
+                                            placeholder='12345678901234567890'
+                                            maxLength={20}
+                                            className='bg-gray-700 border-gray-600 focus:border-blue-500 focus:ring-blue-500 h-12 rounded-lg'
+                                            {...field}
+                                        />
+                                    </FormControl>
+                                    <FormMessage className='text-red-400 text-xs' />
+                                </FormItem>
+                            )}
+                        />
+
+                        <FormField
+                            control={bankForm.control}
+                            name='correspondent_account'
+                            render={({ field }) => (
+                                <FormItem className='space-y-2'>
+                                    <FormLabel>Корреспондентский счет</FormLabel>
+                                    <FormControl>
+                                        <Input
+                                            placeholder='12345678901234567890'
+                                            maxLength={20}
+                                            className='bg-gray-700 border-gray-600 focus:border-blue-500 focus:ring-blue-500 h-12 rounded-lg'
+                                            {...field}
+                                        />
+                                    </FormControl>
+                                    <FormMessage className='text-red-400 text-xs' />
+                                </FormItem>
+                            )}
+                        />
+
+                        <div className='flex justify-between mt-6'>
+                            <Button
+                                type='button'
+                                onClick={onBack}
+                                variant='outline'
+                                className='border-gray-600 text-gray-300 hover:bg-gray-700 px-6 py-2 rounded-lg flex items-center gap-2'
+                            >
+                                <ArrowLeft className='h-4 w-4' />
+                                Назад
+                            </Button>
+
+                            <Button
+                                type='submit'
+                                className='bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg flex items-center gap-2'
+                            >
+                                Создать
+                                <Check className='h-4 w-4' />
+                            </Button>
+                        </div>
+                    </form>
+                </Form>
+            )}
+        </>
+    )
+}
