@@ -150,8 +150,7 @@ const EventCreationForm = () => {
             })
 
             console.log(res.data)
-            alert('Мероприятие успешно создано!')
-            navigate('/tickets')
+            navigate('/')
             queryClient.invalidateQueries(['events'])
         } catch (error) {
             console.error('Error submitting form:', error)
