@@ -17,6 +17,7 @@ import EventCreateStepFour from './EventCreateStepFour'
 import { BottomNav } from '@/components/layout/bottom-nav'
 import { Header } from '@/components/layout/header'
 import { useNavigate } from 'react-router-dom'
+import { QueryClient, useQueryClient } from '@tanstack/react-query'
 
 const formSchema = z.object({
     name: z.string().min(2, { message: 'Название должно содержать минимум 2 символа' }),
@@ -48,6 +49,7 @@ interface ImageFile {
 
 const EventCreationForm = () => {
     const navigate = useNavigate()
+    const queryClient = useQueryClient()
 
     const [step, setStep] = useState(1)
     const [imageFiles, setImageFiles] = useState<ImageFile[]>([])
@@ -150,6 +152,7 @@ const EventCreationForm = () => {
             console.log(res.data)
             alert('Мероприятие успешно создано!')
             navigate('/tickets')
+            queryClient.invalidateQueries(['events'])
         } catch (error) {
             console.error('Error submitting form:', error)
             alert('Произошла ошибка')
