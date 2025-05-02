@@ -12,38 +12,38 @@ import api from '@/api/api'
 
 const selfEmployedFormSchema = z.object({
     recipient_full_name: z.string().min(5, { message: 'ФИО должно содержать не менее 5 символов' }),
-    inn: z
-        .string()
-        .length(12, { message: 'ИНН должен содержать 12 цифр' })
-        .regex(/^\d+$/, { message: 'ИНН должен содержать только цифры' }),
-    phone: z.string().min(10, { message: 'Введите корректный номер телефона' }),
 
     checking_account: z
         .string()
-        .length(20, { message: 'Расчетный счет должен содержать 20 цифр' })
+        .max(20, { message: 'Расчетный счет не должен превышать 20 цифр' })
         .regex(/^\d+$/, { message: 'Расчетный счет должен содержать только цифры' }),
+
     bank_name: z.string().optional(),
+
     bank_inn: z
         .string()
-        .length(10, { message: 'ИНН банка должен содержать 10 цифр' })
+        .max(10, { message: 'ИНН банка не должен превышать 10 цифр' })
         .regex(/^\d+$/, { message: 'ИНН банка должен содержать только цифры' })
         .optional()
         .or(z.literal('')),
+
     bank_kpp: z
         .string()
-        .length(9, { message: 'КПП банка должен содержать 9 цифр' })
+        .max(9, { message: 'КПП банка не должен превышать 9 цифр' })
         .regex(/^\d+$/, { message: 'КПП банка должен содержать только цифры' })
         .optional()
         .or(z.literal('')),
+
     bik: z
         .string()
-        .length(9, { message: 'БИК должен содержать 9 цифр' })
+        .max(9, { message: 'БИК не должен превышать 9 цифр' })
         .regex(/^\d+$/, { message: 'БИК должен содержать только цифры' })
         .optional()
         .or(z.literal('')),
+
     correspondent_account: z
         .string()
-        .length(20, { message: 'Корреспондентский счет должен содержать 20 цифр' })
+        .max(20, { message: 'Корреспондентский счет не должен превышать 20 цифр' })
         .regex(/^\d+$/, { message: 'Корреспондентский счет должен содержать только цифры' })
         .optional()
         .or(z.literal(''))
@@ -57,8 +57,6 @@ export function SelfEmployedForm() {
         resolver: zodResolver(selfEmployedFormSchema),
         defaultValues: {
             recipient_full_name: '',
-            inn: '',
-            phone: '',
 
             checking_account: '',
             bank_name: '',
@@ -73,8 +71,8 @@ export function SelfEmployedForm() {
     const onNext = async () => {
         const fieldsToValidate =
             currentStep === 1
-                ? ['recipient_full_name', 'inn', 'phone']
-                : ['checking_account', 'bank_name', 'bank_inn', 'bank_kpp', 'bik', 'correspondent_account']
+                ? ['recipient_full_name', 'checking_account', 'bank_name']
+                : ['bank_inn', 'bank_kpp', 'bik', 'correspondent_account']
 
         const result = await form.trigger(fieldsToValidate as any)
 
@@ -125,79 +123,6 @@ export function SelfEmployedForm() {
 
                         <FormField
                             control={form.control}
-                            name='inn'
-                            render={({ field }) => (
-                                <FormItem className='space-y-2'>
-                                    <FormLabel className='flex items-center gap-1'>
-                                        ИНН
-                                        <TooltipProvider>
-                                            <Tooltip>
-                                                <TooltipTrigger asChild>
-                                                    <Button
-                                                        variant='ghost'
-                                                        size='icon'
-                                                        className='h-5 w-5 rounded-full p-0 ml-1'
-                                                    >
-                                                        <Info className='h-3.5 w-3.5' />
-                                                    </Button>
-                                                </TooltipTrigger>
-                                                <TooltipContent>
-                                                    <p className='max-w-xs'>
-                                                        ИНН должен содержать 12 цифр для физического лица
-                                                    </p>
-                                                </TooltipContent>
-                                            </Tooltip>
-                                        </TooltipProvider>
-                                    </FormLabel>
-                                    <FormControl>
-                                        <Input
-                                            placeholder='123456789012'
-                                            maxLength={12}
-                                            className='bg-gray-700 border-gray-600 focus:border-amber-500 focus:ring-amber-500 h-12 rounded-lg'
-                                            {...field}
-                                        />
-                                    </FormControl>
-                                    <FormMessage className='text-red-400 text-xs' />
-                                </FormItem>
-                            )}
-                        />
-
-                        <FormField
-                            control={form.control}
-                            name='phone'
-                            render={({ field }) => (
-                                <FormItem className='space-y-2'>
-                                    <FormLabel className='flex items-center gap-1'>Номер телефона</FormLabel>
-                                    <FormControl>
-                                        <Input
-                                            placeholder='+7 (999) 123-45-67'
-                                            className='bg-gray-700 border-gray-600 focus:border-amber-500 focus:ring-amber-500 h-12 rounded-lg'
-                                            {...field}
-                                        />
-                                    </FormControl>
-
-                                    <FormMessage className='text-red-400 text-xs' />
-                                </FormItem>
-                            )}
-                        />
-
-                        <div className='flex justify-end mt-6'>
-                            <Button
-                                type='button'
-                                onClick={onNext}
-                                className='bg-amber-600 hover:bg-amber-700 text-white px-6 py-2 rounded-lg flex items-center gap-2'
-                            >
-                                Далее
-                                <ChevronRight className='h-4 w-4' />
-                            </Button>
-                        </div>
-                    </>
-                )}
-
-                {currentStep === 2 && (
-                    <>
-                        <FormField
-                            control={form.control}
                             name='checking_account'
                             render={({ field }) => (
                                 <FormItem className='space-y-2'>
@@ -233,6 +158,21 @@ export function SelfEmployedForm() {
                             )}
                         />
 
+                        <div className='flex justify-end mt-6'>
+                            <Button
+                                type='button'
+                                onClick={onNext}
+                                className=' text-white px-6 py-2 rounded-lg flex items-center gap-2'
+                            >
+                                Далее
+                                <ChevronRight className='h-4 w-4' />
+                            </Button>
+                        </div>
+                    </>
+                )}
+
+                {currentStep === 2 && (
+                    <>
                         <FormField
                             control={form.control}
                             name='bank_inn'

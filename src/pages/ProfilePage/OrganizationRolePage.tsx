@@ -1,48 +1,117 @@
 import { useNavigate } from 'react-router-dom'
-
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card'
-import { User } from 'lucide-react'
+import { Search, MoreVertical, MapPin, User, Briefcase, UserCheck } from 'lucide-react'
+import { Card, CardContent } from '@/components/ui/card'
 import { BottomNav } from '@/components/layout/bottom-nav'
+// import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs"
 
 const OrganizationRolePage = () => {
     const navigate = useNavigate()
 
     return (
-        <div>
-            <Card className='bg-gray-800 border-gray-700 mb-4 overflow-hidden my-10'>
-                <CardHeader className='bg-gradient-to-r from-blue-900 to-indigo-900 pb-8'>
-                    <CardTitle className='text-xl text-white'>Выберите тип организации</CardTitle>
-                    <CardDescription className='text-blue-100'>
-                        Выберите подходящий тип для регистрации вашей организации
-                    </CardDescription>
-                </CardHeader>
-                <CardContent className='space-y-4 pt-6 -mt-4'>
-                    <div className='flex items-center gap-3' onClick={() => navigate('/ip-form')}>
-                        <div>
-                            <User className='h-6 w-6 text-cyan-400' />
+        <div className='flex flex-col min-h-screen bg-gray-950 text-white'>
+            <header className='flex items-center justify-between p-4'>
+                <h1 className='text-xl font-bold'>Выберите тип</h1>
+                <div className='flex items-center gap-4'>
+                    <Search className='h-6 w-6' />
+                    <MoreVertical className='h-6 w-6' />
+                </div>
+            </header>
+
+            {/* <div className="px-4 mb-4">
+        <Tabs defaultValue="organization" className="w-full">
+          <TabsList className="grid w-full grid-cols-2 bg-gray-800 rounded-lg">
+            <TabsTrigger value="organization" className="data-[state=active]:bg-gray-700 rounded-md py-3">
+              Организация
+            </TabsTrigger>
+            <TabsTrigger value="individual" className="data-[state=active]:bg-gray-700 rounded-md py-3">
+              Физ. лицо
+            </TabsTrigger>
+          </TabsList>
+        </Tabs>
+      </div> */}
+
+            <div className='flex-1 px-4 space-y-4 mb-20'>
+                <Card className='bg-gray-900 border-none overflow-hidden' onClick={() => navigate('/ip-form')}>
+                    <CardContent className='p-0'>
+                        <div className='flex items-start p-4'>
+                            <div className='h-16 w-16 rounded-lg bg-blue-900 flex items-center justify-center mr-3'>
+                                <User className='h-8 w-8 text-cyan-400' />
+                            </div>
+                            <div className='flex-1'>
+                                <div className='flex justify-between items-start'>
+                                    <div>
+                                        <h3 className='font-bold text-xl'>ИП</h3>
+                                        <div className='flex items-center text-gray-400 text-sm mt-1'>
+                                            <MapPin className='h-4 w-4 mr-1' />
+                                            <span>Индивидуальный предприниматель</span>
+                                        </div>
+                                    </div>
+                                    <span className='bg-green-900 text-green-400 text-xs px-2 py-1 rounded'>
+                                        Популярно
+                                    </span>
+                                </div>
+                                <div className='mt-3 flex justify-between items-center'>
+                                    <div className='text-gray-400 text-sm'>Подходит для малого бизнеса</div>
+                                    <MoreVertical className='h-5 w-5 text-gray-400' />
+                                </div>
+                            </div>
                         </div>
-                        <div>
-                            <p className='font-bold text-xl text-white'>ИП</p>
+                    </CardContent>
+                </Card>
+
+                <Card className='bg-gray-900 border-none overflow-hidden' onClick={() => navigate('/ooo-form')}>
+                    <CardContent className='p-0'>
+                        <div className='flex items-start p-4'>
+                            <div className='h-16 w-16 rounded-lg bg-blue-900 flex items-center justify-center mr-3'>
+                                <Briefcase className='h-8 w-8 text-cyan-400' />
+                            </div>
+                            <div className='flex-1'>
+                                <div className='flex justify-between items-start'>
+                                    <div>
+                                        <h3 className='font-bold text-xl'>ООО</h3>
+                                        <div className='flex items-center text-gray-400 text-sm mt-1'>
+                                            <MapPin className='h-4 w-4 mr-1' />
+                                            <span>Общество с ограниченной ответственностью</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className='mt-3 flex justify-between items-center'>
+                                    <div className='text-gray-400 text-sm'>Для среднего и крупного бизнеса</div>
+                                    <MoreVertical className='h-5 w-5 text-gray-400' />
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                    <div className='flex items-center gap-3' onClick={() => navigate('/ooo-form')}>
-                        <div>
-                            <User className='h-6 w-6 text-cyan-400' />
+                    </CardContent>
+                </Card>
+
+                <Card
+                    className='bg-gray-900 border-none overflow-hidden'
+                    onClick={() => navigate('/self-employed-form')}
+                >
+                    <CardContent className='p-0'>
+                        <div className='flex items-start p-4'>
+                            <div className='h-16 w-16 rounded-lg bg-blue-900 flex items-center justify-center mr-3'>
+                                <UserCheck className='h-8 w-8 text-cyan-400' />
+                            </div>
+                            <div className='flex-1'>
+                                <div className='flex justify-between items-start'>
+                                    <div>
+                                        <h3 className='font-bold text-xl'>Самозанятый</h3>
+                                        <div className='flex items-center text-gray-400 text-sm mt-1'>
+                                            <MapPin className='h-4 w-4 mr-1' />
+                                            <span>Плательщик налога на профессиональный доход</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className='mt-3 flex justify-between items-center'>
+                                    <div className='text-gray-400 text-sm'>Для фрилансеров и частных специалистов</div>
+                                    <MoreVertical className='h-5 w-5 text-gray-400' />
+                                </div>
+                            </div>
                         </div>
-                        <div>
-                            <p className='font-bold text-xl text-white'>ООО</p>
-                        </div>
-                    </div>
-                    <div className='flex items-center gap-3' onClick={() => navigate('/self-employed-form')}>
-                        <div>
-                            <User className='h-6 w-6 text-cyan-400' />
-                        </div>
-                        <div>
-                            <p className='font-bold text-xl text-white'>Самозанятый</p>
-                        </div>
-                    </div>
-                </CardContent>
-            </Card>
+                    </CardContent>
+                </Card>
+            </div>
 
             <BottomNav />
         </div>

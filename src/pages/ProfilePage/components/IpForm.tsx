@@ -14,11 +14,11 @@ const ipFormSchema = z.object({
     full_name: z.string().min(5, { message: 'ФИО должно содержать не менее 5 символов' }),
     inn: z
         .string()
-        .length(10, { message: 'ИНН должен содержать 10 цифр' })
+        .max(10, { message: 'ИНН должен содержать 10 цифр' })
         .regex(/^\d+$/, { message: 'ИНН должен содержать только цифры' }),
     ogrnip: z
         .string()
-        .length(15, { message: 'ОГРНИП должен содержать 15 цифр' })
+        .max(15, { message: 'ОГРНИП должен содержать 15 цифр' })
         .regex(/^\d+$/, { message: 'ОГРНИП должен содержать только цифры' })
         .optional()
         .or(z.literal('')),
@@ -27,17 +27,17 @@ const ipFormSchema = z.object({
     bank_name: z.string().optional(),
     bik: z
         .string()
-        .length(9, { message: 'БИК должен содержать 9 цифр' })
+        .max(9, { message: 'БИК должен содержать 9 цифр' })
         .regex(/^\d+$/, { message: 'БИК должен содержать только цифры' })
         .optional()
         .or(z.literal('')),
     checking_account: z
         .string()
-        .length(20, { message: 'Расчетный счет должен содержать 20 цифр' })
+        .max(20, { message: 'Расчетный счет должен содержать 20 цифр' })
         .regex(/^\d+$/, { message: 'Расчетный счет должен содержать только цифры' }),
     correspondent_account: z
         .string()
-        .length(20, { message: 'Корреспондентский счет должен содержать 20 цифр' })
+        .max(20, { message: 'Корреспондентский счет должен содержать 20 цифр' })
         .regex(/^\d+$/, { message: 'Корреспондентский счет должен содержать только цифры' })
         .optional()
         .or(z.literal(''))
@@ -157,25 +157,7 @@ export function IpForm() {
                             name='ogrnip'
                             render={({ field }) => (
                                 <FormItem className='space-y-2'>
-                                    <FormLabel className='flex items-center gap-1'>
-                                        ОГРНИП
-                                        <TooltipProvider>
-                                            <Tooltip>
-                                                <TooltipTrigger asChild>
-                                                    <Button
-                                                        variant='ghost'
-                                                        size='icon'
-                                                        className='h-5 w-5 rounded-full p-0 ml-1'
-                                                    >
-                                                        <Info className='h-3.5 w-3.5' />
-                                                    </Button>
-                                                </TooltipTrigger>
-                                                <TooltipContent>
-                                                    <p className='max-w-xs'>ОГРНИП должен содержать 15 цифр</p>
-                                                </TooltipContent>
-                                            </Tooltip>
-                                        </TooltipProvider>
-                                    </FormLabel>
+                                    <FormLabel className='flex items-center gap-1'>ОГРНИП</FormLabel>
                                     <FormControl>
                                         <Input
                                             placeholder='123456789012345'
