@@ -175,13 +175,22 @@ export function SelfEmployedForm() {
                                             {...field}
                                         />
                                     </FormControl>
-                                    {/* <FormDescription className='text-xs text-gray-400'>
-                                        Телефон, привязанный к приложению "Мой налог"
-                                    </FormDescription> */}
+
                                     <FormMessage className='text-red-400 text-xs' />
                                 </FormItem>
                             )}
                         />
+
+                        <div className='flex justify-end mt-6'>
+                            <Button
+                                type='button'
+                                onClick={onNext}
+                                className='bg-amber-600 hover:bg-amber-700 text-white px-6 py-2 rounded-lg flex items-center gap-2'
+                            >
+                                Далее
+                                <ChevronRight className='h-4 w-4' />
+                            </Button>
+                        </div>
                     </>
                 )}
 
