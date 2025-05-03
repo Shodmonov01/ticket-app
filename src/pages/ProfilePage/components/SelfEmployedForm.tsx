@@ -96,9 +96,9 @@ export function SelfEmployedForm() {
             let endpoint = ''
 
             if (role === 'distributor') {
-                endpoint = '/auth/api/distributor/assign/ip/'
+                endpoint = '/auth/api/distributor/assign/self-employed/'
             } else {
-                endpoint = '/auth/api/organization/register/ip/'
+                endpoint = '/auth/api/organization/register/self-employed/'
             }
 
             await api.post(endpoint, values)
