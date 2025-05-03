@@ -30,45 +30,9 @@ export default function ProfilePage() {
     )
 
     const loginOrganizator = async () => {
-        // const tg = window.Telegram?.WebApp as unknown as any
+        const isOrganizer = user?.groups?.some(group => group.name === 'organization')
 
-        // tg.ready()
-        // tg.expand()
-
-        // try {
-        //     const initData = window?.Telegram?.WebApp.initData
-
-        //     const payload = {
-        //         initData: initData
-        //     }
-        //     const token = localStorage.getItem('token')
-
-        //     const response = await api.post('/auth/api/assign/organization/role/')
-        //     const data = response.data
-
-        //     if (data.access_token) {
-        //         localStorage.setItem('access_token', data.access_token)
-
-        //         const userData = tg.initDataUnsafe?.user
-        //         setUser(userData || null)
-        //         setReferralUsed(data.referral_code_used || 'None')
-        //         if (typeof tg.sendData === 'function') {
-        //             tg.sendData(
-        //                 JSON.stringify({
-        //                     auth: 'success',
-        //                     referral_code: referralCode
-        //                 })
-        //             )
-        //         }
-        //         alert('Авторизация прошла успешно!')
-        //     } else {
-        //         throw new Error('No access token received')
-        //     }
-        // } catch (error) {
-        //     console.log(error)
-        // }
-
-        if (user?.groups.name === 'organization') {
+        if (isOrganizer) {
             navigate('/profile/organization-profile')
         } else {
             navigate('/profile/organization-role')

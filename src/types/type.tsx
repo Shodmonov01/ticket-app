@@ -47,5 +47,5 @@ export interface TypeUser {
         ceo_full_name: string | null
         telegram_channels: any
     }
-    groups: { id: number; name: string }
+    groups: { id: number; name: string }[]
 }
