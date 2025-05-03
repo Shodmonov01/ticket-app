@@ -13,6 +13,7 @@ import { OooForm } from './pages/ProfilePage/components/oooForm'
 import { IpForm } from './pages/ProfilePage/components/IpForm'
 import { SelfEmployedForm } from './pages/ProfilePage/components/SelfEmployedForm'
 import OrganizatorProfilePage from './pages/ProfilePage/OrganizatorProfilePage'
+import DistributorRolePage from './pages/ProfilePage/DistributorRolePage'
 
 function App() {
     const { isFirstTimeUser } = useUser()
@@ -35,6 +36,7 @@ function App() {
             <Route path='/profile' element={<ProfilePage />} />
             <Route path='/profile/create-event' element={<EventCreationForm />} />
             <Route path='/profile/organization-role' element={<OrganizationRolePage />} />
+            <Route path='/profile/distributor-role' element={<DistributorRolePage />} />
             <Route path='/ooo-form' element={<OooForm />} />
             <Route path='/ip-form' element={<IpForm />} />
             <Route path='/self-employed-form' element={<SelfEmployedForm />} />

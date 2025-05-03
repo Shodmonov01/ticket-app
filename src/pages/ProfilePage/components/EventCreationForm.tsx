@@ -167,7 +167,7 @@ const EventCreationForm = () => {
                     <button
                         onClick={() => {
                             if (step === 1) {
-                                navigate(-1)
+                                navigate('/profile/organization-profile')
                             } else {
                                 prevStep()
                             }

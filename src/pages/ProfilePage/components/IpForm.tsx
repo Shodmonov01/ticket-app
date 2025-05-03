@@ -9,7 +9,7 @@ import { Badge } from '@/components/ui/badge'
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip'
 import { useState } from 'react'
 import api from '@/api/api'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useSearchParams } from 'react-router-dom'
 
 const ipFormSchema = z.object({
     full_name: z.string().min(5, { message: 'ФИО должно содержать не менее 5 символов' }),
@@ -46,6 +46,11 @@ const ipFormSchema = z.object({
 
 export function IpForm() {
     const navigate = useNavigate()
+
+    const [searchParams] = useSearchParams()
+
+    const role = searchParams.get('role')
+
     const [currentStep, setCurrentStep] = useState(1)
 
     const form = useForm<z.infer<typeof ipFormSchema>>({
@@ -84,7 +89,16 @@ export function IpForm() {
     const onSubmit = async (values: z.infer<typeof ipFormSchema>) => {
         console.log('Form submitted with all values:', values)
         try {
-            await api.post('/auth/api/organization/register/ip/', values)
+            let endpoint = ''
+
+            if (role === 'distributor') {
+                endpoint = '/auth/api/distributor/assign/ip/'
+            } else {
+                endpoint = '/auth/api/organization/register/ip/'
+            }
+
+            await api.post(endpoint, values)
+
             navigate('profile')
         } catch (error) {
             console.log('Error:', error)

@@ -3,7 +3,7 @@ import { User, Briefcase, UserCheck } from 'lucide-react'
 import { Card, CardContent } from '@/components/ui/card'
 import { BottomNav } from '@/components/layout/bottom-nav'
 
-const OrganizationRolePage = () => {
+const DistributorRolePage = () => {
     const navigate = useNavigate()
 
     return (
@@ -15,7 +15,7 @@ const OrganizationRolePage = () => {
             <div className='flex-1 px-4 space-y-4 mb-20'>
                 <Card
                     className='bg-gray-900 border-none overflow-hidden'
-                    onClick={() => navigate('/ip-form?role=organization')}
+                    onClick={() => navigate('/ip-form?role=distributor')}
                 >
                     <CardContent className='p-0'>
                         <div className='flex items-start p-4'>
@@ -38,7 +38,7 @@ const OrganizationRolePage = () => {
 
                 <Card
                     className='bg-gray-900 border-none overflow-hidden'
-                    onClick={() => navigate('/ooo-form?role=organization')}
+                    onClick={() => navigate('/ooo-form?role=distributor')}
                 >
                     <CardContent className='p-0'>
                         <div className='flex items-start p-4'>
@@ -61,7 +61,7 @@ const OrganizationRolePage = () => {
 
                 <Card
                     className='bg-gray-900 border-none overflow-hidden'
-                    onClick={() => navigate('/self-employed-form?role=organization')}
+                    onClick={() => navigate('/self-employed-form?role=distributor')}
                 >
                     <CardContent className='p-0'>
                         <div className='flex items-start p-4'>
@@ -88,4 +88,4 @@ const OrganizationRolePage = () => {
     )
 }
 
-export default OrganizationRolePage
+export default DistributorRolePage
