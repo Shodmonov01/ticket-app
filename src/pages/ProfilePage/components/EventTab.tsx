@@ -32,11 +32,11 @@ const EventTab = () => {
     }
 
     return (
-        <div>
-            <Button className='w-full mt-4' onClick={() => navigate('/profile/create-event')}>
+        <div className='flex flex-col gap-4'>
+            <Button className='w-full mt-4 font-medium' onClick={() => navigate('/profile/create-event')}>
                 Создание мероприятия
             </Button>
-            <div className='flex gap-3  overflow-x-auto scrollbar-hide'>
+            <div className='grid grid-cols-2 gap-3'>
                 {events?.map((event: TypeEventItem) => (
                     <EventCard
                         id={event.id}
