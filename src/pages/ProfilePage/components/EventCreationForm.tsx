@@ -164,7 +164,13 @@ const EventCreationForm = () => {
             <div className='max-w-md mx-auto p-4 pt-20 h-full pb-20'>
                 <div className='flex items-center mb-6'>
                     <button
-                        onClick={prevStep}
+                        onClick={() => {
+                            if (step === 1) {
+                                navigate(-1)
+                            } else {
+                                prevStep()
+                            }
+                        }}
                         disabled={step === 1}
                         className='p-2 rounded-full hover:bg-[#232e3c] transition-colors'
                     >
