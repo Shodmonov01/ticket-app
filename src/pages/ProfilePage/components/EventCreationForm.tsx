@@ -17,7 +17,7 @@ import EventCreateStepFour from './EventCreateStepFour'
 import { BottomNav } from '@/components/layout/bottom-nav'
 import { Header } from '@/components/layout/header'
 import { useNavigate } from 'react-router-dom'
-import { QueryClient, useQueryClient } from '@tanstack/react-query'
+import { useQueryClient } from '@tanstack/react-query'
 
 const formSchema = z.object({
     name: z.string().min(2, { message: 'Название должно содержать минимум 2 символа' }),
@@ -161,6 +161,7 @@ const EventCreationForm = () => {
     return (
         <div>
             <Header />
+
             <div className='max-w-md mx-auto p-4 pt-20 h-full pb-20'>
                 <div className='flex items-center mb-6'>
                     <button

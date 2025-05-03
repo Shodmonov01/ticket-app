@@ -14,6 +14,8 @@ interface EventCardProps {
 
 export function EventCard({ id, title, image, price, location, date, time }: EventCardProps) {
     const [isFavorite, setIsFavorite] = useState(false)
+    console.log('date', date)
+    console.log('time', time)
 
     return (
         <div className='relative overflow-hidden rounded-xl bg-[#1c232b] min-w-[200px]'>

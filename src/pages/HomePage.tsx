@@ -96,10 +96,10 @@ export default function HomePage() {
                                 id={event.id}
                                 title={event.name}
                                 image={event.image}
-                                price={event.event_category.price}
+                                price={event.event_category[0]?.price}
                                 location={`${getCityName(event.city_id)}, ${getAreaName(event.area)}`}
-                                date={event.event_time.date}
-                                time={event.event_time.start_time}
+                                date={event.event_time[0]?.date}
+                                time={event.event_time[0]?.start_time}
                             />
                         ))}
                     </div>
