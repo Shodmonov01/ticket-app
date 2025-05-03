@@ -5,35 +5,33 @@ import { ArrowLeft, ChevronRight, Check, Info } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
-import { Badge } from '@/components/ui/badge'
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip'
-import { Checkbox } from '@/components/ui/checkbox'
 import { useState } from 'react'
 import api from '@/api/api'
 import { useNavigate, useSearchParams } from 'react-router-dom'
 
 const oooFormSchema = z.object({
-    organization_name: z.string().min(3, { message: 'Название организации должно содержать не менее 3 символов' }),
-    full_name: z.string().min(5, { message: 'ФИО должно содержать не менее 5 символов' }),
+    organization_name: z.string().min(3, { message: 'Название организации должно быть не менее 3 символов' }),
+    full_name: z.string().min(5, { message: 'ФИО должно быть не менее 5 символов' }),
     inn: z
         .string()
-        .length(10, { message: 'ИНН должен содержать 10 цифр' })
+        .max(10, { message: 'ИНН должен содержать не более 10 цифр' })
         .regex(/^\d+$/, { message: 'ИНН должен содержать только цифры' }),
     kpp: z
         .string()
-        .length(9, { message: 'КПП должен содержать 9 цифр' })
+        .max(9, { message: 'КПП должен содержать не более 9 цифр' })
         .regex(/^\d+$/, { message: 'КПП должен содержать только цифры' })
         .optional()
         .or(z.literal('')),
     ogrn: z
         .string()
-        .length(13, { message: 'ОГРН должен содержать 13 цифр' })
+        .max(13, { message: 'ОГРН должен содержать не более 13 цифр' })
         .regex(/^\d+$/, { message: 'ОГРН должен содержать только цифры' })
         .optional()
         .or(z.literal('')),
     ogrnip: z
         .string()
-        .length(15, { message: 'ОГРНИП должен содержать 15 цифр' })
+        .max(15, { message: 'ОГРНИП должен содержать не более 15 цифр' })
         .regex(/^\d+$/, { message: 'ОГРНИП должен содержать только цифры' })
         .optional()
         .or(z.literal('')),
@@ -43,35 +41,35 @@ const oooFormSchema = z.object({
     email: z.string().email({ message: 'Введите корректный email' }),
     contact_phone: z.string().optional(),
     contact_person: z.string().optional(),
-    ceo_full_name: z.string().min(5, { message: 'ФИО руководителя должно содержать не менее 5 символов' }),
+    ceo_full_name: z.string().min(5, { message: 'ФИО руководителя должно быть не менее 5 символов' }),
     recipient_full_name: z.string().optional(),
 
     bank_name: z.string().optional(),
     bik: z
         .string()
-        .length(9, { message: 'БИК должен содержать 9 цифр' })
+        .max(9, { message: 'БИК должен содержать не более 9 цифр' })
         .regex(/^\d+$/, { message: 'БИК должен содержать только цифры' })
         .optional()
         .or(z.literal('')),
     checking_account: z
         .string()
-        .length(20, { message: 'Расчетный счет должен содержать 20 цифр' })
+        .max(20, { message: 'Расчетный счет должен содержать не более 20 цифр' })
         .regex(/^\d+$/, { message: 'Расчетный счет должен содержать только цифры' }),
     correspondent_account: z
         .string()
-        .length(20, { message: 'Корреспондентский счет должен содержать 20 цифр' })
+        .max(20, { message: 'Корреспондентский счет должен содержать не более 20 цифр' })
         .regex(/^\d+$/, { message: 'Корреспондентский счет должен содержать только цифры' })
         .optional()
         .or(z.literal('')),
     bank_inn: z
         .string()
-        .length(10, { message: 'ИНН банка должен содержать 10 цифр' })
+        .max(10, { message: 'ИНН банка должен содержать не более 10 цифр' })
         .regex(/^\d+$/, { message: 'ИНН банка должен содержать только цифры' })
         .optional()
         .or(z.literal('')),
     bank_kpp: z
         .string()
-        .length(9, { message: 'КПП банка должен содержать 9 цифр' })
+        .max(9, { message: 'КПП банка должен содержать не более 9 цифр' })
         .regex(/^\d+$/, { message: 'КПП банка должен содержать только цифры' })
         .optional()
         .or(z.literal(''))
@@ -343,7 +341,7 @@ export function OooForm() {
                             control={form.control}
                             name='ogrnip'
                             render={({ field }) => (
-                                <FormItem className='flex items-center space-x-2 space-y-0'>
+                                <FormItem className='space-y-2'>
                                     <FormLabel className='text-xs text-gray-300'>ОГРНИП</FormLabel>
                                     <FormControl>
                                         <Input
