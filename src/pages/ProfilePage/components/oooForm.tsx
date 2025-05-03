@@ -10,7 +10,7 @@ import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/comp
 import { Checkbox } from '@/components/ui/checkbox'
 import { useState } from 'react'
 import api from '@/api/api'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useSearchParams } from 'react-router-dom'
 
 const oooFormSchema = z.object({
     organization_name: z.string().min(3, { message: 'Название организации должно содержать не менее 3 символов' }),
@@ -40,7 +40,6 @@ const oooFormSchema = z.object({
     legal_address: z.string().optional(),
     postal_address: z.string().optional(),
 
-    // Contact info fields
     email: z.string().email({ message: 'Введите корректный email' }),
     contact_phone: z.string().optional(),
     contact_person: z.string().optional(),
@@ -80,6 +79,10 @@ const oooFormSchema = z.object({
 
 export function OooForm() {
     const navigate = useNavigate()
+
+    const [searchParams] = useSearchParams()
+
+    const role = searchParams.get('role')
 
     const [currentStep, setCurrentStep] = useState(1)
 
@@ -143,8 +146,16 @@ export function OooForm() {
     const onSubmit = async (values: z.infer<typeof oooFormSchema>) => {
         console.log('Form submitted with all values:', values)
         try {
-            await api.post('/auth/api/organization/register/llc/', values)
-            navigate('profile')
+            let endpoint = ''
+
+            if (role === 'distributor') {
+                endpoint = '/auth/api/distributor/assign/llc/'
+            } else {
+                endpoint = '/auth/api/organization/register/llc/'
+            }
+
+            await api.post(endpoint, values)
+            navigate('/profile')
         } catch (error) {
             console.log('Error:', error)
         }

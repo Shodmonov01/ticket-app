@@ -1,15 +1,13 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
-import { ArrowLeft, ChevronRight, Check, Info, AlertCircle } from 'lucide-react'
+import { ArrowLeft, ChevronRight, Check } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
-import { Badge } from '@/components/ui/badge'
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip'
 import { useState } from 'react'
 import api from '@/api/api'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useSearchParams } from 'react-router-dom'
 
 const selfEmployedFormSchema = z.object({
     recipient_full_name: z.string().min(5, { message: 'ФИО должно содержать не менее 5 символов' }),
@@ -53,6 +51,10 @@ const selfEmployedFormSchema = z.object({
 export function SelfEmployedForm() {
     const navigate = useNavigate()
 
+    const [searchParams] = useSearchParams()
+
+    const role = searchParams.get('role')
+
     const [currentStep, setCurrentStep] = useState(1)
 
     const form = useForm<z.infer<typeof selfEmployedFormSchema>>({
@@ -91,8 +93,17 @@ export function SelfEmployedForm() {
         console.log('Form submitted with all values:', values)
 
         try {
-            await api.post('/auth/api/organization/register/llc/', values)
-            navigate('profile')
+            let endpoint = ''
+
+            if (role === 'distributor') {
+                endpoint = '/auth/api/distributor/assign/ip/'
+            } else {
+                endpoint = '/auth/api/organization/register/ip/'
+            }
+
+            await api.post(endpoint, values)
+
+            navigate('/profile')
         } catch (error) {
             console.log('Error:', error)
         }

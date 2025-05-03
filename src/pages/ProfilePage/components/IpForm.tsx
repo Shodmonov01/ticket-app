@@ -99,7 +99,7 @@ export function IpForm() {
 
             await api.post(endpoint, values)
 
-            navigate('profile')
+            navigate('/profile')
         } catch (error) {
             console.log('Error:', error)
         }
