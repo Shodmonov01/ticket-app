@@ -15,8 +15,6 @@ export default function HomePage() {
         return res.data
     })
 
-    console.log('events', events)
-
     const { data: cities } = useQuery<{ id: number; name: string }[]>(['cities'], async () => {
         const res = await api.get('/api/cities/')
         return res.data

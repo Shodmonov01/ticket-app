@@ -47,9 +47,9 @@ export default function TicketsPage() {
 
                 <TicketCard />
 
-                <Button className='w-full mt-4' onClick={() => navigate('/profile/create-event')}>
+                {/* <Button className='w-full mt-4' onClick={() => navigate('/profile/create-event')}>
                     Создание мероприятия
-                </Button>
+                </Button> */}
             </main>
 
             <BottomNav />
