@@ -32,7 +32,7 @@ const EventTab = () => {
     }
 
     return (
-        <div className='flex flex-col gap-4'>
+        <div className='flex flex-col gap-4 mb-20'>
             <Button className='w-full mt-4 font-medium' onClick={() => navigate('/profile/create-event')}>
                 Создание мероприятия
             </Button>
