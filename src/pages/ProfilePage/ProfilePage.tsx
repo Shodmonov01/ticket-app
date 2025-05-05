@@ -31,6 +31,7 @@ export default function ProfilePage() {
 
     const loginOrganizator = async () => {
         const isOrganizer = user?.groups?.some(group => group.name === 'organization')
+        const isDistributor = user?.groups?.some(group => group.name === 'distributor')
 
         if (isOrganizer) {
             navigate('/profile/organization-profile')
@@ -39,9 +40,19 @@ export default function ProfilePage() {
         }
     }
 
+    const loginDistributor = async () => {
+        const isDistributor = user?.groups?.some(group => group.name === 'distributor')
+
+        if (isDistributor) {
+            navigate('/profile/organization-profile')
+        } else {
+            navigate('/profile/distributor-role')
+        }
+    }
+
     return (
-        <div className='flex min-h-screen flex-col pb-20 text-white '>
-            <main className=''>
+        <div className='flex flex-col h-screen pb-20 text-white '>
+            <main className='h-screen'>
                 <div className=' bg-slate-600 h-[180px] w-full mb-6'>
                     <div className='w-full flex justify-end px-4 py-8'>
                         <Button onClick={() => setOpen(true)} className='bg-muted rounded-full w-10 h-10'>
@@ -63,7 +74,7 @@ export default function ProfilePage() {
                     </div>
                 </div>
 
-                <ProfileMenu loginOrganizator={loginOrganizator} />
+                <ProfileMenu loginOrganizator={loginOrganizator} loginDistributor={loginDistributor} />
                 <SheetProfile open={open} setOpen={setOpen} />
             </main>
 

@@ -1,9 +1,12 @@
 import { ChevronRight, Headphones, IdCard, MapPin, Ticket, User2 } from 'lucide-react'
-import { useNavigate } from 'react-router-dom'
 
-const ProfileMenu = ({ loginOrganizator }: { loginOrganizator?: () => void }) => {
-    const navigate = useNavigate()
-
+const ProfileMenu = ({
+    loginOrganizator,
+    loginDistributor
+}: {
+    loginOrganizator?: () => void
+    loginDistributor?: () => void
+}) => {
     return (
         <div className='flex flex-col w-full max-w-md mx-auto text-white p-4'>
             <div className='mb-4'>
@@ -98,10 +101,7 @@ const ProfileMenu = ({ loginOrganizator }: { loginOrganizator?: () => void }) =>
                         <ChevronRight className='h-5 w-5 text-gray-400' />
                     </div>
 
-                    <div
-                        onClick={() => navigate('/profile/distributor-role')}
-                        className='flex items-center justify-between p-4 '
-                    >
+                    <div onClick={loginDistributor} className='flex items-center justify-between p-4 '>
                         <div className='flex items-center gap-3'>
                             <div className=''>
                                 <User2 className='h-5 w-5 text-white' />

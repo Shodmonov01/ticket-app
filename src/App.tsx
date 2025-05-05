@@ -2,7 +2,7 @@ import { Routes, Route, useNavigate, useLocation } from 'react-router-dom'
 import { useEffect } from 'react'
 import { useUser } from './context/user-context'
 import IntroPage from './pages/IntroPage'
-import HomePage from './pages/HomePage'
+import HomePage from './pages/HomePage/HomePage'
 import ExplorePage from './pages/ExplorePage'
 import FavoritesPage from './pages/FavoritesPage'
 import TicketsPage from './pages/TicketsPage/TicketsPage'
@@ -40,6 +40,7 @@ function App() {
             <Route path='/ooo-form' element={<OooForm />} />
             <Route path='/ip-form' element={<IpForm />} />
             <Route path='/self-employed-form' element={<SelfEmployedForm />} />
+            <Route path='/profile/organization-profile' element={<OrganizatorProfilePage />} />
             <Route path='/profile/organization-profile' element={<OrganizatorProfilePage />} />
         </Routes>
     )

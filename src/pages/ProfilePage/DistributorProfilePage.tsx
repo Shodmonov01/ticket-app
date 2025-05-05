@@ -4,7 +4,7 @@ import { BottomNav } from '@/components/layout/bottom-nav'
 import DistributorTab from './components/DistributorTab'
 import EventTab from './components/EventTab'
 
-const OrganizatorProfilePage = () => {
+const DistributorProfilePage = () => {
     const [activeTab, setActiveTab] = useState('event')
 
     return (
@@ -12,12 +12,20 @@ const OrganizatorProfilePage = () => {
             <main className='container w-full px-4 pt-10'>
                 <div className='grid grid-cols-2 bg-[#1c232b] rounded-lg overflow-hidden mb-2 p-1'>
                     <button
-                        onClick={() => setActiveTab('event')}
+                        onClick={() => setActiveTab('offer')}
                         className={`py-2 px-4 text-center font-medium rounded-lg ${
                             activeTab === 'event' ? 'text-white bg-[#29333d]' : 'text-gray-400'
                         }`}
                     >
-                        Мероприятия
+                        Предложения
+                    </button>
+                    <button
+                        onClick={() => setActiveTab('organizator')}
+                        className={`py-2 px-4 text-center font-medium rounded-lg  ${
+                            activeTab === 'distributor' ? 'text-white bg-[#29333d]' : 'text-gray-400'
+                        }`}
+                    >
+                        Распространители
                     </button>
                     <button
                         onClick={() => setActiveTab('distributor')}
@@ -25,7 +33,7 @@ const OrganizatorProfilePage = () => {
                             activeTab === 'distributor' ? 'text-white bg-[#29333d]' : 'text-gray-400'
                         }`}
                     >
-                        Распространители
+                        Канналы
                     </button>
                 </div>
 
@@ -37,4 +45,4 @@ const OrganizatorProfilePage = () => {
     )
 }
 
-export default OrganizatorProfilePage
+export default DistributorProfilePage
