@@ -31,7 +31,6 @@ export default function ProfilePage() {
 
     const loginOrganizator = async () => {
         const isOrganizer = user?.groups?.some(group => group.name === 'organization')
-        const isDistributor = user?.groups?.some(group => group.name === 'distributor')
 
         if (isOrganizer) {
             navigate('/profile/organization-profile')
@@ -44,7 +43,7 @@ export default function ProfilePage() {
         const isDistributor = user?.groups?.some(group => group.name === 'distributor')
 
         if (isDistributor) {
-            navigate('/profile/organization-profile')
+            navigate('/profile/distributor-profile')
         } else {
             navigate('/profile/distributor-role')
         }
