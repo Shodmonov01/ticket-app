@@ -1,38 +1,26 @@
-"use client"
+import { createContext, useContext, useState, ReactNode } from 'react'
 
-import { createContext, useContext, useState, useEffect, type ReactNode } from "react"
-
-type UserContextType = {
-  isFirstTimeUser: boolean
-  setFirstTimeUser: (value: boolean) => void
+interface UserContextType {
+    isFirstTimeUser: boolean
+    setIsFirstTimeUser: (value: boolean) => void
 }
 
 const UserContext = createContext<UserContextType | undefined>(undefined)
 
 export function UserProvider({ children }: { children: ReactNode }) {
-  const [isFirstTimeUser, setIsFirstTimeUser] = useState<boolean>(true)
+    const [isFirstTimeUser, setIsFirstTimeUser] = useState(true)
 
-  useEffect(() => {
-    const hasVisited = localStorage.getItem("hasVisited")
-    if (hasVisited) {
-      setIsFirstTimeUser(false)
-    }
-  }, [])
-
-  const setFirstTimeUser = (value: boolean) => {
-    setIsFirstTimeUser(value)
-    if (!value) {
-      localStorage.setItem("hasVisited", "true")
-    }
-  }
-
-  return <UserContext.Provider value={{ isFirstTimeUser, setFirstTimeUser }}>{children}</UserContext.Provider>
+    return (
+        <UserContext.Provider value={{ isFirstTimeUser, setIsFirstTimeUser }}>
+            {children}
+        </UserContext.Provider>
+    )
 }
 
 export function useUser() {
-  const context = useContext(UserContext)
-  if (context === undefined) {
-    throw new Error("useUser must be used within a UserProvider")
-  }
-  return context
+    const context = useContext(UserContext)
+    if (context === undefined) {
+        throw new Error('useUser must be used within a UserProvider')
+    }
+    return context
 }

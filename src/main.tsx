@@ -18,11 +18,7 @@ const queryClient = new QueryClient({
     }
 })
 
-if (import.meta.env.VITE_BASE_URL === 'development') {
-    import('./mock/browser').then(({ worker }) => {
-        worker.start()
-    })
-}
+
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
     <React.StrictMode>

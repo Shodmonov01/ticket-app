@@ -62,3 +62,11 @@ export interface TypeUser {
     }
     groups: { id: number; name: string }[]
 }
+
+
+export interface EventsResponse {
+    count: number
+    next: string | null
+    previous: string | null
+    results: TypeEventItem[]
+}
