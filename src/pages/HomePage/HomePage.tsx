@@ -4,7 +4,7 @@ import { SearchBar } from '../../components/search-bar'
 import { CategorySection } from '../../components/category-section'
 import { useQuery } from '@tanstack/react-query'
 import api from '@/api/api'
-import { TypeEventItem } from '@/types/type'
+import { EventsResponse, TypeEventItem } from '@/types/type'
 import CategoryCards from './components/CategoryCards'
 import Categories from './components/Categories'
 import NewShows from './components/NewShows'
@@ -12,19 +12,34 @@ import PopularCard from './components/popularCard'
 import { EventCard } from '@/components/event-card'
 
 export default function HomePage() {
-    const { data: events } = useQuery<TypeEventItem[]>(['events'], async () => {
-        const res = await api.get('/api/event/for/owner/')
-        return res.data
+    const {
+        data,
+        isLoading: isEventsLoading,
+        error: eventsError
+    } = useQuery<EventsResponse>({
+        queryKey: ['events'],
+        queryFn: async () => {
+            const res = await api.get('/api/events')
+            return res.data
+        }
     })
 
-    const { data: cities } = useQuery<{ id: number; name: string }[]>(['cities'], async () => {
-        const res = await api.get('/api/cities/')
-        return res.data
+    const events = data?.results || []
+
+    const { data: cities, isLoading: isCitiesLoading } = useQuery<{ id: number; name: string }[]>({
+        queryKey: ['cities'],
+        queryFn: async () => {
+            const res = await api.get('/api/cities/')
+            return res.data
+        }
     })
 
-    const { data: areas } = useQuery<{ id: number; name: string }[]>(['area'], async () => {
-        const res = await api.get('/api/area/')
-        return res.data
+    const { data: areas, isLoading: isAreasLoading } = useQuery<{ id: number; name: string }[]>({
+        queryKey: ['area'],
+        queryFn: async () => {
+            const res = await api.get('/api/area/')
+            return res.data
+        }
     })
 
     function getCityName(cityId: number): string {
@@ -51,18 +66,27 @@ export default function HomePage() {
                 </CategorySection>
 
                 <CategorySection title='Near You' seeAllHref='/near-you'>
-                    <div className='flex gap-3  overflow-x-auto scrollbar-hide'>
-                        {events?.map((event: TypeEventItem) => (
-                            <EventCard
-                                id={event.id}
-                                title={event.name}
-                                image={event.image}
-                                price={event.event_category[0]?.price}
-                                location={`${getCityName(event.city_id)}, ${getAreaName(event.area)}`}
-                                date={event.event_time[0]?.date}
-                                time={event.event_time[0]?.start_time}
-                            />
-                        ))}
+                    <div className='flex gap-3 overflow-x-auto scrollbar-hide'>
+                        {isEventsLoading ? (
+                            <div className='text-center text-white'>Loading events...</div>
+                        ) : eventsError ? (
+                            <div className='text-center text-red-500'>Failed to load events. Please try again.</div>
+                        ) : events.length === 0 ? (
+                            <div className='text-center text-white'>No events found.</div>
+                        ) : (
+                            events.map((event: TypeEventItem) => (
+                                <EventCard
+                                    key={event.id}
+                                    id={event.id}
+                                    title={event.name}
+                                    image={event.image}
+                                    price={event.event_category[0]?.price ?? 'N/A'}
+                                    location={`${getCityName(event.city_id)}, ${getAreaName(event.area)}`}
+                                    date={event.event_time[0]?.date ?? 'No date'}
+                                    time={event.event_time[0]?.start_time ?? 'No time'}
+                                />
+                            ))
+                        )}
                     </div>
                 </CategorySection>
 

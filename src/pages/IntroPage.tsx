@@ -1,30 +1,32 @@
-import { Button } from '../components/ui/button'
-import { useUser } from '../context/user-context'
-import { useNavigate } from 'react-router-dom'
-import { Ticket, Music, Calendar } from 'lucide-react'
-
 import { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { useUser } from '@/context/user-context'
 import api from '@/api/api'
+import { getTelegramWebApp, isTelegramEnv } from '@/lib/telegramMock'
 
 export default function IntroPage() {
-    const { setFirstTimeUser, isFirstTimeUser } = useUser()
-    const navigate = useNavigate()
-
-    const [referralCode, setReferralCode] = useState<string | null>(null)
     const [isLoading, setIsLoading] = useState(false)
     const [user, setUser] = useState<any>(null)
-    const [referralUsed, setReferralUsed] = useState<string | null>(null)
+    const [referralUsed, setReferralUsed] = useState<string>('None')
+    const { setIsFirstTimeUser } = useUser()
+    const navigate = useNavigate()
+    const referralCode =
+        'query_id=AAGzzMo2AAAAALPMyjbD_vfp&user=%7B%22id%22%3A919260339%2C%22first_name%22%3A%22%D0%90%D0%BC%D0%B8%D1%80%22%2C%22last_name%22%3A%22%D0%A8%D0%BE%D0%B4%D0%BC%D0%BE%D0%BD%D0%BE%D0%B2%22%2C%22username%22%3A%22a_shodmonov60%22%2C%22language_code%22%3A%22ru%22%2C%22allows_write_to_pm%22%3Atrue%2C%22photo_url%22%3A%22https%3A%5C%2F%5C%2Ft.me%5C%2Fi%5C%2Fuserpic%5C%2F320%5C%2FofQvVPKvTSdiEBT2LTidZ9awJyIWfIOprti3vZQIlbs.svg%22%7D&auth_date=1746512619&signature=jub90UW3mx0gPJy8HsHm93ZnjztmKJ-qYyFcBjoZMe9L8G3XGwI0XrNmfnT-18vn9HS8oGCRiKNnyZLn6c1GCA&hash=cbbe93453851eff57fadaec5b045a62bd6305a53173894a1807e1a0d4a3db93b' // Замените на реальный реферальный код, если есть
 
     useEffect(() => {
-        const tg = window?.Telegram?.WebApp as unknown as any
+        const tg = getTelegramWebApp()
+
+        console.log('Telegram WebApp:', tg)
+        console.log('initData:', tg.initData)
 
         tg.ready()
         tg.expand()
 
         const initData = tg.initData
 
-        if (!initData) {
+        if (!initData && isTelegramEnv()) {
             console.error('Telegram initData not found')
+            navigate('/error')
             return
         }
 
@@ -32,13 +34,15 @@ export default function IntroPage() {
             setIsLoading(true)
 
             try {
-                const initData = window?.Telegram?.WebApp.initData
-
                 const payload = {
                     initData: initData
                 }
 
+                console.log('Sending login payload:', payload)
+
                 const response = await api.post('/auth/api/user/login/', payload)
+
+                console.log('Login response:', response.data)
 
                 const data = response.data
 
@@ -58,71 +62,39 @@ export default function IntroPage() {
                             })
                         )
                     }
-                    setFirstTimeUser(false)
-                    navigate('/')
+                    setIsFirstTimeUser(false)
+                    console.log('Navigating to /')
+                    navigate('/', { replace: true })
                 } else {
                     throw new Error('No access token received')
                 }
             } catch (error: any) {
                 console.error('Auto login error:', error)
+                navigate('/error')
             } finally {
                 setIsLoading(false)
             }
         }
         autoLogin()
-    }, [referralCode, navigate, setFirstTimeUser])
+    }, [referralCode, navigate, setIsFirstTimeUser])
 
     const handleGetStarted = () => {
-        if (!isFirstTimeUser) {
-            navigate('/')
-        }
+        console.log('HandleGetStarted: Navigating to /')
+        navigate('/', { replace: true })
     }
 
     return (
-        <div className='flex min-h-screen flex-col items-center justify-center  p-4 text-white'>
-            <div className='mb-8 flex flex-col items-center'>
-                <div className='mb-6 flex h-20 w-20 items-center justify-center rounded-full bg-primary'>
-                    <Ticket className='h-10 w-10 text-white' />
+        <div className='flex min-h-screen flex-col items-center justify-center text-white bg-[#1c232b]'>
+            {isLoading ? (
+                <div>Loading...</div>
+            ) : (
+                <div className='text-center'>
+                    <h1 className='text-2xl font-bold mb-4'>Добро пожаловать</h1>
+                    <button className='px-4 py-2 bg-primary text-white rounded-lg' onClick={handleGetStarted}>
+                        Начать
+                    </button>
                 </div>
-                <h1 className='mb-2 text-center text-3xl font-bold'>Добро пожаловать в EventBot</h1>
-                <p className='text-center text-gray-400'>Открывайте и исследуйте живые мероприятия рядом с вами</p>
-            </div>
-
-            <div className='mb-10 grid w-full max-w-md gap-6'>
-                <div className='flex items-start gap-4 rounded-lg bg-muted p-4'>
-                    <div className='flex h-10 w-10 items-center justify-center rounded-full bg-primary/20'>
-                        <Calendar className='h-5 w-5 text-primary' />
-                    </div>
-                    <div>
-                        <h3 className='font-medium'>Найдите мероприятия</h3>
-                        <p className='text-sm text-gray-400'>Узнайте о предстоящих событиях в вашем регионе</p>
-                    </div>
-                </div>
-
-                <div className='flex items-start gap-4 rounded-lg bg-muted p-4'>
-                    <div className='flex h-10 w-10 items-center justify-center rounded-full bg-secondary/20'>
-                        <Ticket className='h-5 w-5 text-secondary' />
-                    </div>
-                    <div>
-                        <h3 className='font-medium'>Покупайте билеты</h3>
-                        <p className='text-sm text-gray-400'>Легко приобретайте билеты на любимые мероприятия</p>
-                    </div>
-                </div>
-
-                <div className='flex items-start gap-4 rounded-lg bg-muted p-4'>
-                    <div className='flex h-10 w-10 items-center justify-center rounded-full bg-tertiary/20'>
-                        <Music className='h-5 w-5 text-tertiary' />
-                    </div>
-                    <div>
-                        <h3 className='font-medium'>Наслаждайтесь шоу</h3>
-                        <p className='text-sm text-gray-400'>Ощутите потрясающие живые выступления</p>
-                    </div>
-                </div>
-            </div>
-
-            <Button className='w-full max-w-md' size='lg' onClick={handleGetStarted}>
-                Начать
-            </Button>
+            )}
         </div>
     )
 }
