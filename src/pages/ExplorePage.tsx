@@ -1,6 +1,9 @@
 import { Header } from '../components/layout/header'
 import { BottomNav } from '../components/layout/bottom-nav'
 import { SearchBar } from '../components/search-bar'
+import { CategoryCard } from '@/components/category-card'
+import { Calendar, MegaphoneIcon, Moon } from 'lucide-react'
+import { CategorySection } from '@/components/category-section'
 
 export default function ExplorePage() {
     return (
@@ -8,16 +11,51 @@ export default function ExplorePage() {
         <div className='flex min-h-screen flex-col items-center justify-center pb-20 pt-16 text-white'>
             <Header />
 
-            <main className='container max-w-md px-4 py-4'>
-                <div className='mb-6'>
-                    <SearchBar />
+            <div className='mb-8 flex justify-center gap-3 w-full overflow-x-auto scrollbar-hide'>
+                    <CategoryCard
+                        title='This Week'
+                        count={28}
+                        icon={<Calendar className='h-full w-full text-primary' />}
+                        className='bg-[#1c232b]'
+                    />
+                    <CategoryCard
+                        title='New shows'
+                        count={8}
+                        icon={<MegaphoneIcon className='h-full w-full text-secondary' />}
+                        className='bg-[#1c232b]'
+                    />
+                    <CategoryCard
+                        title='Late night'
+                        count={15}
+                        icon={<Moon className='h-full w-full text-tertiary' />}
+                        className='bg-[#1c232b]'
+                    />
                 </div>
 
-                <div className='flex h-[60vh] items-center justify-center rounded-lg bg-muted'>
-                    <h2 className='text-xl font-medium text-white'>Explore Page</h2>
-                </div>
-            </main>
-
+                <CategorySection title='Categories' seeAllHref='/categories'>
+                    <div className='grid grid-cols-2 gap-3'>
+                        <div className='flex items-center gap-3 rounded-lg bg-[#1c232b] p-3'>
+                            <div className='h-12 w-12 overflow-hidden rounded-xl'>
+                                <img
+                                    src='https://thumbs.dreamstime.com/b/silhouettes-concert-crowd-front-bright-stage-lights-confetti-colourful-background-high-lighted-places-people-holding-83284529.jpg'
+                                    alt='Tourism'
+                                    className='h-full w-full object-cover'
+                                />
+                            </div>
+                            <span className='font-medium text-white'>Tourism</span>
+                        </div>
+                        <div className='flex items-center gap-3 rounded-lg bg-[#1c232b] p-3'>
+                            <div className='h-12 w-12 overflow-hidden rounded-xl'>
+                                <img
+                                    src='https://thumbs.dreamstime.com/b/silhouettes-concert-crowd-front-bright-stage-lights-confetti-colourful-background-high-lighted-places-people-holding-83284529.jpg'
+                                    alt='Live Shows'
+                                    className='h-full w-full object-cover'
+                                />
+                            </div>
+                            <span className='font-medium text-white'>Live Shows</span>
+                        </div>
+                    </div>
+                </CategorySection>
             <BottomNav />
         </div>
     )
