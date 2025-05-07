@@ -9,12 +9,12 @@ export function SearchBar() {
                 <Search className='mr-2 h-5 w-5 text-gray-400' />
                 <Input
                     type='text'
-                    placeholder='Discover live shows ...'
+                    placeholder='Поиск'
                     className='border-0 bg-transparent p-0 focus-visible:ring-0 focus-visible:ring-offset-0'
                 />
-                <Button variant='ghost' size='icon' className='ml-auto'>
+                {/* <Button variant='ghost' size='icon' className='ml-auto'>
                     <SlidersHorizontal className='h-5 w-5 text-gray-400' />
-                </Button>
+                </Button> */}
             </div>
         </div>
     )
