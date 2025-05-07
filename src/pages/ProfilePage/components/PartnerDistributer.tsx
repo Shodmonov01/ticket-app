@@ -1,12 +1,6 @@
 import api from '@/api/api'
-import { Offer } from '@/types/type'
 import { useEffect, useState } from 'react'
-import { Button } from '@/components/ui/button'
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
-import { Calendar, Link2 } from 'lucide-react'
-import { formatDate } from '@/utils/format'
-import { Badge } from '@/components/ui/badge'
-import { getStatusBadge } from '@/utils/get-status'
+
 import CardOffer from './CardOffer'
 
 const Partner = () => {

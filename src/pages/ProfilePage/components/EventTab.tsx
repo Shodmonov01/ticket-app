@@ -8,7 +8,7 @@ import { useNavigate } from 'react-router-dom'
 const EventTab = () => {
     const navigate = useNavigate()
 
-    const { data: events } = useQuery<TypeEventItem>(['eventsOwner'], async () => {
+    const { data: events } = useQuery<any>(['eventsOwner'], async () => {
         const res = await api.get('/api/event/for/owner/')
         return res.data
     })

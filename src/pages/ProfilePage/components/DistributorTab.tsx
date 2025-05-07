@@ -5,10 +5,8 @@ import CardOffer from './CardOffer'
 
 const DistributorTab = () => {
     const [offers, setOffers] = useState<Offer>()
-    const [loading, setLoading] = useState(true)
     const [page, setPage] = useState(1)
     const [limit, setLimit] = useState(10)
-    const [totalPages, setTotalPages] = useState(1)
     const [statusFilter, setStatusFilter] = useState<string>('')
     console.log('offers', offers)
 

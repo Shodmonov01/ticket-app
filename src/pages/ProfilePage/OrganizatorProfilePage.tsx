@@ -4,14 +4,14 @@ import EventTab from './components/EventTab'
 import { PartnerNav } from '@/components/partner-nav'
 import OrganizatorTab from './components/OrganizatorTab'
 import Partner from './components/PartnerOrganization'
-import Header from './components/header'
+import HeaderPartner from './components/HeaderPartner'
 
 const OrganizatorProfilePage = () => {
     const [activeTab, setActiveTab] = useState('event')
 
     return (
         <div>
-            <Header />
+            <HeaderPartner />
             <main className='container w-full px-4 pt-10'>
                 <div className='flex bg-[#1c232b] rounded-lg  overflow-x-auto scrollbar-hide mb-2 p-1'>
                     <button

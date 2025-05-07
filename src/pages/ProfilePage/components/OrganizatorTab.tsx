@@ -1,16 +1,10 @@
-import { Button } from '@/components/ui/button'
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
-import { Badge } from '@/components/ui/badge'
-import { Calendar, Check, Clock, Link2, Plus, RefreshCcw, X } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { Offer } from '@/types/type'
-import { formatDate } from '@/utils/format'
 import api from '@/api/api'
-import { getStatusBadge } from '@/utils/get-status'
 import CardOffer from './CardOffer'
 
 const OrganizatorTab = () => {
-    const [offers, setOffers] = useState<Offer>()
+    const [offers, setOffers] = useState<any>()
     const [loading, setLoading] = useState(true)
     const [page, setPage] = useState(1)
     const [limit, setLimit] = useState(10)

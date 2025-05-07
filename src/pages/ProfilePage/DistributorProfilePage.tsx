@@ -6,7 +6,7 @@ import { PartnerNav } from '@/components/partner-nav'
 import MyChannelTab from './components/MyChannelTab'
 import { useNavigate } from 'react-router-dom'
 import { ChevronLeft } from 'lucide-react'
-import Header from './components/header'
+import HeaderPartner from './components/HeaderPartner'
 
 const DistributorProfilePage = () => {
     const navigate = useNavigate()
@@ -15,7 +15,7 @@ const DistributorProfilePage = () => {
 
     return (
         <div>
-            <Header />
+            <HeaderPartner />
             <main className='container w-full px-4 pt-6'>
                 <div className='flex bg-[#1c232b] rounded-lg  overflow-x-auto scrollbar-hide mb-2 p-1'>
                     <button

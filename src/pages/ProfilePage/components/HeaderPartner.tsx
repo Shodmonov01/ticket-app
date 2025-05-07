@@ -1,7 +1,7 @@
 import { ChevronLeft } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
 
-const Header = () => {
+const HeaderPartner = () => {
     const navigate = useNavigate()
 
     return (
@@ -19,4 +19,4 @@ const Header = () => {
     )
 }
 
-export default Header
+export default HeaderPartner

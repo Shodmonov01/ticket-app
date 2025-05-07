@@ -1,8 +1,8 @@
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
 import { Calendar, Check, Link2, X } from 'lucide-react'
-import { formatDate } from '@/utils/format'
 import { getStatusBadge } from '@/utils/get-status'
 import { Button } from '@/components/ui/button'
+import { formatDate } from '@/utils/format'
 
 const CardOffer = ({ offer, handleOffer }: any) => {
     return (
