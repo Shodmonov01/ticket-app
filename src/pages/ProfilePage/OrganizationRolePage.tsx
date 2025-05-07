@@ -13,10 +13,7 @@ const OrganizationRolePage = () => {
             </header>
 
             <div className='flex-1 px-4 space-y-4 mb-20'>
-                <Card
-                    className='bg-gray-900 border-none overflow-hidden'
-                    onClick={() => navigate('/ip-form?role=organization')}
-                >
+                <Card className='bg-gray-900 border-none overflow-hidden' onClick={() => navigate('/ip-form')}>
                     <CardContent className='p-0'>
                         <div className='flex items-start p-4'>
                             <div className='h-16 w-16 rounded-lg bg-blue-900 flex items-center justify-center mr-3'>
@@ -36,10 +33,7 @@ const OrganizationRolePage = () => {
                     </CardContent>
                 </Card>
 
-                <Card
-                    className='bg-gray-900 border-none overflow-hidden'
-                    onClick={() => navigate('/ooo-form?role=organization')}
-                >
+                <Card className='bg-gray-900 border-none overflow-hidden' onClick={() => navigate('/ooo-form')}>
                     <CardContent className='p-0'>
                         <div className='flex items-start p-4'>
                             <div className='h-16 w-16 rounded-lg bg-blue-900 flex items-center justify-center mr-3'>
@@ -61,7 +55,7 @@ const OrganizationRolePage = () => {
 
                 <Card
                     className='bg-gray-900 border-none overflow-hidden'
-                    onClick={() => navigate('/self-employed-form?role=organization')}
+                    onClick={() => navigate('/self-employed-form')}
                 >
                     <CardContent className='p-0'>
                         <div className='flex items-start p-4'>

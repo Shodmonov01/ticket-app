@@ -93,17 +93,10 @@ export function SelfEmployedForm() {
         console.log('Form submitted with all values:', values)
 
         try {
-            let endpoint = ''
+            await api.post('/auth/api/distributor/assign/self-employed/', values)
+            await api.post('/auth/api/organization/register/self-employed/', values)
 
-            if (role === 'distributor') {
-                endpoint = '/auth/api/distributor/assign/self-employed/'
-            } else {
-                endpoint = '/auth/api/organization/register/self-employed/'
-            }
-
-            await api.post(endpoint, values)
-
-            navigate('/profile')
+            navigate('/profile/distributor-profile')
         } catch (error) {
             console.log('Error:', error)
         }

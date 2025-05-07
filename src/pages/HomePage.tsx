@@ -10,12 +10,16 @@ import api from '@/api/api'
 import { EventsResponse, TypeEventItem } from '@/types/type'
 
 export default function HomePage() {
-    const { data, isLoading: isEventsLoading, error: eventsError } = useQuery<EventsResponse>({
+    const {
+        data,
+        isLoading: isEventsLoading,
+        error: eventsError
+    } = useQuery<EventsResponse>({
         queryKey: ['events'],
         queryFn: async () => {
             const res = await api.get('/api/events')
             return res.data
-        },
+        }
     })
 
     const events = data?.results || []
@@ -25,7 +29,7 @@ export default function HomePage() {
         queryFn: async () => {
             const res = await api.get('/api/cities/')
             return res.data
-        },
+        }
     })
 
     const { data: areas, isLoading: isAreasLoading } = useQuery<{ id: number; name: string }[]>({
@@ -33,7 +37,7 @@ export default function HomePage() {
         queryFn: async () => {
             const res = await api.get('/api/area/')
             return res.data
-        },
+        }
     })
 
     function getCityName(cityId: number): string {

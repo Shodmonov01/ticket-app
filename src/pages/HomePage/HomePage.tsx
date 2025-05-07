@@ -74,7 +74,7 @@ export default function HomePage() {
                         ) : events.length === 0 ? (
                             <div className='text-center text-white'>No events found.</div>
                         ) : (
-                            events.map((event: TypeEventItem) => (
+                            events?.results?.map((event: any) => (
                                 <EventCard
                                     key={event.id}
                                     id={event.id}

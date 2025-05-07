@@ -1,28 +1,30 @@
 export interface TypeEventItem {
-    id: number
-    name: string
-    description: string
-    age_limit: number
-    area: number
-    category_id: number
-    city_id: number
-    create_at: string
-    image: string
-    owner: number
-    event_category: {
+    results: {
         id: number
         name: string
-        quantity: number
-        price: number
-        explanation: string
-        event: number
-    }[]
-    event_time: {
-        id: number
-        date: string
-        start_time: string
-        end_time: string
-        event: number
+        description: string
+        age_limit: number
+        area: number
+        category_id: number
+        city_id: number
+        create_at: string
+        image: string
+        owner: number
+        event_category: {
+            id: number
+            name: string
+            quantity: number
+            price: number
+            explanation: string
+            event: number
+        }[]
+        event_time: {
+            id: number
+            date: string
+            start_time: string
+            end_time: string
+            event: number
+        }[]
     }[]
 }
 
@@ -63,10 +65,45 @@ export interface TypeUser {
     groups: { id: number; name: string }[]
 }
 
-
 export interface EventsResponse {
     count: number
     next: string | null
     previous: string | null
     results: TypeEventItem[]
+}
+
+type Event = {
+    id: number
+    status: string
+    name: string
+    description: string
+    category_id: number
+    age_limit: string
+    city_id: number
+    area: string
+    image: string
+    event_category: any
+    event_time: any
+    owner: any
+    views_count: number
+    create_at: string
+}
+
+type TelegramChannel = {
+    id: number
+    name: string
+    urls: string
+    owner: any
+}
+
+export type Offer = {
+    results: {
+        id: number
+        sender: number
+        event: Event
+        channel: TelegramChannel
+        status: 'new_offer' | 'accepted' | 'cancelled'
+        is_change: string
+        create_at: string
+    }[]
 }

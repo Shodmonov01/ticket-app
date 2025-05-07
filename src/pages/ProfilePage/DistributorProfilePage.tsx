@@ -1,16 +1,23 @@
 import { useState } from 'react'
 
-import { BottomNav } from '@/components/layout/bottom-nav'
 import DistributorTab from './components/DistributorTab'
 import EventTab from './components/EventTab'
+import { PartnerNav } from '@/components/partner-nav'
+import MyChannelTab from './components/MyChannelTab'
+import { useNavigate } from 'react-router-dom'
+import { ChevronLeft } from 'lucide-react'
+import Header from './components/header'
 
 const DistributorProfilePage = () => {
+    const navigate = useNavigate()
+
     const [activeTab, setActiveTab] = useState('offer')
 
     return (
         <div>
-            <main className='container w-full px-4 pt-10'>
-                <div className='flex bg-[#1c232b] rounded-lg overflow-hidden mb-2 p-1'>
+            <Header />
+            <main className='container w-full px-4 pt-6'>
+                <div className='flex bg-[#1c232b] rounded-lg  overflow-x-auto scrollbar-hide mb-2 p-1'>
                     <button
                         onClick={() => setActiveTab('offer')}
                         className={`py-2 px-4 text-center font-medium rounded-lg ${
@@ -20,27 +27,37 @@ const DistributorProfilePage = () => {
                         Предложения
                     </button>
                     <button
-                        onClick={() => setActiveTab('organizator')}
-                        className={`py-2 px-4 text-center font-medium rounded-lg  !min-w-full ${
-                            activeTab === 'organizator' ? 'text-white bg-[#29333d]' : 'text-gray-400'
+                        onClick={() => setActiveTab('event')}
+                        className={`py-2 px-4 text-center font-medium rounded-lg  ${
+                            activeTab === 'event' ? 'text-white bg-[#29333d]' : 'text-gray-400'
                         }`}
                     >
-                        Распространители
+                        Мероприятия
                     </button>
                     <button
                         onClick={() => setActiveTab('channel')}
-                        className={`py-2 px-4 text-center font-medium rounded-lg  ${
+                        className={`py-2 px-4 text-center font-medium whitespace-nowrap rounded-lg  ${
                             activeTab === 'channel' ? 'text-white bg-[#29333d]' : 'text-gray-400'
                         }`}
                     >
-                        Канналы
+                        Мои каналы
+                    </button>
+                    <button
+                        onClick={() => setActiveTab('partner')}
+                        className={`py-2 px-4 text-center font-medium rounded-lg  ${
+                            activeTab === 'partner' ? 'text-white bg-[#29333d]' : 'text-gray-400'
+                        }`}
+                    >
+                        Партнеры
                     </button>
                 </div>
 
-                {activeTab === 'distributor' && <DistributorTab />}
+                {activeTab === 'offer' && <DistributorTab />}
                 {activeTab === 'event' && <EventTab />}
+                {activeTab === 'channel' && <MyChannelTab />}
             </main>
-            <BottomNav />
+
+            <PartnerNav />
         </div>
     )
 }

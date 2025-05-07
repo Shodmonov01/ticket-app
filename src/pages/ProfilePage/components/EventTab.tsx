@@ -8,7 +8,7 @@ import { useNavigate } from 'react-router-dom'
 const EventTab = () => {
     const navigate = useNavigate()
 
-    const { data: events } = useQuery<TypeEventItem[]>(['events'], async () => {
+    const { data: events } = useQuery<TypeEventItem>(['eventsOwner'], async () => {
         const res = await api.get('/api/event/for/owner/')
         return res.data
     })
@@ -30,14 +30,15 @@ const EventTab = () => {
     function getAreaName(areaId: number): string {
         return areas?.find(area => area.id === areaId)?.name || 'Unknown area'
     }
+    console.log('eventrtfdgcgs', events)
 
     return (
         <div className='flex flex-col gap-4 mb-20'>
-            <Button className='w-full mt-4 font-medium' onClick={() => navigate('/profile/create-event')}>
+            <Button className='w-full my-4 font-medium' onClick={() => navigate('/profile/create-event')}>
                 Создание мероприятия
             </Button>
-            <div className='grid grid-cols-2 gap-3'>
-                {events?.map((event: TypeEventItem) => (
+            <div className='grid sm:grid-cols-2 gap-3'>
+                {events?.map((event: any) => (
                     <EventCard
                         id={event.id}
                         title={event.name}
@@ -46,6 +47,7 @@ const EventTab = () => {
                         location={`${getCityName(event.city_id)}, ${getAreaName(event.area)}`}
                         date={event.event_time[0]?.date}
                         time={event.event_time[0]?.start_time}
+                        isPartner={true}
                     />
                 ))}
             </div>

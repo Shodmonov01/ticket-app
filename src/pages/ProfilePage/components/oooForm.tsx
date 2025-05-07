@@ -144,16 +144,10 @@ export function OooForm() {
     const onSubmit = async (values: z.infer<typeof oooFormSchema>) => {
         console.log('Form submitted with all values:', values)
         try {
-            let endpoint = ''
+            await api.post('/auth/api/distributor/assign/llc/', values)
+            await api.post('/auth/api/organization/register/llc/', values)
 
-            if (role === 'distributor') {
-                endpoint = '/auth/api/distributor/assign/llc/'
-            } else {
-                endpoint = '/auth/api/organization/register/llc/'
-            }
-
-            await api.post(endpoint, values)
-            navigate('/profile')
+            navigate('/profile/distributor-profile')
         } catch (error) {
             console.log('Error:', error)
         }

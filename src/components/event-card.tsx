@@ -1,6 +1,9 @@
 import { Heart, MapPin } from 'lucide-react'
 import { Button } from './ui/button'
 import { useState } from 'react'
+import { useQuery } from '@tanstack/react-query'
+import { TypeUser } from '@/types/type'
+import api from '@/api/api'
 
 interface EventCardProps {
     id: number
@@ -10,16 +13,40 @@ interface EventCardProps {
     location: string
     date: string
     time: string
+    isPartner?: boolean
 }
 
-export function EventCard({ id, title, image, price, location, date, time }: EventCardProps) {
+export function EventCard({ id, title, image, price, location, date, time, isPartner }: EventCardProps) {
     const [isFavorite, setIsFavorite] = useState(false)
-    console.log('date', date)
-    console.log('time', time)
+
+    const { data: user } = useQuery<any>(
+        ['user'],
+        async () => {
+            const res = await api.get('/auth/api/user/profile/')
+            return res.data
+        },
+        {
+            staleTime: 5 * 60 * 1000,
+            cacheTime: 10 * 60 * 1000,
+            refetchOnWindowFocus: false
+        }
+    )
+
+    const handleSendOffer = async (id: number) => {
+        try {
+            const res = await api.post('/api/offer/send/', {
+                event: id,
+                status: 'new_offer',
+                channel: user.telegram_channels[0].id
+            })
+        } catch (error) {
+            console.log(error)
+        }
+    }
 
     return (
-        <div className='relative overflow-hidden rounded-xl bg-[#1c232b] min-w-[200px]'>
-            <div className='relative h-48 w-full'>
+        <div className='relative rounded-xl bg-[#1c232b] min-w-[200px]'>
+            <div className='relative h-36 w-full'>
                 <img src={image || '/placeholder.jpg'} alt={title} className='h-full w-full object-cover' />
                 <Button
                     variant='ghost'
@@ -42,6 +69,16 @@ export function EventCard({ id, title, image, price, location, date, time }: Eve
                 <p className='text-xs text-gray-400'>
                     {date}, {time}
                 </p>
+                {isPartner && (
+                    <Button
+                        onClick={() => handleSendOffer(id)}
+                        variant='outline'
+                        size='sm'
+                        className='w-full bg-[#29333d] hover:bg-[#232b34] mt-6'
+                    >
+                        Отправить предложение
+                    </Button>
+                )}
             </div>
         </div>
     )

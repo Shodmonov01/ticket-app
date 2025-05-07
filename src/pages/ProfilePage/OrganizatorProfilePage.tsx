@@ -1,16 +1,19 @@
 import { useState } from 'react'
 
-import { BottomNav } from '@/components/layout/bottom-nav'
-import DistributorTab from './components/DistributorTab'
 import EventTab from './components/EventTab'
+import { PartnerNav } from '@/components/partner-nav'
+import OrganizatorTab from './components/OrganizatorTab'
+import Partner from './components/PartnerOrganization'
+import Header from './components/header'
 
 const OrganizatorProfilePage = () => {
     const [activeTab, setActiveTab] = useState('event')
 
     return (
         <div>
+            <Header />
             <main className='container w-full px-4 pt-10'>
-                <div className='grid grid-cols-2 bg-[#1c232b] rounded-lg overflow-hidden mb-2 p-1'>
+                <div className='flex bg-[#1c232b] rounded-lg  overflow-x-auto scrollbar-hide mb-2 p-1'>
                     <button
                         onClick={() => setActiveTab('event')}
                         className={`py-2 px-4 text-center font-medium rounded-lg ${
@@ -25,14 +28,24 @@ const OrganizatorProfilePage = () => {
                             activeTab === 'distributor' ? 'text-white bg-[#29333d]' : 'text-gray-400'
                         }`}
                     >
-                        Распространители
+                        Предложения
+                    </button>
+                    <button
+                        onClick={() => setActiveTab('partner')}
+                        className={`py-2 px-4 text-center font-medium rounded-lg ${
+                            activeTab === 'partner' ? 'text-white bg-[#29333d]' : 'text-gray-400'
+                        }`}
+                    >
+                        Партнеры
                     </button>
                 </div>
 
-                {activeTab === 'distributor' && <DistributorTab />}
+                {activeTab === 'distributor' && <OrganizatorTab />}
                 {activeTab === 'event' && <EventTab />}
+                {activeTab === 'partner' && <Partner />}
             </main>
-            <BottomNav />
+
+            <PartnerNav />
         </div>
     )
 }
