@@ -20,7 +20,7 @@ export default function HomePage() {
         queryKey: ['events'],
         queryFn: async () => {
             const res = await api.get('/api/events')
-            return res.data
+            return res.data.results
         }
     })
 
@@ -74,7 +74,7 @@ export default function HomePage() {
                         ) : events.length === 0 ? (
                             <div className='text-center text-white'>No events found.</div>
                         ) : (
-                            events?.results?.map((event: any) => (
+                            events?.map((event: any) => (
                                 <EventCard
                                     key={event.id}
                                     id={event.id}

@@ -9,8 +9,8 @@ const EventTab = () => {
     const navigate = useNavigate()
 
     const { data: events } = useQuery<any>(['eventsOwner'], async () => {
-        const res = await api.get('/api/event/for/owner/')
-        return res.data
+        const res = await api.get('/api/events')
+        return res.data.results
     })
 
     const { data: cities } = useQuery<{ id: number; name: string }[]>(['cities'], async () => {
