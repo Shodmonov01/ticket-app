@@ -2,7 +2,6 @@ import { Routes, Route, useNavigate, useLocation } from 'react-router-dom'
 import { useEffect } from 'react'
 import { useUser } from './context/user-context'
 import IntroPage from './pages/IntroPage'
-import HomePage from './pages/HomePage/HomePage'
 import ExplorePage from './pages/ExplorePage'
 import FavoritesPage from './pages/FavoritesPage'
 import TicketsPage from './pages/TicketsPage/TicketsPage'
@@ -15,6 +14,7 @@ import { SelfEmployedForm } from './pages/ProfilePage/components/SelfEmployedFor
 import OrganizatorProfilePage from './pages/ProfilePage/OrganizatorProfilePage'
 import DistributorRolePage from './pages/ProfilePage/DistributorRolePage'
 import DistributorProfilePage from './pages/ProfilePage/DistributorProfilePage'
+import HomePage from './pages/HomePage'
 
 function App() {
     const { isFirstTimeUser } = useUser()
