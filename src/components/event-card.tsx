@@ -80,6 +80,13 @@ export function EventCard({ id, title, image, price, location, date, time, isPar
                     </Button>
                 )}
             </div>
+            <div className='flex flex-col  gap-2 px-2 pb-2'>
+                <Button className='mt-4 bg-primary hover:bg-primary/90 text-primary-foreground '>Купить</Button>
+                <Button className='mt-4 bg-secondary hover:bg-secondary/90 text-secondary-foreground '>
+                    Поделиться
+                </Button>
+                <Button className='mt-4 bg-accent hover:bg-accent/90 text-accent-foreground '>Попасть в списки</Button>
+            </div>
         </div>
     )
 }
