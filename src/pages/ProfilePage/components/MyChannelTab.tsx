@@ -23,7 +23,7 @@ const MyChannelTab = () => {
     )
 
     return (
-        <div>
+        <div className='mb-20'>
             <Button onClick={() => setIsOpen(true)} className='w-full my-4'>
                 Добавить канал
             </Button>

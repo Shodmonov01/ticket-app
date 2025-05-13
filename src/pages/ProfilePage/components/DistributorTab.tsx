@@ -2,13 +2,15 @@ import { useEffect, useState } from 'react'
 import { Offer } from '@/types/type'
 import api from '@/api/api'
 import CardOffer from './CardOffer'
+import { useQueryClient } from '@tanstack/react-query'
 
 const DistributorTab = () => {
-    const [offers, setOffers] = useState<Offer>()
+    const queryClient = useQueryClient()
+
+    const [offers, setOffers] = useState<any>()
     const [page, setPage] = useState(1)
     const [limit, setLimit] = useState(10)
     const [statusFilter, setStatusFilter] = useState<string>('')
-    console.log('offers', offers)
 
     useEffect(() => {
         fetchOffers()
@@ -35,6 +37,7 @@ const DistributorTab = () => {
                     status: action
                 }
             })
+            queryClient.invalidateQueries(['events'])
         } catch (error) {
             console.error('Error handling offer:', error)
         }

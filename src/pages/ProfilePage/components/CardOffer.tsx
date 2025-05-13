@@ -44,7 +44,7 @@ const CardOffer = ({ offer, handleOffer }: any) => {
                                 <X className='mr-1 h-4 w-4' />
                                 Отклонить
                             </Button>
-                            <Button onClick={() => handleOffer(offer.id, 'accepted')} size='sm'>
+                            <Button onClick={() => handleOffer(offer.event.id, 'accepted')} size='sm'>
                                 <Check className='mr-1 h-4 w-4' />
                                 Принять
                             </Button>

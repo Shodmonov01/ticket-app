@@ -1,16 +1,15 @@
 import api from '@/api/api'
 import { EventCard } from '@/components/event-card'
 import { Button } from '@/components/ui/button'
-import { TypeEventItem } from '@/types/type'
 import { useQuery } from '@tanstack/react-query'
 import { useNavigate } from 'react-router-dom'
 
 const EventTab = () => {
     const navigate = useNavigate()
 
-    const { data: events } = useQuery<any>(['eventsOwner'], async () => {
-        const res = await api.get('/api/event/for/owner/')
-        return res.data
+    const { data: events } = useQuery<any>(['events'], async () => {
+        const res = await api.get('/api/events')
+        return res.data.results
     })
 
     const { data: cities } = useQuery<{ id: number; name: string }[]>(['cities'], async () => {
@@ -30,7 +29,6 @@ const EventTab = () => {
     function getAreaName(areaId: number): string {
         return areas?.find(area => area.id === areaId)?.name || 'Unknown area'
     }
-    console.log('eventrtfdgcgs', events)
 
     return (
         <div className='flex flex-col gap-4 mb-20'>

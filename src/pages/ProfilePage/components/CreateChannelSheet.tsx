@@ -4,7 +4,7 @@ import * as z from 'zod'
 import { useState } from 'react'
 
 import { Button } from '@/components/ui/button'
-import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import {
     Sheet,
@@ -13,8 +13,7 @@ import {
     SheetDescription,
     SheetFooter,
     SheetHeader,
-    SheetTitle,
-    SheetTrigger
+    SheetTitle
 } from '@/components/ui/sheet'
 import api from '@/api/api'
 import { useQueryClient } from '@tanstack/react-query'
@@ -23,14 +22,14 @@ const formSchema = z.object({
     name: z
         .string()
         .max(250, {
-            message: 'Channel name must not be longer than 250 characters.'
+            message: 'Название канала не должно превышать 250 символов.'
         })
         .optional()
         .nullable(),
     urls: z
         .string()
         .max(200, {
-            message: 'Channel URL must not be longer than 200 characters.'
+            message: 'URL канала не должен превышать 200 символов.'
         })
         .optional()
         .nullable()
@@ -71,8 +70,8 @@ export function CreateChannelForm({ isOpen, setIsOpen }: any) {
         <Sheet open={isOpen} onOpenChange={setIsOpen}>
             <SheetContent side='bottom' className='sm:max-w-md border-0'>
                 <SheetHeader>
-                    <SheetTitle>Create Telegram Channel</SheetTitle>
-                    <SheetDescription>Create a new Telegram channel with name and URL.</SheetDescription>
+                    <SheetTitle>Создать Telegram-канал</SheetTitle>
+                    <SheetDescription>Создайте новый Telegram-канал с названием и URL.</SheetDescription>
                 </SheetHeader>
                 <div className='py-4'>
                     <Form {...form}>
@@ -82,10 +81,10 @@ export function CreateChannelForm({ isOpen, setIsOpen }: any) {
                                 name='name'
                                 render={({ field }) => (
                                     <FormItem>
-                                        <FormLabel>Channel Name</FormLabel>
+                                        <FormLabel>Название канала</FormLabel>
                                         <FormControl>
                                             <Input
-                                                placeholder='Enter channel name'
+                                                placeholder='Введите название канала'
                                                 {...field}
                                                 value={field.value || ''}
                                             />
@@ -100,10 +99,10 @@ export function CreateChannelForm({ isOpen, setIsOpen }: any) {
                                 name='urls'
                                 render={({ field }) => (
                                     <FormItem>
-                                        <FormLabel>Channel URL</FormLabel>
+                                        <FormLabel>URL канала</FormLabel>
                                         <FormControl>
                                             <Input
-                                                placeholder='Enter channel URL'
+                                                placeholder='Введите URL канала'
                                                 {...field}
                                                 value={field.value || ''}
                                             />
@@ -116,11 +115,11 @@ export function CreateChannelForm({ isOpen, setIsOpen }: any) {
                             <SheetFooter className='pt-4'>
                                 <SheetClose asChild>
                                     <Button variant='outline' type='button' className='my-3'>
-                                        Cancel
+                                        Отмена
                                     </Button>
                                 </SheetClose>
                                 <Button type='submit' disabled={isLoading}>
-                                    {isLoading ? 'Creating...' : 'Create Channel'}
+                                    {isLoading ? 'Создание...' : 'Создать канал'}
                                 </Button>
                             </SheetFooter>
                         </form>
