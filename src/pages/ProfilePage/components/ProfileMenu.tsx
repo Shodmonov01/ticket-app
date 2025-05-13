@@ -1,12 +1,6 @@
 import { ChevronRight, Headphones, IdCard, MapPin, Ticket, User2 } from 'lucide-react'
 
-const ProfileMenu = ({
-    loginOrganizator,
-    loginDistributor
-}: {
-    loginOrganizator?: () => void
-    loginDistributor?: () => void
-}) => {
+const ProfileMenu = ({ loginOrganizator }: { loginOrganizator?: () => void }) => {
     const items = [
         {
             icon: <MapPin className='h-5 w-5 text-white' />,

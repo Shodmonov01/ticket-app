@@ -8,6 +8,7 @@ import { Input } from '@/components/ui/input'
 import { useState } from 'react'
 import api from '@/api/api'
 import { useNavigate, useSearchParams } from 'react-router-dom'
+import HeaderPartner from '@/components/headerr'
 
 const selfEmployedFormSchema = z.object({
     recipient_full_name: z.string().min(5, { message: 'ФИО должно содержать не менее 5 символов' }),
@@ -103,178 +104,185 @@ export function SelfEmployedForm() {
     }
 
     return (
-        <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-4 p-4'>
-                {currentStep === 1 && (
-                    <>
-                        <FormField
-                            control={form.control}
-                            name='recipient_full_name'
-                            render={({ field }) => (
-                                <FormItem className='space-y-2'>
-                                    <FormLabel className='flex items-center gap-1'>ФИО получателя</FormLabel>
-                                    <FormControl>
-                                        <Input
-                                            placeholder='Иванов Иван Иванович'
-                                            className='bg-gray-700 border-gray-600 focus:border-amber-500 focus:ring-amber-500 h-12 rounded-lg'
-                                            {...field}
-                                        />
-                                    </FormControl>
-                                    <FormDescription className='text-xs text-gray-400'>
-                                        Укажите полное имя, как в паспорте
-                                    </FormDescription>
-                                    <FormMessage className='text-red-400 text-xs' />
-                                </FormItem>
-                            )}
-                        />
+        <div>
+            <HeaderPartner title='Самозанятый' path='/profile/organization-role' />
 
-                        <FormField
-                            control={form.control}
-                            name='checking_account'
-                            render={({ field }) => (
-                                <FormItem className='space-y-2'>
-                                    <FormLabel className='flex items-center gap-1'>Расчетный счет</FormLabel>
-                                    <FormControl>
-                                        <Input
-                                            placeholder='12345678901234567890'
-                                            maxLength={20}
-                                            className='bg-gray-700 border-gray-600 focus:border-amber-500 focus:ring-amber-500 h-12 rounded-lg'
-                                            {...field}
-                                        />
-                                    </FormControl>
-                                    <FormMessage className='text-red-400 text-xs' />
-                                </FormItem>
-                            )}
-                        />
+            <Form {...form}>
+                <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-4 p-4'>
+                    {currentStep === 1 && (
+                        <>
+                            <FormField
+                                control={form.control}
+                                name='recipient_full_name'
+                                render={({ field }) => (
+                                    <FormItem className='space-y-2'>
+                                        <FormLabel className='flex items-center gap-1'>ФИО получателя</FormLabel>
+                                        <FormControl>
+                                            <Input
+                                                placeholder='Иванов Иван Иванович'
+                                                className='bg-gray-700 border-gray-600 focus:border-amber-500 focus:ring-amber-500 h-12 rounded-lg'
+                                                {...field}
+                                            />
+                                        </FormControl>
+                                        <FormDescription className='text-xs text-gray-400'>
+                                            Укажите полное имя, как в паспорте
+                                        </FormDescription>
+                                        <FormMessage className='text-red-400 text-xs' />
+                                    </FormItem>
+                                )}
+                            />
 
-                        <FormField
-                            control={form.control}
-                            name='bank_name'
-                            render={({ field }) => (
-                                <FormItem className='space-y-2'>
-                                    <FormLabel>Название банка</FormLabel>
-                                    <FormControl>
-                                        <Input
-                                            placeholder='Сбербанк'
-                                            className='bg-gray-700 border-gray-600 focus:border-amber-500 focus:ring-amber-500 h-12 rounded-lg'
-                                            {...field}
-                                        />
-                                    </FormControl>
-                                    <FormMessage className='text-red-400 text-xs' />
-                                </FormItem>
-                            )}
-                        />
+                            <FormField
+                                control={form.control}
+                                name='checking_account'
+                                render={({ field }) => (
+                                    <FormItem className='space-y-2'>
+                                        <FormLabel className='flex items-center gap-1'>Расчетный счет</FormLabel>
+                                        <FormControl>
+                                            <Input
+                                                placeholder='12345678901234567890'
+                                                maxLength={20}
+                                                className='bg-gray-700 border-gray-600 focus:border-amber-500 focus:ring-amber-500 h-12 rounded-lg'
+                                                {...field}
+                                            />
+                                        </FormControl>
+                                        <FormMessage className='text-red-400 text-xs' />
+                                    </FormItem>
+                                )}
+                            />
 
-                        <div className='flex justify-end mt-6'>
-                            <Button
-                                type='button'
-                                onClick={onNext}
-                                className=' text-white px-6 py-2 rounded-lg flex items-center gap-2'
-                            >
-                                Далее
-                                <ChevronRight className='h-4 w-4' />
-                            </Button>
-                        </div>
-                    </>
-                )}
+                            <FormField
+                                control={form.control}
+                                name='bank_name'
+                                render={({ field }) => (
+                                    <FormItem className='space-y-2'>
+                                        <FormLabel>Название банка</FormLabel>
+                                        <FormControl>
+                                            <Input
+                                                placeholder='Сбербанк'
+                                                className='bg-gray-700 border-gray-600 focus:border-amber-500 focus:ring-amber-500 h-12 rounded-lg'
+                                                {...field}
+                                            />
+                                        </FormControl>
+                                        <FormMessage className='text-red-400 text-xs' />
+                                    </FormItem>
+                                )}
+                            />
 
-                {currentStep === 2 && (
-                    <>
-                        <FormField
-                            control={form.control}
-                            name='bank_inn'
-                            render={({ field }) => (
-                                <FormItem className='space-y-2'>
-                                    <FormLabel>ИНН банка</FormLabel>
-                                    <FormControl>
-                                        <Input
-                                            placeholder='1234567890'
-                                            maxLength={10}
-                                            className='bg-gray-700 border-gray-600 focus:border-amber-500 focus:ring-amber-500 h-12 rounded-lg'
-                                            {...field}
-                                        />
-                                    </FormControl>
-                                    <FormMessage className='text-red-400 text-xs' />
-                                </FormItem>
-                            )}
-                        />
+                            <div className='flex justify-end mt-6'>
+                                <Button
+                                    type='button'
+                                    onClick={onNext}
+                                    className=' text-white px-6 py-2 rounded-lg flex items-center gap-2'
+                                >
+                                    Далее
+                                    <ChevronRight className='h-4 w-4' />
+                                </Button>
+                            </div>
+                        </>
+                    )}
 
-                        <FormField
-                            control={form.control}
-                            name='bank_kpp'
-                            render={({ field }) => (
-                                <FormItem className='space-y-2'>
-                                    <FormLabel>КПП банка</FormLabel>
-                                    <FormControl>
-                                        <Input
-                                            placeholder='123456789'
-                                            maxLength={9}
-                                            className='bg-gray-700 border-gray-600 focus:border-amber-500 focus:ring-amber-500 h-12 rounded-lg'
-                                            {...field}
-                                        />
-                                    </FormControl>
-                                    <FormMessage className='text-red-400 text-xs' />
-                                </FormItem>
-                            )}
-                        />
+                    {currentStep === 2 && (
+                        <>
+                            <FormField
+                                control={form.control}
+                                name='bank_inn'
+                                render={({ field }) => (
+                                    <FormItem className='space-y-2'>
+                                        <FormLabel>ИНН банка</FormLabel>
+                                        <FormControl>
+                                            <Input
+                                                placeholder='1234567890'
+                                                maxLength={10}
+                                                className='bg-gray-700 border-gray-600 focus:border-amber-500 focus:ring-amber-500 h-12 rounded-lg'
+                                                {...field}
+                                            />
+                                        </FormControl>
+                                        <FormMessage className='text-red-400 text-xs' />
+                                    </FormItem>
+                                )}
+                            />
 
-                        <FormField
-                            control={form.control}
-                            name='bik'
-                            render={({ field }) => (
-                                <FormItem className='space-y-2'>
-                                    <FormLabel>БИК банка</FormLabel>
-                                    <FormControl>
-                                        <Input
-                                            placeholder='123456789'
-                                            maxLength={9}
-                                            className='bg-gray-700 border-gray-600 focus:border-amber-500 focus:ring-amber-500 h-12 rounded-lg'
-                                            {...field}
-                                        />
-                                    </FormControl>
-                                    <FormMessage className='text-red-400 text-xs' />
-                                </FormItem>
-                            )}
-                        />
+                            <FormField
+                                control={form.control}
+                                name='bank_kpp'
+                                render={({ field }) => (
+                                    <FormItem className='space-y-2'>
+                                        <FormLabel>КПП банка</FormLabel>
+                                        <FormControl>
+                                            <Input
+                                                placeholder='123456789'
+                                                maxLength={9}
+                                                className='bg-gray-700 border-gray-600 focus:border-amber-500 focus:ring-amber-500 h-12 rounded-lg'
+                                                {...field}
+                                            />
+                                        </FormControl>
+                                        <FormMessage className='text-red-400 text-xs' />
+                                    </FormItem>
+                                )}
+                            />
 
-                        <FormField
-                            control={form.control}
-                            name='correspondent_account'
-                            render={({ field }) => (
-                                <FormItem className='space-y-2'>
-                                    <FormLabel>Корреспондентский счет</FormLabel>
-                                    <FormControl>
-                                        <Input
-                                            placeholder='12345678901234567890'
-                                            maxLength={20}
-                                            className='bg-gray-700 border-gray-600 focus:border-amber-500 focus:ring-amber-500 h-12 rounded-lg'
-                                            {...field}
-                                        />
-                                    </FormControl>
-                                    <FormMessage className='text-red-400 text-xs' />
-                                </FormItem>
-                            )}
-                        />
+                            <FormField
+                                control={form.control}
+                                name='bik'
+                                render={({ field }) => (
+                                    <FormItem className='space-y-2'>
+                                        <FormLabel>БИК банка</FormLabel>
+                                        <FormControl>
+                                            <Input
+                                                placeholder='123456789'
+                                                maxLength={9}
+                                                className='bg-gray-700 border-gray-600 focus:border-amber-500 focus:ring-amber-500 h-12 rounded-lg'
+                                                {...field}
+                                            />
+                                        </FormControl>
+                                        <FormMessage className='text-red-400 text-xs' />
+                                    </FormItem>
+                                )}
+                            />
 
-                        <div className='flex justify-between mt-6'>
-                            <Button
-                                type='button'
-                                onClick={onBack}
-                                variant='outline'
-                                className='border-gray-600 text-gray-300 hover:bg-gray-700 px-6 py-2 rounded-lg flex items-center gap-2'
-                            >
-                                <ArrowLeft className='h-4 w-4' />
-                                Назад
-                            </Button>
+                            <FormField
+                                control={form.control}
+                                name='correspondent_account'
+                                render={({ field }) => (
+                                    <FormItem className='space-y-2'>
+                                        <FormLabel>Корреспондентский счет</FormLabel>
+                                        <FormControl>
+                                            <Input
+                                                placeholder='12345678901234567890'
+                                                maxLength={20}
+                                                className='bg-gray-700 border-gray-600 focus:border-amber-500 focus:ring-amber-500 h-12 rounded-lg'
+                                                {...field}
+                                            />
+                                        </FormControl>
+                                        <FormMessage className='text-red-400 text-xs' />
+                                    </FormItem>
+                                )}
+                            />
 
-                            <Button type='submit' className='text-white px-6 py-2 rounded-lg flex items-center gap-2'>
-                                Создать
-                                <Check className='h-4 w-4' />
-                            </Button>
-                        </div>
-                    </>
-                )}
-            </form>
-        </Form>
+                            <div className='flex justify-between mt-6'>
+                                <Button
+                                    type='button'
+                                    onClick={onBack}
+                                    variant='outline'
+                                    className='border-gray-600 text-gray-300 hover:bg-gray-700 px-6 py-2 rounded-lg flex items-center gap-2'
+                                >
+                                    <ArrowLeft className='h-4 w-4' />
+                                    Назад
+                                </Button>
+
+                                <Button
+                                    type='submit'
+                                    className='text-white px-6 py-2 rounded-lg flex items-center gap-2'
+                                >
+                                    Создать
+                                    <Check className='h-4 w-4' />
+                                </Button>
+                            </div>
+                        </>
+                    )}
+                </form>
+            </Form>
+        </div>
     )
 }
