@@ -15,6 +15,8 @@ import { SelfEmployedForm } from './pages/ProfilePage/components/SelfEmployedFor
 import OrganizatorProfilePage from './pages/ProfilePage/OrganizatorProfilePage'
 import DistributorRolePage from './pages/ProfilePage/DistributorRolePage'
 import DistributorProfilePage from './pages/ProfilePage/DistributorProfilePage'
+import CategoryPage from './pages/HomePage/CategoryPage'
+import EditProfilePage from './pages/ProfilePage/EditPage'
 
 function App() {
     const { isFirstTimeUser } = useUser()
@@ -43,6 +45,8 @@ function App() {
             <Route path='/self-employed-form' element={<SelfEmployedForm />} />
             <Route path='/profile/organization-profile' element={<OrganizatorProfilePage />} />
             <Route path='/profile/distributor-profile' element={<DistributorProfilePage />} />
+            <Route path='/category' element={<CategoryPage />} />
+            <Route path='/edit-profile' element={<EditProfilePage />} />
         </Routes>
     )
 }

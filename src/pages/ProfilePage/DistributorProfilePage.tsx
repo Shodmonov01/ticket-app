@@ -7,6 +7,7 @@ import MyChannelTab from './components/MyChannelTab'
 import { useNavigate } from 'react-router-dom'
 import { ChevronLeft } from 'lucide-react'
 import HeaderPartner from './components/HeaderPartner'
+import Partner from './components/PartnerDistributer'
 
 const DistributorProfilePage = () => {
     const navigate = useNavigate()
@@ -55,6 +56,7 @@ const DistributorProfilePage = () => {
                 {activeTab === 'offer' && <DistributorTab />}
                 {activeTab === 'event' && <EventTab />}
                 {activeTab === 'channel' && <MyChannelTab />}
+                {activeTab === 'partner' && <Partner />}
             </main>
 
             <PartnerNav />

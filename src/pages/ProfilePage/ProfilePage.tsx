@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useCallback, useState } from 'react'
 
 import { User, EllipsisVertical } from 'lucide-react'
 import api from '@/api/api'
@@ -29,7 +29,7 @@ export default function ProfilePage() {
         }
     )
 
-    const loginOrganizator = async () => {
+    const loginOrganizator = useCallback(() => {
         const isOrganizer = user?.groups?.some(group => group.name === 'organization')
 
         if (isOrganizer) {
@@ -37,9 +37,9 @@ export default function ProfilePage() {
         } else {
             navigate('/profile/organization-role')
         }
-    }
+    }, [user, navigate])
 
-    const loginDistributor = async () => {
+    const loginDistributor = useCallback(() => {
         const isDistributor = user?.groups?.some(group => group.name === 'distributor')
 
         if (isDistributor) {
@@ -47,7 +47,7 @@ export default function ProfilePage() {
         } else {
             navigate('/profile/distributor-role')
         }
-    }
+    }, [user, navigate])
 
     return (
         <div className='flex flex-col h-screen pb-20 text-white '>

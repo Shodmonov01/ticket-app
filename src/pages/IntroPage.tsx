@@ -30,6 +30,8 @@ export default function IntroPage() {
             return
         }
 
+        let retried = false
+
         const autoLogin = async () => {
             setIsLoading(true)
 
@@ -70,11 +72,23 @@ export default function IntroPage() {
                 }
             } catch (error: any) {
                 console.error('Auto login error:', error)
+
+                const status = error?.response?.status
+                if ((status === 401 || status === 404) && !retried) {
+                    retried = true
+                    console.warn('401/404 error, clearing tokens and retrying...')
+                    localStorage.removeItem('token')
+                    localStorage.removeItem('refresh_token')
+                    autoLogin()
+                    return
+                }
+
                 navigate('/error')
             } finally {
                 setIsLoading(false)
             }
         }
+
         autoLogin()
     }, [referralCode, navigate, setIsFirstTimeUser])
 

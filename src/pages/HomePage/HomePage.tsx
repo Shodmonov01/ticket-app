@@ -13,7 +13,7 @@ import { EventCard } from '@/components/event-card'
 
 export default function HomePage() {
     const {
-        data,
+        data: events,
         isLoading: isEventsLoading,
         error: eventsError
     } = useQuery<EventsResponse>({
@@ -23,8 +23,6 @@ export default function HomePage() {
             return res.data.results
         }
     })
-
-    const events = data?.results || []
 
     const { data: cities, isLoading: isCitiesLoading } = useQuery<{ id: number; name: string }[]>({
         queryKey: ['cities'],
@@ -71,7 +69,7 @@ export default function HomePage() {
                             <div className='text-center text-white'>Loading events...</div>
                         ) : eventsError ? (
                             <div className='text-center text-red-500'>Failed to load events. Please try again.</div>
-                        ) : events.length === 0 ? (
+                        ) : events?.length === 0 ? (
                             <div className='text-center text-white'>No events found.</div>
                         ) : (
                             events?.map((event: any) => (

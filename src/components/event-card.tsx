@@ -34,10 +34,12 @@ export function EventCard({ id, title, image, price, location, date, time, isPar
 
     const handleSendOffer = async (id: number) => {
         try {
+            const channelIds = user.telegram_channels.map((channel: any) => channel.id)
+
             const res = await api.post('/api/offer/send/', {
                 event: id,
                 status: 'new_offer',
-                channel: user.telegram_channels[0].id
+                channels: channelIds
             })
         } catch (error) {
             console.log(error)
