@@ -68,7 +68,7 @@ export function CreateChannelForm({ isOpen, setIsOpen }: any) {
 
     return (
         <Sheet open={isOpen} onOpenChange={setIsOpen}>
-            <SheetContent side='bottom' className='sm:max-w-md border-0'>
+            <SheetContent side='bottom' className='sm:max-w-md border-0 bg-[#1c232b]'>
                 <SheetHeader>
                     <SheetTitle>Создать Telegram-канал</SheetTitle>
                     <SheetDescription>Создайте новый Telegram-канал с названием и URL.</SheetDescription>

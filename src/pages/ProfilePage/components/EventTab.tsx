@@ -35,7 +35,8 @@ const EventTab = ({ isOrganizator }: any) => {
         return areas?.find(area => area.id === areaId)?.name || 'Unknown area'
     }
 
-    const data = isOrganizator ? eventsOwner : events
+    const rawData = isOrganizator ? eventsOwner : events
+    const data = Array.isArray(rawData) ? rawData : []
 
     return (
         <div className='flex flex-col gap-4 mb-20'>

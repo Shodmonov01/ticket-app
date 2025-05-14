@@ -24,9 +24,9 @@ const OrganizatorProfilePage = () => {
                         Мероприятия
                     </button>
                     <button
-                        onClick={() => setActiveTab('distributor')}
+                        onClick={() => setActiveTab('offer')}
                         className={`py-2 px-4 text-center font-medium rounded-lg  ${
-                            activeTab === 'distributor' ? 'text-white bg-[#29333d]' : 'text-gray-400'
+                            activeTab === 'offer' ? 'text-white bg-[#29333d]' : 'text-gray-400'
                         }`}
                     >
                         Предложения
@@ -49,7 +49,7 @@ const OrganizatorProfilePage = () => {
                     </button>
                 </div>
 
-                {activeTab === 'distributor' && <OrganizatorTab />}
+                {activeTab === 'offer' && <OrganizatorTab />}
                 {activeTab === 'event' && <EventTab isOrganizator={true} />}
                 {activeTab === 'partner' && <Partner />}
                 {activeTab === 'dist' && <DistTab />}
