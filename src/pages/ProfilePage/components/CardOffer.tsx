@@ -40,7 +40,11 @@ const CardOffer = ({ offer, handleOffer }: any) => {
                 <div className='flex justify-end gap-2 w-full'>
                     {offer.status === 'new_offer' && offer.status !== 'accepted' && (
                         <>
-                            <Button onClick={() => handleOffer(offer.id, 'cancelled')} variant='outline' size='sm'>
+                            <Button
+                                onClick={() => handleOffer(offer.event.id, 'cancelled')}
+                                variant='outline'
+                                size='sm'
+                            >
                                 <X className='mr-1 h-4 w-4' />
                                 Отклонить
                             </Button>

@@ -19,7 +19,7 @@ export default function HomePage() {
     } = useQuery<EventsResponse>({
         queryKey: ['events'],
         queryFn: async () => {
-            const res = await api.get('/api/events')
+            const res = await api.get('/api/events/')
             return res.data.results
         }
     })

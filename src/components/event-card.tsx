@@ -2,7 +2,6 @@ import { Heart, MapPin } from 'lucide-react'
 import { Button } from './ui/button'
 import { useState } from 'react'
 import { useQuery } from '@tanstack/react-query'
-import { TypeUser } from '@/types/type'
 import api from '@/api/api'
 
 interface EventCardProps {
@@ -14,9 +13,10 @@ interface EventCardProps {
     date: string
     time: string
     isPartner?: boolean
+    isDistTab?: boolean
 }
 
-export function EventCard({ id, title, image, price, location, date, time, isPartner }: EventCardProps) {
+export function EventCard({ id, title, image, price, location, date, time, isPartner, isDistTab }: EventCardProps) {
     const [isFavorite, setIsFavorite] = useState(false)
 
     const { data: user } = useQuery<any>(
@@ -47,7 +47,10 @@ export function EventCard({ id, title, image, price, location, date, time, isPar
     }
 
     return (
-        <div className='relative rounded-xl bg-[#1c232b] min-w-[200px]'>
+        <div
+            onClick={isDistTab ? () => handleSendOffer(id) : undefined}
+            className='relative rounded-xl bg-[#1c232b] min-w-[200px]'
+        >
             <div className='relative h-36 w-full'>
                 <img src={image || '/placeholder.jpg'} alt={title} className='h-full w-full object-cover' />
                 <Button
@@ -79,6 +82,11 @@ export function EventCard({ id, title, image, price, location, date, time, isPar
                         className='w-full bg-[#29333d] hover:bg-[#232b34] mt-6'
                     >
                         Отправить предложение
+                    </Button>
+                )}
+                {isDistTab && (
+                    <Button variant='outline' className='w-full text-white mt-5'>
+                        Выбрать для рекламы
                     </Button>
                 )}
             </div>

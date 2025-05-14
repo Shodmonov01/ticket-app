@@ -4,12 +4,17 @@ import { Button } from '@/components/ui/button'
 import { useQuery } from '@tanstack/react-query'
 import { useNavigate } from 'react-router-dom'
 
-const EventTab = () => {
+const EventTab = ({ isOrganizator }: any) => {
     const navigate = useNavigate()
 
+    const { data: eventsOwner } = useQuery<any>(['eventsOwner'], async () => {
+        const res = await api.get('/api/event/for/owner/')
+        return res.data
+    })
+
     const { data: events } = useQuery<any>(['events'], async () => {
-        const res = await api.get('/api/events')
-        return res.data.results
+        const res = await api.get('/api/events/')
+        return res.data
     })
 
     const { data: cities } = useQuery<{ id: number; name: string }[]>(['cities'], async () => {
@@ -30,13 +35,15 @@ const EventTab = () => {
         return areas?.find(area => area.id === areaId)?.name || 'Unknown area'
     }
 
+    const data = isOrganizator ? eventsOwner : events
+
     return (
         <div className='flex flex-col gap-4 mb-20'>
             <Button className='w-full my-4 font-medium' onClick={() => navigate('/profile/create-event')}>
                 Создание мероприятия
             </Button>
             <div className='grid sm:grid-cols-2 gap-3'>
-                {events?.map((event: any) => (
+                {data?.map((event: any) => (
                     <EventCard
                         id={event.id}
                         title={event.name}

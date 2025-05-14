@@ -5,6 +5,7 @@ import { PartnerNav } from '@/components/partner-nav'
 import OrganizatorTab from './components/OrganizatorTab'
 import Partner from './components/PartnerOrganization'
 import HeaderPartner from '../../components/headerr'
+import DistTab from './components/DistTab'
 
 const OrganizatorProfilePage = () => {
     const [activeTab, setActiveTab] = useState('event')
@@ -38,11 +39,20 @@ const OrganizatorProfilePage = () => {
                     >
                         Партнеры
                     </button>
+                    <button
+                        onClick={() => setActiveTab('dist')}
+                        className={`py-2 px-4 text-center font-medium rounded-lg ${
+                            activeTab === 'dist' ? 'text-white bg-[#29333d]' : 'text-gray-400'
+                        }`}
+                    >
+                        Распространители
+                    </button>
                 </div>
 
                 {activeTab === 'distributor' && <OrganizatorTab />}
-                {activeTab === 'event' && <EventTab />}
+                {activeTab === 'event' && <EventTab isOrganizator={true} />}
                 {activeTab === 'partner' && <Partner />}
+                {activeTab === 'dist' && <DistTab />}
             </main>
 
             <PartnerNav />
