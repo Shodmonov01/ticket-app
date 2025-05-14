@@ -23,6 +23,7 @@ const OrganizatorTab = () => {
         try {
             const response = await api.get(
                 `/api/offer/for/disributor/?page=${page}&limit=${limit}${statusFilter ? `&status=${statusFilter}` : ''}`
+                // "/api/event/for/owner/"
             )
 
             setOffers(response.data.results)
