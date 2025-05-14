@@ -8,12 +8,12 @@ import { useNavigate } from 'react-router-dom'
 const EventTab = ({ isOrganizator }: any) => {
     const navigate = useNavigate()
 
-    const { data: eventsOwner, isLoading: isEventsOwnerLoading } = useQuery<any>(['eventsOwnerM'], async () => {
+    const { data: eventsOwner, isLoading: isEventsOwnerLoading } = useQuery<any>(['eventsOwner'], async () => {
         const res = await api.get('/api/event/for/owner/')
         return res.data
     })
 
-    const { data: events, isLoading: isEventsLoading } = useQuery<any>(['eventsE'], async () => {
+    const { data: events, isLoading: isEventsLoading } = useQuery<any>(['events'], async () => {
         const res = await api.get('/api/events/')
         return res.data
     })

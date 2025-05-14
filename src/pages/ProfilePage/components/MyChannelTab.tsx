@@ -10,7 +10,7 @@ const MyChannelTab = () => {
     const [isOpen, setIsOpen] = useState(false)
 
     const { data: user } = useQuery<any>(
-        ['userR'],
+        ['user'],
         async () => {
             const res = await api.get('/auth/api/user/profile/')
             return res.data
