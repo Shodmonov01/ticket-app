@@ -30,7 +30,6 @@ const OrganizatorTab = () => {
             console.error('Error fetching offers:', error)
         }
     }
-    console.log('offers11111', offers)
 
     const handleOffer = async (id: number, action: string) => {
         try {

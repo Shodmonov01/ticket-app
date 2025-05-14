@@ -9,6 +9,7 @@ import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/comp
 import { useState } from 'react'
 import api from '@/api/api'
 import { useNavigate, useSearchParams } from 'react-router-dom'
+import HeaderPartner from '@/components/headerr'
 
 const oooFormSchema = z.object({
     organization_name: z.string().min(3, { message: 'Название организации должно быть не менее 3 символов' }),
@@ -154,6 +155,10 @@ export function OooForm() {
     }
 
     return (
+        <div>
+            <HeaderPartner title='ООО' path='/profile/organization-role' />
+
+
         <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-4 p-4'>
                 {currentStep === 1 && (
@@ -614,5 +619,6 @@ export function OooForm() {
                 )}
             </form>
         </Form>
+        </div>
     )
 }

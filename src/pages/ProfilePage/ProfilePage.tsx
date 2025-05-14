@@ -39,16 +39,6 @@ export default function ProfilePage() {
         }
     }, [user, navigate])
 
-    const loginDistributor = useCallback(() => {
-        const isDistributor = user?.groups?.some(group => group.name === 'distributor')
-
-        if (isDistributor) {
-            navigate('/profile/distributor-profile')
-        } else {
-            navigate('/profile/distributor-role')
-        }
-    }, [user, navigate])
-
     return (
         <div className='flex flex-col h-screen pb-20 text-white '>
             <main className='h-screen'>
@@ -73,7 +63,7 @@ export default function ProfilePage() {
                     </div>
                 </div>
 
-                <ProfileMenu loginOrganizator={loginOrganizator} loginDistributor={loginDistributor} />
+                <ProfileMenu loginOrganizator={loginOrganizator} />
                 <SheetProfile open={open} setOpen={setOpen} />
             </main>
 

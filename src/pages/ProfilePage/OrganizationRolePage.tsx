@@ -2,18 +2,24 @@ import { useNavigate } from 'react-router-dom'
 import { User, Briefcase, UserCheck } from 'lucide-react'
 import { Card, CardContent } from '@/components/ui/card'
 import { BottomNav } from '@/components/layout/bottom-nav'
+import HeaderPartner from '@/components/headerr'
 
 const OrganizationRolePage = () => {
     const navigate = useNavigate()
 
     return (
         <div className='flex flex-col min-h-screen bg-gray-950 text-white'>
-            <header className='flex items-center justify-between p-4'>
+            {/* <header className='flex items-center justify-between p-4'>
                 <h1 className='text-xl font-bold'>Выберите тип</h1>
-            </header>
+            </header> */}
 
-            <div className='flex-1 px-4 space-y-4 mb-20'>
-                <Card className='bg-gray-900 border-none overflow-hidden' onClick={() => navigate('/ip-form')}>
+            <HeaderPartner title='Выберите тип' path='/profile' />
+
+            <div className='flex-1 px-4 space-y-4 mb-20 mt-10'>
+                <Card
+                    className='bg-gray-900 border-none overflow-hidden cursor-pointer'
+                    onClick={() => navigate('/ip-form')}
+                >
                     <CardContent className='p-0'>
                         <div className='flex items-start p-4'>
                             <div className='h-16 w-16 rounded-lg bg-blue-900 flex items-center justify-center mr-3'>
@@ -33,7 +39,10 @@ const OrganizationRolePage = () => {
                     </CardContent>
                 </Card>
 
-                <Card className='bg-gray-900 border-none overflow-hidden' onClick={() => navigate('/ooo-form')}>
+                <Card
+                    className='bg-gray-900 border-none overflow-hidden cursor-pointer'
+                    onClick={() => navigate('/ooo-form')}
+                >
                     <CardContent className='p-0'>
                         <div className='flex items-start p-4'>
                             <div className='h-16 w-16 rounded-lg bg-blue-900 flex items-center justify-center mr-3'>
@@ -54,7 +63,7 @@ const OrganizationRolePage = () => {
                 </Card>
 
                 <Card
-                    className='bg-gray-900 border-none overflow-hidden'
+                    className='bg-gray-900 border-none overflow-hidden cursor-pointer'
                     onClick={() => navigate('/self-employed-form')}
                 >
                     <CardContent className='p-0'>

@@ -68,7 +68,7 @@ import { Button } from '@/components/ui/button'
 import { useQuery } from '@tanstack/react-query'
 import { useNavigate } from 'react-router-dom'
 
-const EventTab = () => {
+const EventTab = ({ isOrganizator }: any) => {
     const navigate = useNavigate()
 
     const { 
