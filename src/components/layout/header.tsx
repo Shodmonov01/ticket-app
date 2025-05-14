@@ -25,7 +25,7 @@ export function Header() {
 
     return (
         <div className='fixed top-0 left-0 right-0 z-50 flex h-16 w-full items-center justify-between bg-[#1c232b] px-4'>
-            <div className='flex items-center gap-2'>
+            {/* <div className='flex items-center gap-2'>
                 <MapPin className='h-5 w-5 text-gray-400' />
                 <DropdownMenu>
                     <DropdownMenuTrigger asChild>
@@ -51,7 +51,7 @@ export function Header() {
                         )}
                     </DropdownMenuContent>
                 </DropdownMenu>
-            </div>
+            </div> */}
             <Button variant='ghost' size='icon' className='text-white'>
                 <Bell className='h-5 w-5' />
             </Button>
