@@ -8,12 +8,12 @@ import { useNavigate } from 'react-router-dom'
 const EventTab = ({ isOrganizator }: any) => {
     const navigate = useNavigate()
 
-    const { data: eventsOwner, isLoading: isEventsOwnerLoading } = useQuery<any>(['eventsOwner'], async () => {
+    const { data: eventsOwner, isLoading: isEventsOwnerLoading } = useQuery<any>(['eventsOwnerM'], async () => {
         const res = await api.get('/api/event/for/owner/')
         return res.data
     })
 
-    const { data: events, isLoading: isEventsLoading } = useQuery<any>(['events'], async () => {
+    const { data: events, isLoading: isEventsLoading } = useQuery<any>(['eventsE'], async () => {
         const res = await api.get('/api/events/')
         return res.data
     })
@@ -36,7 +36,7 @@ const EventTab = ({ isOrganizator }: any) => {
         return areas?.find(area => area.id === areaId)?.name || 'Unknown area'
     }
 
-    const rawData = isOrganizator ? eventsOwner : events
+    const rawData = isOrganizator ? eventsOwner : events?.results
     const data = Array.isArray(rawData) ? rawData : []
 
     if (isEventsOwnerLoading || isEventsLoading) {
