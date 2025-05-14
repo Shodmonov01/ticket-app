@@ -35,6 +35,7 @@ const DistributorTab = () => {
                 }
             })
             queryClient.invalidateQueries(['events'])
+            queryClient.invalidateQueries(['eventsE '])
         } catch (error) {
             console.error('Error handling offer:', error)
         }
