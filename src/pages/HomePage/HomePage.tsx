@@ -16,11 +16,11 @@ export default function HomePage() {
         data: events,
         isLoading: isEventsLoading,
         error: eventsError
-    } = useQuery<EventsResponse>({
+    } = useQuery<any>({
         queryKey: ['events'],
         queryFn: async () => {
             const res = await api.get('/api/events/')
-            return res.data.results
+            return res.data
         }
     })
 
@@ -69,10 +69,10 @@ export default function HomePage() {
                             <div className='text-center text-white'>Loading events...</div>
                         ) : eventsError ? (
                             <div className='text-center text-red-500'>Failed to load events. Please try again.</div>
-                        ) : events?.length === 0 ? (
+                        ) : events?.results?.length === 0 ? (
                             <div className='text-center text-white'>No events found.</div>
                         ) : (
-                            events?.map((event: any) => (
+                            events?.results?.map((event: any) => (
                                 <EventCard
                                     key={event.id}
                                     id={event.id}

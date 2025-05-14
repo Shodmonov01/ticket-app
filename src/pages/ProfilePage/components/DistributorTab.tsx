@@ -2,31 +2,30 @@ import { useEffect, useState } from 'react'
 import { Offer } from '@/types/type'
 import api from '@/api/api'
 import CardOffer from './CardOffer'
-import { useQueryClient } from '@tanstack/react-query'
+import { useQuery, useQueryClient } from '@tanstack/react-query'
+import { Loader2 } from 'lucide-react'
 
 const DistributorTab = () => {
     const queryClient = useQueryClient()
 
-    const [offers, setOffers] = useState<any>()
     const [page, setPage] = useState(1)
     const [limit, setLimit] = useState(10)
     const [statusFilter, setStatusFilter] = useState<string>('')
 
-    useEffect(() => {
-        fetchOffers()
-    }, [page, limit, statusFilter])
-
-    const fetchOffers = async () => {
-        try {
-            const response = await api.get(
+    const {
+        data: offers,
+        isLoading,
+        error
+    } = useQuery({
+        queryKey: ['offers', page, limit, statusFilter],
+        queryFn: async () => {
+            const res = await api.get(
                 `/api/offer/for/disributor/?page=${page}&limit=${limit}${statusFilter ? `&status=${statusFilter}` : ''}`
             )
-
-            setOffers(response.data.results)
-        } catch (error) {
-            console.error('Error fetching offers:', error)
+            return res.data.results
         }
-    }
+        // keepPreviousData: true
+    })
 
     const handleOffer = async (id: number, action: string) => {
         try {
@@ -39,6 +38,14 @@ const DistributorTab = () => {
         } catch (error) {
             console.error('Error handling offer:', error)
         }
+    }
+
+    if (isLoading) {
+        return (
+            <div className='flex justify-center items-center min-h-[200px]'>
+                <Loader2 className='h-8 w-8  text-gray-400' />
+            </div>
+        )
     }
 
     return (

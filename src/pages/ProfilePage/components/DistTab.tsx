@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useQuery } from '@tanstack/react-query'
 
-import { ExternalLink, RefreshCw, Calendar } from 'lucide-react'
+import { ExternalLink, RefreshCw, Calendar, Loader2 } from 'lucide-react'
 
 import api from '@/api/api'
 
@@ -26,7 +26,7 @@ const DistTab = () => {
     if (loading) {
         return (
             <div className='flex justify-center items-center min-h-[200px]'>
-                <RefreshCw className='h-8 w-8 animate-spin text-gray-400' />
+                <Loader2 className='h-8 w-8 animate-spin text-gray-400' />
             </div>
         )
     }

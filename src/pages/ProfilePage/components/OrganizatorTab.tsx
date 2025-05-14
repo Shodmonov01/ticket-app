@@ -3,6 +3,7 @@ import { Offer } from '@/types/type'
 import api from '@/api/api'
 import CardOffer from './CardOffer'
 import { useQueryClient } from '@tanstack/react-query'
+import { Loader2 } from 'lucide-react'
 
 const OrganizatorTab = () => {
     const queryClient = useQueryClient()
@@ -21,6 +22,7 @@ const OrganizatorTab = () => {
 
     const fetchOffers = async () => {
         try {
+            setLoading(true)
             const response = await api.get(
                 `/api/offer/for/organization/?page=${page}&limit=${limit}${
                     statusFilter ? `&status=${statusFilter}` : ''
@@ -30,6 +32,8 @@ const OrganizatorTab = () => {
             setOffers(response.data.results)
         } catch (error) {
             console.error('Error fetching offers:', error)
+        } finally {
+            setLoading(false)
         }
     }
 
@@ -44,6 +48,14 @@ const OrganizatorTab = () => {
         } catch (error) {
             console.error('Error handling offer:', error)
         }
+    }
+
+    if (loading) {
+        return (
+            <div className='flex justify-center items-center min-h-[200px]'>
+                <Loader2 className='h-8 w-8  text-gray-400' />
+            </div>
+        )
     }
 
     return (
