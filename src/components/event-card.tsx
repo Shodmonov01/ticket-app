@@ -48,6 +48,7 @@ export function EventCard({ id, title, image, price, location, date, time, isPar
 
     return (
         <div
+            key={id + title}
             onClick={isDistTab ? () => handleSendOffer(id) : undefined}
             className='relative rounded-xl bg-[#1c232b] min-w-[200px]'
         >

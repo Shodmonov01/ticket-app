@@ -12,7 +12,7 @@ const Partner = () => {
     const fetchOffers = async () => {
         try {
             const response = await api.get(
-                `/api/offer/for/organization/?page=${page}&limit=${limit}${
+                `/api/offer/for/disributor/?page=${page}&limit=${limit}${
                     statusFilter ? `&status=${statusFilter}` : ''
                 }`
             )

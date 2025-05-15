@@ -17,16 +17,16 @@ const OrganizatorProfilePage = () => {
                 <div className='flex bg-[#1c232b] rounded-lg  overflow-x-auto scrollbar-hide mb-2 p-1'>
                     <button
                         onClick={() => setActiveTab('event')}
-                        className={`py-2 px-4 text-center font-medium rounded-lg ${
+                        className={`py-2 px-4 text-center font-medium whitespace-nowrap rounded-lg ${
                             activeTab === 'event' ? 'text-white bg-[#29333d]' : 'text-gray-400'
                         }`}
                     >
-                        Мероприятия
+                        Мои мероприятия
                     </button>
                     <button
-                        onClick={() => setActiveTab('distributor')}
+                        onClick={() => setActiveTab('offer')}
                         className={`py-2 px-4 text-center font-medium rounded-lg  ${
-                            activeTab === 'distributor' ? 'text-white bg-[#29333d]' : 'text-gray-400'
+                            activeTab === 'offer' ? 'text-white bg-[#29333d]' : 'text-gray-400'
                         }`}
                     >
                         Предложения
@@ -49,7 +49,7 @@ const OrganizatorProfilePage = () => {
                     </button>
                 </div>
 
-                {activeTab === 'distributor' && <OrganizatorTab />}
+                {activeTab === 'offer' && <OrganizatorTab />}
                 {activeTab === 'event' && <EventTab isOrganizator={true} />}
                 {activeTab === 'partner' && <Partner />}
                 {activeTab === 'dist' && <DistTab />}

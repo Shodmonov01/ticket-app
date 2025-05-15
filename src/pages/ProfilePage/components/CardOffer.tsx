@@ -6,7 +6,7 @@ import { formatDate } from '@/utils/format'
 
 const CardOffer = ({ offer, handleOffer }: any) => {
     return (
-        <Card key={offer.id} className='border-0 bg-[#1c232b]'>
+        <Card key={offer.id + offer.event.id} className='border-0 bg-[#1c232b]'>
             <CardHeader className='pb-2'>
                 <div className='flex justify-between items-start'>
                     <div>
