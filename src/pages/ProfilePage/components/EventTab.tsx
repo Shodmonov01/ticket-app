@@ -8,14 +8,13 @@ import { useNavigate } from 'react-router-dom'
 const EventTab = ({ isOrganizator }: any) => {
     const navigate = useNavigate()
 
-    const { data: eventsOwner, isLoading: isEventsOwnerLoading } = useQuery<any>(['eventsOwner'], async () => {
+    const {
+        data: events,
+        isLoading: eventsLoading,
+        error: eventsError
+    } = useQuery<any>(['owners'], async () => {
         const res = await api.get('/api/event/for/owner/')
-        return res.data
-    })
-
-    const { data: events, isLoading: isEventsLoading } = useQuery<any>(['events'], async () => {
-        const res = await api.get('/api/events/')
-        return res.data
+        return res.data || []
     })
 
     const { data: cities } = useQuery<{ id: number; name: string }[]>(['cities'], async () => {
@@ -36,7 +35,6 @@ const EventTab = ({ isOrganizator }: any) => {
         return areas?.find(area => area.id === areaId)?.name || 'Unknown area'
     }
 
-<<<<<<< HEAD
     if (eventsLoading) {
         return <div>Loading events...</div>
     }
@@ -46,18 +44,6 @@ const EventTab = ({ isOrganizator }: any) => {
     }
 
     const safeEvents = Array.isArray(events) ? events : []
-=======
-    const rawData = isOrganizator ? eventsOwner : events
-    const data = Array.isArray(rawData) ? rawData : []
-
-    if (isEventsOwnerLoading || isEventsLoading) {
-        return (
-            <div className='flex justify-center items-center min-h-[200px]'>
-                <Loader2 className='h-8 w-8  text-gray-400' />
-            </div>
-        )
-    }
->>>>>>> u
 
     return (
         <div className='flex flex-col gap-4 mb-20'>
