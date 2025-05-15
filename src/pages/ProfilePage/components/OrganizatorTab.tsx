@@ -29,7 +29,7 @@ const OrganizatorTab = () => {
                 }`
             )
 
-            setOffers(response.data.results)
+            setOffers(response?.data?.results)
         } catch (error) {
             console.error('Error fetching offers:', error)
         } finally {
@@ -45,6 +45,7 @@ const OrganizatorTab = () => {
                 }
             })
             queryClient.invalidateQueries(['events'])
+            queryClient.invalidateQueries(['eventsE'])
         } catch (error) {
             console.error('Error handling offer:', error)
         }

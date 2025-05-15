@@ -17,12 +17,12 @@ const DistributorTab = () => {
         isLoading,
         error
     } = useQuery({
-        queryKey: ['offers', page, limit, statusFilter],
+        queryKey: ['offersDist', page, limit, statusFilter],
         queryFn: async () => {
             const res = await api.get(
                 `/api/offer/for/disributor/?page=${page}&limit=${limit}${statusFilter ? `&status=${statusFilter}` : ''}`
             )
-            return res.data.results
+            return res?.data?.results
         }
         // keepPreviousData: true
     })
@@ -35,6 +35,7 @@ const DistributorTab = () => {
                 }
             })
             queryClient.invalidateQueries(['events'])
+            // queryClient.invalidateQueries(['eventsE '])
         } catch (error) {
             console.error('Error handling offer:', error)
         }

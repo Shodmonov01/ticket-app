@@ -59,6 +59,7 @@ export function CreateChannelForm({ isOpen, setIsOpen }: any) {
             setIsOpen(false)
             form.reset()
             queryClient.invalidateQueries(['user'])
+            // queryClient.invalidateQueries(['userR'])
         } catch (error) {
             console.log('error', error)
         } finally {
