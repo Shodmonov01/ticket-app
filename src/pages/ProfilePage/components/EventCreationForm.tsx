@@ -152,6 +152,7 @@ const EventCreationForm = () => {
             console.log(res.data)
             navigate('/')
             queryClient.invalidateQueries(['events'])
+            queryClient.invalidateQueries(['eventsOwner'])
         } catch (error) {
             console.error('Error submitting form:', error)
             alert('Произошла ошибка')
