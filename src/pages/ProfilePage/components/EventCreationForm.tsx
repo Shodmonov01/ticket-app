@@ -172,8 +172,7 @@ const EventCreationForm = () => {
                                 prevStep()
                             }
                         }}
-                        disabled={step === 1}
-                        className='p-2 rounded-full hover:bg-[#232e3c] transition-colors'
+                        className='p-2 rounded-full hover:bg-[#232e3c] transition-colors cursor-pointer'
                     >
                         <ChevronLeft className='h-6 w-6' />
                     </button>
