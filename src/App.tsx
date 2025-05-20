@@ -2,7 +2,6 @@ import { Routes, Route, useNavigate, useLocation } from 'react-router-dom'
 import { useEffect } from 'react'
 import { useUser } from './context/UserContext'
 import IntroPage from './pages/IntroPage'
-import HomePage from './pages/HomePage/HomePage'
 import ExplorePage from './pages/ExplorePage'
 import FavoritesPage from './pages/FavoritesPage'
 import TicketsPage from './pages/TicketsPage/TicketsPage'
@@ -15,8 +14,9 @@ import { SelfEmployedForm } from './pages/ProfilePage/components/forms/SelfEmplo
 import OrganizatorProfilePage from './pages/ProfilePage/OrganizatorProfilePage'
 import DistributorRolePage from './pages/ProfilePage/DistributorRolePage'
 import DistributorProfilePage from './pages/ProfilePage/DistributorProfilePage'
-import CategoryPage from './pages/HomePage/CategoryPage'
+// import CategoryPage from './pages/HomePage/CategoryPage'
 import EditProfilePage from './pages/ProfilePage/EditPage'
+import HomePage from './pages/HomePage'
 
 function App() {
     const { isFirstTimeUser } = useUser()
@@ -45,7 +45,7 @@ function App() {
             <Route path='/self-employed-form' element={<SelfEmployedForm />} />
             <Route path='/profile/organization-profile' element={<OrganizatorProfilePage />} />
             <Route path='/profile/distributor-profile' element={<DistributorProfilePage />} />
-            <Route path='/category' element={<CategoryPage />} />
+            {/* <Route path='/category' element={<CategoryPage />} /> */}
             <Route path='/edit-profile' element={<EditProfilePage />} />
         </Routes>
     )

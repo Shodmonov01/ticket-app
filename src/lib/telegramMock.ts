@@ -1,6 +1,6 @@
 export const mockTelegramWebApp = {
     initData:
-        'query_id=AAHi3dYUAAAAAOLd1hTIWRVE&user=%7B%22id%22%3A349625826%2C%22first_name%22%3A%22U%22%2C%22last_name%22%3A%22%22%2C%22username%22%3A%22umidaakbar0va%22%2C%22language_code%22%3A%22ru%22%2C%22allows_write_to_pm%22%3Atrue%2C%22photo_url%22%3A%22https%3A%5C%2F%5C%2Ft.me%5C%2Fi%5C%2Fuserpic%5C%2F320%5C%2FTtaUu__iemURBKwh5Eeo4w6cnb4-aghoqscxSjBCPeQ.svg%22%7D&auth_date=1747643343&signature=2SpW94HQbu-JLpMALH8VbxQKCvN4yLZVytBllpra_oIEWaFEbGUX3DihzUj6PY4f2oBbcBGR6LYcRbUuM0JBBA&hash=1afd6b300f6a06f62ca1d7bd44926dd6c3782a47c7393cdc56f39528e63bd4c3',
+        'query_id=AAGzzMo2AAAAALPMyjYcK0ZV&user=%7B%22id%22%3A919260339%2C%22first_name%22%3A%22%D0%90%D0%BC%D0%B8%D1%80%22%2C%22last_name%22%3A%22%D0%A8%D0%BE%D0%B4%D0%BC%D0%BE%D0%BD%D0%BE%D0%B2%22%2C%22username%22%3A%22a_shodmonov60%22%2C%22language_code%22%3A%22ru%22%2C%22allows_write_to_pm%22%3Atrue%2C%22photo_url%22%3A%22https%3A%5C%2F%5C%2Ft.me%5C%2Fi%5C%2Fuserpic%5C%2F320%5C%2FofQvVPKvTSdiEBT2LTidZ9awJyIWfIOprti3vZQIlbs.svg%22%7D&auth_date=1747756667&signature=qXy9fVG-GCnmSi8_2nhJFYzGd__mlgnznFPoa_dC-y4GJm1N8jx1ab91HSULMMX5AC0cI4jRUnpZt9Ljgq4nDQ&hash=f424865c362d2ad78957c269b75234b793a6b9a9534ddbd7602c0f00936cbbe1',
     initDataUnsafe: {
         user: {
             id: 123456,
