@@ -1,10 +1,10 @@
 import { useState } from 'react'
 
 import EventTab from './components/EventTab'
-import { PartnerNav } from '@/components/partner-nav'
+import { PartnerNav } from '@/components/PartnerNav'
 import OrganizatorTab from './components/OrganizatorTab'
 import Partner from './components/PartnerOrganization'
-import HeaderPartner from '../../components/headerr'
+import HeaderPartner from '../../components/Headerr'
 import DistTab from './components/DistTab'
 
 const OrganizatorProfilePage = () => {

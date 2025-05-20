@@ -1,5 +1,5 @@
 import api from '@/api/api'
-import { EventCard } from '@/components/event-card'
+import { EventCard } from '@/components/EventCard'
 import { Button } from '@/components/ui/button'
 import { useQuery } from '@tanstack/react-query'
 import { Loader2 } from 'lucide-react'

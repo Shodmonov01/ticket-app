@@ -1,4 +1,4 @@
-import { CategoryCard } from '@/components/category-card'
+import { CategoryCard } from '@/components/CategoryCard'
 import { Calendar, MegaphoneIcon, Moon } from 'lucide-react'
 
 const CategoryCards = () => {

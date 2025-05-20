@@ -1,8 +1,8 @@
 import { useNavigate } from 'react-router-dom'
 import { User, Briefcase, UserCheck } from 'lucide-react'
 import { Card, CardContent } from '@/components/ui/card'
-import { BottomNav } from '@/components/layout/bottom-nav'
-import HeaderPartner from '@/components/headerr'
+import { BottomNav } from '@/components/layout/BottomNav'
+import HeaderPartner from '@/components/Headerr'
 
 const OrganizationRolePage = () => {
     const navigate = useNavigate()

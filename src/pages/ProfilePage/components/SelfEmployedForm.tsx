@@ -8,7 +8,7 @@ import { Input } from '@/components/ui/input'
 import { useState } from 'react'
 import api from '@/api/api'
 import { useNavigate, useSearchParams } from 'react-router-dom'
-import HeaderPartner from '@/components/headerr'
+import HeaderPartner from '@/components/Headerr'
 
 const selfEmployedFormSchema = z.object({
     recipient_full_name: z.string().min(5, { message: 'ФИО должно содержать не менее 5 символов' }),

@@ -1,5 +1,5 @@
-import { Header } from '../components/layout/header'
-import { BottomNav } from '../components/layout/bottom-nav'
+import { Header } from '../components/layout/Header'
+import { BottomNav } from '../components/layout/BottomNav'
 
 export default function FavoritesPage() {
     return (

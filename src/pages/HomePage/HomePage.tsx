@@ -1,15 +1,15 @@
-import { Header } from '../../components/layout/header'
-import { BottomNav } from '../../components/layout/bottom-nav'
-import { SearchBar } from '../../components/search-bar'
-import { CategorySection } from '../../components/category-section'
+import { Header } from '../../components/layout/Header'
+import { BottomNav } from '../../components/layout/BottomNav'
+import { SearchBar } from '../../components/SearchBar'
+import { CategorySection } from '../../components/CategorySection'
 import { useQuery } from '@tanstack/react-query'
 import api from '@/api/api'
 import { EventsResponse } from '@/types/type'
 import CategoryCards from './components/CategoryCards'
 import Categories from './components/Categories'
 import NewShows from './components/NewShows'
-import PopularCard from './components/popularCard'
-import { EventCard } from '@/components/event-card'
+import PopularCard from './components/PopularCard'
+import { EventCard } from '@/components/EventCard'
 
 export default function HomePage() {
     const {

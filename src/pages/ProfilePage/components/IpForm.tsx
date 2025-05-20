@@ -10,7 +10,7 @@ import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/comp
 import { useState } from 'react'
 import api from '@/api/api'
 import { useNavigate } from 'react-router-dom'
-import HeaderPartner from '@/components/headerr'
+import HeaderPartner from '@/components/Headerr'
 
 const ipFormSchema = z.object({
     full_name: z.string().min(5, { message: 'ФИО должно содержать не менее 5 символов' }),

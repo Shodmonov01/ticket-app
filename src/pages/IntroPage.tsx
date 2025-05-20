@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { useUser } from '@/context/user-context'
+import { useUser } from '@/context/UserContext'
 import api from '@/api/api'
 import { getTelegramWebApp, isTelegramEnv } from '@/lib/telegramMock'
 

@@ -4,7 +4,7 @@ import { User, EllipsisVertical } from 'lucide-react'
 import api from '@/api/api'
 
 import ProfileMenu from './components/ProfileMenu'
-import { BottomNav } from '../../components/layout/bottom-nav'
+import { BottomNav } from '../../components/layout/BottomNav'
 import { Button } from '../../components/ui/button'
 import SheetProfile from './components/Sheet'
 import { useNavigate } from 'react-router-dom'

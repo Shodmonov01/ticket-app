@@ -1,5 +1,5 @@
-import { Header } from '../../components/layout/header'
-import { BottomNav } from '../../components/layout/bottom-nav'
+import { Header } from '../../components/layout/Header'
+import { BottomNav } from '../../components/layout/BottomNav'
 import { Button } from '@/components/ui/button'
 import { useNavigate } from 'react-router-dom'
 import { Ellipsis, EllipsisIcon, EllipsisVertical, Search } from 'lucide-react'
