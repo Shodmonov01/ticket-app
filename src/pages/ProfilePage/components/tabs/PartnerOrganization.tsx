@@ -1,7 +1,7 @@
 import api from '@/api/api'
 import { useEffect, useState } from 'react'
 
-import CardOffer from './CardOffer'
+import CardOffer from '../CardOffer'
 import { Loader2 } from 'lucide-react'
 
 const Partner = () => {

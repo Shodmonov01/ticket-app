@@ -3,7 +3,7 @@ import { Button } from '@/components/ui/button'
 import { TypeUser } from '@/types/type'
 import { useQuery } from '@tanstack/react-query'
 import { useState } from 'react'
-import { CreateChannelForm } from './CreateChannelSheet'
+import { CreateChannelForm } from '../modals/CreateChannelSheet'
 import { Link2 } from 'lucide-react'
 
 const MyChannelTab = () => {

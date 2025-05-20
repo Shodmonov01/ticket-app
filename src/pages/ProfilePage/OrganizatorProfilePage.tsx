@@ -1,11 +1,11 @@
 import { useState } from 'react'
 
-import EventTab from './components/EventTab'
+import EventTab from './components/tabs/EventTab'
 import { PartnerNav } from '@/components/PartnerNav'
-import OrganizatorTab from './components/OrganizatorTab'
-import Partner from './components/PartnerOrganization'
+import OrganizatorTab from './components/tabs/OrganizatorTab'
+import Partner from './components/tabs/PartnerOrganization'
 import HeaderPartner from '../../components/Headerr'
-import DistTab from './components/DistTab'
+import DistTab from './components/tabs/DistTab'
 
 const OrganizatorProfilePage = () => {
     const [activeTab, setActiveTab] = useState('event')

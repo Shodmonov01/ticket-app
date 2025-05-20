@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Offer } from '@/types/type'
 import api from '@/api/api'
-import CardOffer from './CardOffer'
+import CardOffer from '../CardOffer'
 import { useQuery, useQueryClient } from '@tanstack/react-query'
 import { Loader2 } from 'lucide-react'
 

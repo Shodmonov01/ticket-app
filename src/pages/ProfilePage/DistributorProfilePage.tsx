@@ -1,12 +1,12 @@
 import { useState } from 'react'
 
-import DistributorTab from './components/DistributorTab'
-import EventTab from './components/EventTab'
+import DistributorTab from './components/tabs/DistributorTab'
+import EventTab from './components/tabs/EventTab'
 import { PartnerNav } from '@/components/PartnerNav'
-import MyChannelTab from './components/MyChannelTab'
+import MyChannelTab from './components/tabs/MyChannelTab'
 import { useNavigate } from 'react-router-dom'
 import { ChevronLeft } from 'lucide-react'
-import Partner from './components/PartnerDistributer'
+import Partner from './components/tabs/PartnerDistributer'
 import HeaderPartner from '@/components/Headerr'
 
 const DistributorProfilePage = () => {

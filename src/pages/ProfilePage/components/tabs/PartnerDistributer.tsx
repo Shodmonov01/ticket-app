@@ -1,7 +1,7 @@
 import api from '@/api/api'
 import { useEffect, useState } from 'react'
 
-import CardOffer from './CardOffer'
+import CardOffer from '../CardOffer'
 
 const Partner = () => {
     const [offers, setOffers] = useState<any>()
@@ -12,9 +12,7 @@ const Partner = () => {
     const fetchOffers = async () => {
         try {
             const response = await api.get(
-                `/api/offer/for/disributor/?page=${page}&limit=${limit}${
-                    statusFilter ? `&status=${statusFilter}` : ''
-                }`
+                `/api/offer/for/disributor/?page=${page}&limit=${limit}${statusFilter ? `&status=${statusFilter}` : ''}`
             )
 
             setOffers(response.data.results)
