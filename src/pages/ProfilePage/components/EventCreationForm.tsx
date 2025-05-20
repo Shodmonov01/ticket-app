@@ -152,6 +152,7 @@ const EventCreationForm = () => {
             console.log(res.data)
             navigate('/')
             queryClient.invalidateQueries(['events'])
+            queryClient.invalidateQueries(['eventsOwner'])
         } catch (error) {
             console.error('Error submitting form:', error)
             alert('Произошла ошибка')
@@ -172,8 +173,7 @@ const EventCreationForm = () => {
                                 prevStep()
                             }
                         }}
-                        disabled={step === 1}
-                        className='p-2 rounded-full hover:bg-[#232e3c] transition-colors'
+                        className='p-2 rounded-full hover:bg-[#232e3c] transition-colors cursor-pointer'
                     >
                         <ChevronLeft className='h-6 w-6' />
                     </button>

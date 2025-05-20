@@ -47,9 +47,11 @@ const EventTab = ({ isOrganizator }: any) => {
 
     return (
         <div className='flex flex-col gap-4 mb-20'>
-            <Button className='w-full my-4 font-medium' onClick={() => navigate('/profile/create-event')}>
-                Создание мероприятия
-            </Button>
+            {isOrganizator && (
+                <Button className='w-full my-4 font-medium' onClick={() => navigate('/profile/create-event')}>
+                    Создание мероприятия
+                </Button>
+            )}
             <div className='grid sm:grid-cols-2 gap-3'>
                 {safeEvents.map((event: any) => (
                     <EventCard

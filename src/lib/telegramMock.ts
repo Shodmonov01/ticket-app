@@ -6,9 +6,9 @@ export const mockTelegramWebApp = {
     initDataUnsafe: {
         user: {
             id: 123456,
-            first_name: 'T2eewwfhjhdsa2jwsdghst',
-            last_name: 'Us2feewhwjrdsad2wsugyugyu',
-            username: 'tes2tuwhjfw2edssdaswgher',
+            first_name: 'T2eewwfhjhdsa32jwsdghst',
+            last_name: 'Us2feewhwjrds3ad2wsugyugyu',
+            username: 'tes2tuwhjfw2eds3sdaswgher',
             language_code: 'en'
         }
     },
