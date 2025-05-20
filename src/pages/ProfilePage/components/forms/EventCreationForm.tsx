@@ -7,7 +7,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 
 import { ChevronLeft } from 'lucide-react'
 
-import api from '@/api/api'
+import api from '@/api/Api'
 
 import { Form } from '@/components/ui/form'
 import EventCreateStepOne from './EventCreateStepOne'
@@ -140,8 +140,6 @@ const EventCreationForm = () => {
             })
         }
 
-        console.log('form', formData)
-
         try {
             const res = await api.post('/api/event/for/owner/', formData, {
                 headers: {
@@ -149,7 +147,6 @@ const EventCreationForm = () => {
                 }
             })
 
-            console.log(res.data)
             navigate('/')
             queryClient.invalidateQueries(['events'])
             queryClient.invalidateQueries(['eventsOwner'])

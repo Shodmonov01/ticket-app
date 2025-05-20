@@ -6,9 +6,9 @@ import { Button } from '@/components/ui/button'
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { useState } from 'react'
-import api from '@/api/api'
+import api from '@/api/Api'
 import { useNavigate, useSearchParams } from 'react-router-dom'
-import HeaderPartner from '@/components/Headerr'
+import HeaderPartner from '@/components/BackHeader'
 
 const selfEmployedFormSchema = z.object({
     recipient_full_name: z.string().min(5, { message: 'ФИО должно содержать не менее 5 символов' }),
@@ -91,8 +91,6 @@ export function SelfEmployedForm() {
     }
 
     const onSubmit = async (values: z.infer<typeof selfEmployedFormSchema>) => {
-        console.log('Form submitted with all values:', values)
-
         try {
             await api.post('/auth/api/distributor/assign/self-employed/', values)
             await api.post('/auth/api/organization/register/self-employed/', values)

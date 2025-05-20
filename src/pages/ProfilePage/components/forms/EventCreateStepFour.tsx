@@ -2,7 +2,7 @@ import { Button } from '@/components/ui/button'
 import { FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 
-const EventCreateStepFour = ({ form, step, nextStep }: { form: any; step: number; nextStep: any }) => {
+const EventCreateStepFour = ({ form, step }: { form: any; step: number; nextStep: any }) => {
     return (
         <>
             {step === 4 && (

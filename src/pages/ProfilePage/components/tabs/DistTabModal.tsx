@@ -1,4 +1,4 @@
-import api from '@/api/api'
+import api from '@/api/Api'
 import { useQuery } from '@tanstack/react-query'
 
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog'

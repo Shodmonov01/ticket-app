@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useUser } from '@/context/UserContext'
-import api from '@/api/api'
-import { getTelegramWebApp, isTelegramEnv } from '@/lib/telegramMock'
+import { getTelegramWebApp, isTelegramEnv } from '@/lib/TelegramMock'
+import api from '@/api/Api'
 
 export default function IntroPage() {
     const [isLoading, setIsLoading] = useState(false)
@@ -15,9 +15,6 @@ export default function IntroPage() {
 
     useEffect(() => {
         const tg = getTelegramWebApp()
-
-        console.log('Telegram WebApp:', tg)
-        console.log('initData:', tg.initData)
 
         tg.ready()
         tg.expand()
@@ -40,11 +37,7 @@ export default function IntroPage() {
                     initData: initData
                 }
 
-                console.log('Sending login payload:', payload)
-
                 const response = await api.post('/auth/api/user/login/', payload)
-
-                console.log('Login response:', response.data)
 
                 const data = response.data
 
@@ -65,7 +58,6 @@ export default function IntroPage() {
                         )
                     }
                     setIsFirstTimeUser(false)
-                    console.log('Navigating to /')
                     navigate('/', { replace: true })
                 } else {
                     throw new Error('No access token received')
@@ -93,7 +85,6 @@ export default function IntroPage() {
     }, [referralCode, navigate, setIsFirstTimeUser])
 
     const handleGetStarted = () => {
-        console.log('HandleGetStarted: Navigating to /')
         navigate('/', { replace: true })
     }
 

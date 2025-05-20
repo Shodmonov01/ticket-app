@@ -3,7 +3,7 @@ import { Button } from '../ui/button'
 import { useState, useEffect } from 'react'
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '../ui/dropdown-menu'
 import { useQuery } from '@tanstack/react-query'
-import api from '@/api/api'
+import api from '@/api/Api'
 
 export function Header() {
     const [location, setLocation] = useState<string>('')
@@ -13,7 +13,7 @@ export function Header() {
         queryFn: async () => {
             const res = await api.get('/api/cities/')
             return res.data
-        },
+        }
     })
 
     // Устанавливаем первый город как выбранный по умолчанию
@@ -41,10 +41,7 @@ export function Header() {
                             <DropdownMenuItem>Loading cities...</DropdownMenuItem>
                         ) : (
                             cities?.map(city => (
-                                <DropdownMenuItem 
-                                    key={city.id} 
-                                    onClick={() => setLocation(city.name)}
-                                >
+                                <DropdownMenuItem key={city.id} onClick={() => setLocation(city.name)}>
                                     {city.name}
                                 </DropdownMenuItem>
                             ))

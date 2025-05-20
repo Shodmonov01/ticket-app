@@ -1,9 +1,11 @@
 import { useEffect, useState } from 'react'
-import { Offer } from '@/types/type'
-import api from '@/api/api'
-import CardOffer from '../CardOffer'
 import { useQueryClient } from '@tanstack/react-query'
+
+import api from '@/api/Api'
+
 import { Loader2 } from 'lucide-react'
+
+import CardOffer from '../CardOffer'
 
 const OrganizatorTab = () => {
     const queryClient = useQueryClient()
@@ -12,9 +14,7 @@ const OrganizatorTab = () => {
     const [loading, setLoading] = useState(true)
     const [page, setPage] = useState(1)
     const [limit, setLimit] = useState(10)
-    const [totalPages, setTotalPages] = useState(1)
     const [statusFilter, setStatusFilter] = useState<string>('')
-    console.log('offers', offers)
 
     useEffect(() => {
         fetchOffers()

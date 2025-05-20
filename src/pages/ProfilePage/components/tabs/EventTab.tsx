@@ -1,4 +1,4 @@
-import api from '@/api/api'
+import api from '@/api/Api'
 import { EventCard } from '@/components/EventCard'
 import { Button } from '@/components/ui/button'
 import { useQuery } from '@tanstack/react-query'

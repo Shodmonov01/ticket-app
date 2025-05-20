@@ -8,9 +8,9 @@ import { Input } from '@/components/ui/input'
 import { Badge } from '@/components/ui/badge'
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip'
 import { useState } from 'react'
-import api from '@/api/api'
+import api from '@/api/Api'
 import { useNavigate } from 'react-router-dom'
-import HeaderPartner from '@/components/Headerr'
+import HeaderPartner from '@/components/BackHeader'
 
 const ipFormSchema = z.object({
     full_name: z.string().min(5, { message: 'ФИО должно содержать не менее 5 символов' }),

@@ -1,10 +1,12 @@
-import api from '@/api/api'
-import { Button } from '@/components/ui/button'
-import { TypeUser } from '@/types/type'
-import { useQuery } from '@tanstack/react-query'
 import { useState } from 'react'
-import { CreateChannelForm } from '../modals/CreateChannelSheet'
+import { useQuery } from '@tanstack/react-query'
+
+import api from '@/api/Api'
+
 import { Link2 } from 'lucide-react'
+
+import { Button } from '@/components/ui/button'
+import { CreateChannelForm } from '../modals/CreateChannelSheet'
 
 const MyChannelTab = () => {
     const [isOpen, setIsOpen] = useState(false)

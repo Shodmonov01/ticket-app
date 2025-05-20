@@ -7,9 +7,9 @@ import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, For
 import { Input } from '@/components/ui/input'
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip'
 import { useState } from 'react'
-import api from '@/api/api'
+import api from '@/api/Api'
 import { useNavigate, useSearchParams } from 'react-router-dom'
-import HeaderPartner from '@/components/Headerr'
+import HeaderPartner from '@/components/BackHeader'
 
 const oooFormSchema = z.object({
     organization_name: z.string().min(3, { message: 'Название организации должно быть не менее 3 символов' }),
@@ -143,7 +143,6 @@ export function OooForm() {
     }
 
     const onSubmit = async (values: z.infer<typeof oooFormSchema>) => {
-        console.log('Form submitted with all values:', values)
         try {
             await api.post('/auth/api/distributor/assign/llc/', values)
             await api.post('/auth/api/organization/register/llc/', values)

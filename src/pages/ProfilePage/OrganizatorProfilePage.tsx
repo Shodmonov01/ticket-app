@@ -4,8 +4,8 @@ import EventTab from './components/tabs/EventTab'
 import { PartnerNav } from '@/components/PartnerNav'
 import OrganizatorTab from './components/tabs/OrganizatorTab'
 import Partner from './components/tabs/PartnerOrganization'
-import HeaderPartner from '../../components/Headerr'
 import DistTab from './components/tabs/DistTab'
+import HeaderPartner from '@/components/BackHeader'
 
 const OrganizatorProfilePage = () => {
     const [activeTab, setActiveTab] = useState('event')

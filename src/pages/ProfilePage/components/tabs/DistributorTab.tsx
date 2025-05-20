@@ -1,9 +1,11 @@
-import { useEffect, useState } from 'react'
-import { Offer } from '@/types/type'
-import api from '@/api/api'
-import CardOffer from '../CardOffer'
+import { useState } from 'react'
 import { useQuery, useQueryClient } from '@tanstack/react-query'
+
+import api from '@/api/Api'
+
 import { Loader2 } from 'lucide-react'
+
+import CardOffer from '../CardOffer'
 
 const DistributorTab = () => {
     const queryClient = useQueryClient()
@@ -12,11 +14,7 @@ const DistributorTab = () => {
     const [limit, setLimit] = useState(10)
     const [statusFilter, setStatusFilter] = useState<string>('')
 
-    const {
-        data: offers,
-        isLoading,
-        error
-    } = useQuery({
+    const { data: offers, isLoading } = useQuery({
         queryKey: ['offersDist', page, limit, statusFilter],
         queryFn: async () => {
             const res = await api.get(
@@ -24,7 +22,6 @@ const DistributorTab = () => {
             )
             return res?.data?.results
         }
-        // keepPreviousData: true
     })
 
     const handleOffer = async (id: number, action: string) => {
@@ -35,7 +32,6 @@ const DistributorTab = () => {
                 }
             })
             queryClient.invalidateQueries(['events'])
-            // queryClient.invalidateQueries(['eventsE '])
         } catch (error) {
             console.error('Error handling offer:', error)
         }

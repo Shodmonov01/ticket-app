@@ -5,7 +5,7 @@ import { FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/comp
 import { Input } from '@/components/ui/input'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { Textarea } from '@/components/ui/textarea'
-import api from '@/api/api'
+import api from '@/api/Api'
 
 const EventCreateStepOne = ({ form, step, nextStep }: { form: any; step: number; nextStep: any }) => {
     const { data: limits } = useQuery(

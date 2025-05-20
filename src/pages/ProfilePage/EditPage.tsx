@@ -7,7 +7,7 @@ import { Input } from '@/components/ui/input'
 import { ChevronLeft } from 'lucide-react'
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
-import api from '@/api/api'
+import api from '@/api/Api'
 
 const formSchema = z.object({
     first_name: z

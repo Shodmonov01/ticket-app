@@ -1,4 +1,4 @@
-import api from '@/api/api'
+import api from '@/api/Api'
 import { Button } from '@/components/ui/button'
 import { FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
 import { Label } from '@/components/ui/label'

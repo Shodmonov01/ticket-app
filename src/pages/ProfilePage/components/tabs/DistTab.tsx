@@ -1,9 +1,9 @@
 import { useState } from 'react'
 import { useQuery } from '@tanstack/react-query'
 
-import { ExternalLink, RefreshCw, Calendar, Loader2 } from 'lucide-react'
+import { ExternalLink, Loader2 } from 'lucide-react'
 
-import api from '@/api/api'
+import api from '@/api/Api'
 
 import { Card, CardContent, CardHeader, CardTitle, CardFooter } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'

@@ -1,7 +1,8 @@
+import { useState } from 'react'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import * as z from 'zod'
-import { useState } from 'react'
+import { useQueryClient } from '@tanstack/react-query'
 
 import { Button } from '@/components/ui/button'
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
@@ -15,8 +16,7 @@ import {
     SheetHeader,
     SheetTitle
 } from '@/components/ui/sheet'
-import api from '@/api/api'
-import { useQueryClient } from '@tanstack/react-query'
+import api from '@/api/Api'
 
 const formSchema = z.object({
     name: z
@@ -59,7 +59,6 @@ export function CreateChannelForm({ isOpen, setIsOpen }: any) {
             setIsOpen(false)
             form.reset()
             queryClient.invalidateQueries(['user'])
-            // queryClient.invalidateQueries(['userR'])
         } catch (error) {
             console.log('error', error)
         } finally {

@@ -2,17 +2,13 @@ import { useNavigate } from 'react-router-dom'
 import { User, Briefcase, UserCheck } from 'lucide-react'
 import { Card, CardContent } from '@/components/ui/card'
 import { BottomNav } from '@/components/layout/BottomNav'
-import HeaderPartner from '@/components/Headerr'
+import HeaderPartner from '@/components/BackHeader'
 
-const OrganizationRolePage = () => {
+const PartnerRolePage = () => {
     const navigate = useNavigate()
 
     return (
         <div className='flex flex-col min-h-screen bg-gray-950 text-white'>
-            {/* <header className='flex items-center justify-between p-4'>
-                <h1 className='text-xl font-bold'>Выберите тип</h1>
-            </header> */}
-
             <HeaderPartner title='Выберите тип' path='/profile' />
 
             <div className='flex-1 px-4 space-y-4 mb-20 mt-10'>
@@ -91,4 +87,4 @@ const OrganizationRolePage = () => {
     )
 }
 
-export default OrganizationRolePage
+export default PartnerRolePage
