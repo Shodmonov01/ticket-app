@@ -22,10 +22,11 @@ import { useQueryClient } from '@tanstack/react-query'
 const formSchema = z.object({
     name: z.string().min(2, { message: 'Название должно содержать минимум 2 символа' }),
     description: z.string().min(10, { message: 'Описание должно содержать минимум 10 символов' }),
-    category_id: z.string().optional(),
-    age_limit: z.string().optional(),
-    city_id: z.string().optional(),
-    area: z.string().optional(),
+    category_id: z.string().min(1, { message: 'Пожалуйста, выберите категорию' }),
+    age_limit: z.string().min(1, { message: 'Пожалуйста, укажите возрастное ограничение' }),
+
+    city_id: z.string().min(1, { message: 'Пожалуйста, выберите город' }),
+    area: z.string().min(1, { message: 'Пожалуйста, укажите район' }),
     image: z.any().optional(),
     event_category: z.object({
         name: z.string().min(1, { message: 'Укажите название билета' }),

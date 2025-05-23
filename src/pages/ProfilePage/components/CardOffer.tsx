@@ -1,6 +1,6 @@
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
 import { Calendar, Check, Link2, X } from 'lucide-react'
-import { getStatusBadge } from '@/utils/get-status'
+import { getStatusBadge } from '@/utils/GetStatus'
 import { Button } from '@/components/ui/button'
 import { formatDate } from '@/utils/Format'
 
